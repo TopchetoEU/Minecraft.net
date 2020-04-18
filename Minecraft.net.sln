@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minecraft", "Minecraft\Minecraft.csproj", "{8BA7ADED-7842-40A1-A876-7453979DF275}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Window", "Window\Window.csproj", "{EC2213D0-A44B-4536-8727-F9765F0EB97D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BA7ADED-7842-40A1-A876-7453979DF275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BA7ADED-7842-40A1-A876-7453979DF275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BA7ADED-7842-40A1-A876-7453979DF275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BA7ADED-7842-40A1-A876-7453979DF275}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC2213D0-A44B-4536-8727-F9765F0EB97D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC2213D0-A44B-4536-8727-F9765F0EB97D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC2213D0-A44B-4536-8727-F9765F0EB97D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC2213D0-A44B-4536-8727-F9765F0EB97D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {586F7A28-6EC1-4CB6-813F-A601E57BA070}
+	EndGlobalSection
+EndGlobal

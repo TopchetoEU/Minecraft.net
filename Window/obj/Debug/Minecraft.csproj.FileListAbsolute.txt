@@ -1,0 +1,20 @@
+c:\users\topchetoeu\documents\visual studio 2013\Projects\Minecraft\Minecraft\bin\Debug\Minecraft.exe.config
+c:\users\topchetoeu\documents\visual studio 2013\Projects\Minecraft\Minecraft\bin\Debug\Minecraft.exe
+c:\users\topchetoeu\documents\visual studio 2013\Projects\Minecraft\Minecraft\bin\Debug\Minecraft.pdb
+c:\users\topchetoeu\documents\visual studio 2013\Projects\Minecraft\Minecraft\obj\Debug\Minecraft.csprojResolveAssemblyReference.cache
+c:\users\topchetoeu\documents\visual studio 2013\Projects\Minecraft\Minecraft\obj\Debug\Minecraft.exe
+c:\users\topchetoeu\documents\visual studio 2013\Projects\Minecraft\Minecraft\obj\Debug\Minecraft.pdb
+c:\users\topchetoeu\documents\visual studio 2013\Projects\Minecraft\Minecraft\bin\Debug\OpenTK.dll
+c:\users\topchetoeu\documents\visual studio 2013\Projects\Minecraft\Minecraft\bin\Debug\OpenTK.pdb
+c:\users\topchetoeu\documents\visual studio 2013\Projects\Minecraft\Minecraft\bin\Debug\OpenTK.xml
+C:\Users\TopchetoEU\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.csproj.CoreCompileInputs.cache
+C:\Users\TopchetoEU\source\repos\Minecraft\Minecraft\bin\Debug\Minecraft.exe.config
+C:\Users\TopchetoEU\source\repos\Minecraft\Minecraft\bin\Debug\Minecraft.exe
+C:\Users\TopchetoEU\source\repos\Minecraft\Minecraft\bin\Debug\Minecraft.pdb
+C:\Users\TopchetoEU\source\repos\Minecraft\Minecraft\bin\Debug\OpenTK.dll
+C:\Users\TopchetoEU\source\repos\Minecraft\Minecraft\bin\Debug\OpenTK.pdb
+C:\Users\TopchetoEU\source\repos\Minecraft\Minecraft\bin\Debug\OpenTK.xml
+C:\Users\TopchetoEU\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.csproj.CopyComplete
+C:\Users\TopchetoEU\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.exe
+C:\Users\TopchetoEU\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.pdb
+C:\Users\TopchetoEU\source\repos\Minecraft\Minecraft\obj\Debug\Minecraft.csprojAssemblyReference.cache

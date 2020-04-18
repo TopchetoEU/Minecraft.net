@@ -1,0 +1,11 @@
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\Minecraft.exe.config
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\Minecraft.exe
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\Minecraft.pdb
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\OpenTK.dll
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\OpenTK.pdb
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\OpenTK.xml
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Window.csprojAssemblyReference.cache
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Window.csproj.CoreCompileInputs.cache
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Window.csproj.CopyComplete
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Minecraft.exe
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Minecraft.pdb
