@@ -1,0 +1,25 @@
+(Main)[Info] {19.04.2020, 14:36:58}: Starting window...
+(Main)[Info] {19.04.2020, 14:36:58}: Window initialised successfully
+(Main)[Info] {19.04.2020, 14:36:58}: Q KeyDown!
+(Main)[Info] {19.04.2020, 14:36:59}: Q KeyUp!
+(Main)[Info] {19.04.2020, 14:36:59}: Q KeyDown!
+(Main)[Info] {19.04.2020, 14:37:00}: Q KeyUp!
+(Main)[Info] {19.04.2020, 14:37:00}: Q KeyDown!
+(Main)[Info] {19.04.2020, 14:37:01}: Q KeyUp!
+(Main)[Info] {19.04.2020, 14:37:01}: Q KeyDown!
+(Main)[Info] {19.04.2020, 14:37:02}: Q KeyUp!
+(Main)[Info] {19.04.2020, 14:37:03}: ScrollLock KeyDown!
+(Main)[Error] {19.04.2020, 14:37:03}: An unexpected error occured!
+(Main)[Error] {19.04.2020, 14:37:03}: --------- Crash report: ---------
+(Main)[Error] {19.04.2020, 14:37:03}: If you don't know what is that, ask in forums or contact someone, who
+(Main)[Error] {19.04.2020, 14:37:03}: knows tehnology. TopchetoEU will be thankful, if you send him this report
+(Main)[Error] {19.04.2020, 14:37:03}:     System.Exception: Intentional crash!
+(Main)[Error] {19.04.2020, 14:37:03}:        at Minecraft.MainWindow.MainWindow.OnUpdateFrame(FrameEventArgs e) in C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\MainWindow.cs:line 95
+(Main)[Error] {19.04.2020, 14:37:03}:        at OpenTK.GameWindow.RaiseUpdateFrame(Stopwatch watch, Double elapsed, Double& timestamp) in I:\work\github\opentk\src\OpenTK\GameWindow.cs:line 460
+(Main)[Error] {19.04.2020, 14:37:03}:        at OpenTK.GameWindow.DispatchUpdateFrame(Stopwatch watch) in I:\work\github\opentk\src\OpenTK\GameWindow.cs:line 417
+(Main)[Error] {19.04.2020, 14:37:03}:        at OpenTK.GameWindow.Run(Double updates_per_second, Double frames_per_second) in I:\work\github\opentk\src\OpenTK\GameWindow.cs:line 373
+(Main)[Error] {19.04.2020, 14:37:03}:        at OpenTK.GameWindow.Run() in I:\work\github\opentk\src\OpenTK\GameWindow.cs:line 298
+(Main)[Error] {19.04.2020, 14:37:03}:        at Minecraft.MainWindow.MainWindow.Run() in C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\MainWindow.cs:line 52
+(Main)[Error] {19.04.2020, 14:37:03}: Sorry for the inconvenience!
+(Main)[Error] {19.04.2020, 14:37:03}: ---------------------------------
+(Main)[Info] {19.04.2020, 14:37:04}: For a full log, see the log dump file C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\Dump log 19.04.2020, 14'36'58.txt

@@ -1,0 +1,4 @@
+(Main)[Info] {19.04.2020, 11:57:51}: Starting window...
+(Main)[Info] {19.04.2020, 11:57:51}: Window initialised successfully
+(Main)[Info] {19.04.2020, 11:57:52}: KeyDown!
+(Main)[Info] {19.04.2020, 11:57:52}: The window closed successfully!

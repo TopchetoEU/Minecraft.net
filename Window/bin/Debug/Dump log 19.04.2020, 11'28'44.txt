@@ -1,0 +1,17 @@
+(Main)[Info] {19.04.2020, 11:28:44}: Starting window...
+(Main)[Info] {19.04.2020, 11:28:44}: Window initialised successfully
+(Main)[Info] {19.04.2020, 11:28:45}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:45}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:45}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:45}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:46}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:46}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:46}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:46}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:46}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:46}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:46}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:46}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:47}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:47}: BLAH!
+(Main)[Info] {19.04.2020, 11:28:48}: The window closed successfully!

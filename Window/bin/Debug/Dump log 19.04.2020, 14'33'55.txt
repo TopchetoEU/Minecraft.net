@@ -1,0 +1,221 @@
+(Main)[Info] {19.04.2020, 14:33:55}: Starting window...
+(Main)[Info] {19.04.2020, 14:33:55}: Window initialised successfully
+(Main)[Info] {19.04.2020, 14:33:56}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:56}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:56}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:56}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:33:57}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:57}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:57}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:57}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:33:57}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:57}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:58}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:58}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:33:58}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:58}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:58}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:58}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:33:58}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:58}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:58}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:58}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:33:58}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:58}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:58}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:58}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:33:58}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:58}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:58}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:58}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:33:58}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:58}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:59}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:59}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:33:59}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:59}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:59}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:59}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:33:59}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:59}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:59}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:59}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:33:59}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:59}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:59}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:59}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:33:59}: MouseDown!
+(Main)[Info] {19.04.2020, 14:33:59}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:33:59}: MouseUp!
+(Main)[Info] {19.04.2020, 14:33:59}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:34:00}: Space KeyDown!
+(Main)[Info] {19.04.2020, 14:34:00}: Space KeyUp!
+(Main)[Info] {19.04.2020, 14:34:00}: Space KeyDown!
+(Main)[Info] {19.04.2020, 14:34:00}: Space KeyUp!
+(Main)[Info] {19.04.2020, 14:34:00}: Space KeyDown!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyUp!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyDown!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyUp!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyDown!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyUp!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyDown!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyUp!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyDown!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyUp!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyDown!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyUp!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyDown!
+(Main)[Info] {19.04.2020, 14:34:01}: Space KeyUp!
+(Main)[Info] {19.04.2020, 14:34:01}: F KeyDown!
+(Main)[Info] {19.04.2020, 14:34:01}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:01}: F KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: H KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: H KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: T KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: P KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: T KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: J KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: P KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: K KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: K KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: J KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: L KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: U KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: I KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: I KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: H KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: L KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: U KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: L KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: H KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: L KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: H KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: H KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: U KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: U KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: H KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: H KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: S KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: D KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:02}: F KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: U KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:02}: F KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: D KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: U KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: L KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: H KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: H KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: H KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: D KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: L KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: F KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: D KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: S KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: F KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: H KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: U KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: W KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: Y KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: U KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: W KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: Y KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:03}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:03}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: L KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: L KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: F KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: F KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: K KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: S KeyDown!
+(Main)[Info] {19.04.2020, 14:34:04}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: K KeyUp!
+(Main)[Info] {19.04.2020, 14:34:04}: S KeyUp!
+(Main)[Info] {19.04.2020, 14:34:07}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:07}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:07}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:07}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:07}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:07}: W KeyDown!
+(Main)[Info] {19.04.2020, 14:34:08}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:08}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:09}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:09}: W KeyUp!
+(Main)[Info] {19.04.2020, 14:34:09}: W KeyDown!
+(Main)[Info] {19.04.2020, 14:34:09}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:09}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:09}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:10}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:10}: W KeyUp!
+(Main)[Info] {19.04.2020, 14:34:10}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:10}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:10}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:10}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:10}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:10}: W KeyDown!
+(Main)[Info] {19.04.2020, 14:34:10}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:11}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:11}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:11}: W KeyUp!
+(Main)[Info] {19.04.2020, 14:34:11}: W KeyDown!
+(Main)[Info] {19.04.2020, 14:34:11}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:12}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:12}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:12}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:12}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:12}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:12}: W KeyUp!
+(Main)[Info] {19.04.2020, 14:34:13}: G KeyDown!
+(Main)[Info] {19.04.2020, 14:34:13}: R KeyDown!
+(Main)[Info] {19.04.2020, 14:34:13}: E KeyDown!
+(Main)[Info] {19.04.2020, 14:34:14}: W KeyDown!
+(Main)[Info] {19.04.2020, 14:34:14}: G KeyUp!
+(Main)[Info] {19.04.2020, 14:34:15}: R KeyUp!
+(Main)[Info] {19.04.2020, 14:34:15}: E KeyUp!
+(Main)[Info] {19.04.2020, 14:34:16}: W KeyUp!
+(Main)[Info] {19.04.2020, 14:34:17}: The window closed successfully!

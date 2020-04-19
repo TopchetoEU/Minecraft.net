@@ -1,0 +1,104 @@
+(Main)[Info] {19.04.2020, 15:21:58}: Starting window...
+(Main)[Info] {19.04.2020, 15:21:59}: Window initialised successfully
+(Main)[Info] {19.04.2020, 15:21:59}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 15:22:00}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 15:22:00}: Escape KeyDown!
+(Main)[Info] {19.04.2020, 15:22:00}: Escape KeyUp!
+(Main)[Info] {19.04.2020, 15:22:01}: D1 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:01}: D1 KeyUp!
+(Main)[Info] {19.04.2020, 15:22:01}: D2 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:02}: D2 KeyUp!
+(Main)[Info] {19.04.2020, 15:22:02}: D3 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:02}: D3 KeyUp!
+(Main)[Info] {19.04.2020, 15:22:02}: D4 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:02}: D4 KeyUp!
+(Main)[Info] {19.04.2020, 15:22:02}: D5 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:02}: D5 KeyUp!
+(Main)[Info] {19.04.2020, 15:22:03}: D6 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:03}: D6 KeyUp!
+(Main)[Info] {19.04.2020, 15:22:03}: D7 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:03}: D7 KeyUp!
+(Main)[Info] {19.04.2020, 15:22:03}: D8 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:03}: D8 KeyUp!
+(Main)[Info] {19.04.2020, 15:22:03}: D9 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:03}: D9 KeyUp!
+(Main)[Info] {19.04.2020, 15:22:03}: D0 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:03}: D0 KeyUp!
+(Main)[Info] {19.04.2020, 15:22:03}: OemMinus KeyDown!
+(Main)[Info] {19.04.2020, 15:22:04}: OemMinus KeyUp!
+(Main)[Info] {19.04.2020, 15:22:04}: OemPlus KeyDown!
+(Main)[Info] {19.04.2020, 15:22:04}: OemPlus KeyUp!
+(Main)[Info] {19.04.2020, 15:22:05}: Backspace KeyDown!
+(Main)[Info] {19.04.2020, 15:22:05}: Backspace KeyUp!
+(Main)[Info] {19.04.2020, 15:22:05}: Tab KeyDown!
+(Main)[Info] {19.04.2020, 15:22:05}: Tab KeyUp!
+(Main)[Info] {19.04.2020, 15:22:05}: Q KeyDown!
+(Main)[Info] {19.04.2020, 15:22:05}: Q KeyUp!
+(Main)[Info] {19.04.2020, 15:22:20}: W KeyDown!
+(Main)[Info] {19.04.2020, 15:22:21}: E KeyDown!
+(Main)[Info] {19.04.2020, 15:22:22}: R KeyDown!
+(Main)[Info] {19.04.2020, 15:22:23}: T KeyDown!
+(Main)[Info] {19.04.2020, 15:22:23}: Y KeyDown!
+(Main)[Info] {19.04.2020, 15:22:23}: U KeyDown!
+(Main)[Info] {19.04.2020, 15:22:23}: I KeyDown!
+(Main)[Info] {19.04.2020, 15:22:24}: O KeyDown!
+(Main)[Info] {19.04.2020, 15:22:24}: P KeyDown!
+(Main)[Info] {19.04.2020, 15:22:24}: OemOpenBrackets KeyDown!
+(Main)[Info] {19.04.2020, 15:22:24}: OemCloseBrackets KeyDown!
+(Main)[Info] {19.04.2020, 15:22:24}: Enter KeyDown!
+(Main)[Info] {19.04.2020, 15:22:24}: LeftControl KeyDown!
+(Main)[Info] {19.04.2020, 15:22:25}: A KeyDown!
+(Main)[Info] {19.04.2020, 15:22:25}: S KeyDown!
+(Main)[Info] {19.04.2020, 15:22:25}: D KeyDown!
+(Main)[Info] {19.04.2020, 15:22:25}: F KeyDown!
+(Main)[Info] {19.04.2020, 15:22:25}: G KeyDown!
+(Main)[Info] {19.04.2020, 15:22:26}: H KeyDown!
+(Main)[Info] {19.04.2020, 15:22:26}: J KeyDown!
+(Main)[Info] {19.04.2020, 15:22:26}: K KeyDown!
+(Main)[Info] {19.04.2020, 15:22:26}: L KeyDown!
+(Main)[Info] {19.04.2020, 15:22:27}: OemSemicolon KeyDown!
+(Main)[Info] {19.04.2020, 15:22:27}: OemQuote KeyDown!
+(Main)[Info] {19.04.2020, 15:22:27}: OemBackquote KeyDown!
+(Main)[Info] {19.04.2020, 15:22:27}: LeftShift KeyDown!
+(Main)[Info] {19.04.2020, 15:22:27}: OemBackslash KeyDown!
+(Main)[Info] {19.04.2020, 15:22:27}: Z KeyDown!
+(Main)[Info] {19.04.2020, 15:22:28}: X KeyDown!
+(Main)[Info] {19.04.2020, 15:22:28}: C KeyDown!
+(Main)[Info] {19.04.2020, 15:22:28}: V KeyDown!
+(Main)[Info] {19.04.2020, 15:22:28}: B KeyDown!
+(Main)[Info] {19.04.2020, 15:22:28}: N KeyDown!
+(Main)[Info] {19.04.2020, 15:22:29}: M KeyDown!
+(Main)[Info] {19.04.2020, 15:22:29}: OemComma KeyDown!
+(Main)[Info] {19.04.2020, 15:22:29}: OemPeriod KeyDown!
+(Main)[Info] {19.04.2020, 15:22:29}: OemSlash KeyDown!
+(Main)[Info] {19.04.2020, 15:22:29}: RightShift KeyDown!
+(Main)[Info] {19.04.2020, 15:22:29}: NumMultiply KeyDown!
+(Main)[Info] {19.04.2020, 15:22:30}: LeftMenu KeyDown!
+(Main)[Info] {19.04.2020, 15:22:30}: Space KeyDown!
+(Main)[Info] {19.04.2020, 15:22:30}: CapsLock KeyDown!
+(Main)[Info] {19.04.2020, 15:22:30}: F1 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:30}: F2 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:30}: F3 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:31}: F4 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:31}: F5 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:31}: F6 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:31}: F7 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:31}: F8 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:32}: F9 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:32}: F10 KeyDown!
+(Main)[Info] {19.04.2020, 15:22:32}: NumLock KeyDown!
+(Main)[Info] {19.04.2020, 15:22:32}: ScrollLock KeyDown!
+(Main)[Error] {19.04.2020, 15:22:32}: An unexpected error occured!
+(Main)[Error] {19.04.2020, 15:22:32}: --------- Crash report: ---------
+(Main)[Error] {19.04.2020, 15:22:32}: If you don't know what is that, ask in forums or contact someone, who
+(Main)[Error] {19.04.2020, 15:22:32}: knows tehnology. TopchetoEU will be thankful, if you send him this report
+(Main)[Error] {19.04.2020, 15:22:32}:     System.Exception: Intentional crash!
+(Main)[Error] {19.04.2020, 15:22:34}:        at Minecraft.MainWindow.MainWindow.OnUpdateFrame(FrameEventArgs e) in C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\MainWindow.cs:line 96
+(Main)[Error] {19.04.2020, 15:22:34}:        at OpenTK.GameWindow.RaiseUpdateFrame(Stopwatch watch, Double elapsed, Double& timestamp) in I:\work\github\opentk\src\OpenTK\GameWindow.cs:line 460
+(Main)[Error] {19.04.2020, 15:22:34}:        at OpenTK.GameWindow.DispatchUpdateFrame(Stopwatch watch) in I:\work\github\opentk\src\OpenTK\GameWindow.cs:line 417
+(Main)[Error] {19.04.2020, 15:22:34}:        at OpenTK.GameWindow.Run(Double updates_per_second, Double frames_per_second) in I:\work\github\opentk\src\OpenTK\GameWindow.cs:line 373
+(Main)[Error] {19.04.2020, 15:22:34}:        at OpenTK.GameWindow.Run() in I:\work\github\opentk\src\OpenTK\GameWindow.cs:line 298
+(Main)[Error] {19.04.2020, 15:22:34}:        at Minecraft.MainWindow.MainWindow.Run() in C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\MainWindow.cs:line 53
+(Main)[Error] {19.04.2020, 15:22:34}: Sorry for the inconvenience!
+(Main)[Error] {19.04.2020, 15:22:34}: ---------------------------------
+(Main)[Info] {19.04.2020, 15:22:34}: For a full log, see the log dump file C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\Dump log 19.04.2020, 15'21'58.txt

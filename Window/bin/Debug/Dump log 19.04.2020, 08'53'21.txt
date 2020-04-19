@@ -1,0 +1,13 @@
+(Main)[Info] {19.04.2020, 08:53:21}: Starting window...
+(Main)[Info] {19.04.2020, 08:53:21}: Window initialised successfully
+(Main)[Info] {19.04.2020, 08:53:25}: Pressed: Space
+(Main)[Info] {19.04.2020, 08:53:25}: Released: Space
+(Main)[Info] {19.04.2020, 08:53:25}: Pressed: Space
+(Main)[Info] {19.04.2020, 08:53:25}: Released: Space
+(Main)[Info] {19.04.2020, 08:53:26}: Pressed: Space
+(Main)[Info] {19.04.2020, 08:53:27}: Released: Space
+(Main)[Info] {19.04.2020, 08:53:27}: Pressed: Space
+(Main)[Info] {19.04.2020, 08:53:27}: Released: Space
+(Main)[Info] {19.04.2020, 08:53:28}: Pressed: Space
+(Main)[Info] {19.04.2020, 08:53:28}: Released: Space
+(Main)[Info] {19.04.2020, 08:53:28}: The window closed successfully!

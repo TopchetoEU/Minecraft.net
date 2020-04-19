@@ -1,0 +1,15 @@
+(Main)[Info] {19.04.2020, 13:50:58}: Starting window...
+(Main)[Info] {19.04.2020, 13:50:58}: Window initialised successfully
+(Main)[Info] {19.04.2020, 13:51:00}: MouseDown!
+(Main)[Info] {19.04.2020, 13:51:00}: 0 KeyDown!
+(Main)[Info] {19.04.2020, 13:51:01}: MouseUp!
+(Main)[Info] {19.04.2020, 13:51:01}: 0 KeyUp!
+(Main)[Info] {19.04.2020, 13:51:01}: MouseDown!
+(Main)[Info] {19.04.2020, 13:51:01}: 0 KeyDown!
+(Main)[Info] {19.04.2020, 13:51:02}: MouseUp!
+(Main)[Info] {19.04.2020, 13:51:02}: 0 KeyUp!
+(Main)[Info] {19.04.2020, 13:51:02}: MouseDown!
+(Main)[Info] {19.04.2020, 13:51:02}: 0 KeyDown!
+(Main)[Info] {19.04.2020, 13:51:02}: MouseUp!
+(Main)[Info] {19.04.2020, 13:51:02}: 0 KeyUp!
+(Main)[Info] {19.04.2020, 13:57:00}: The window closed successfully!

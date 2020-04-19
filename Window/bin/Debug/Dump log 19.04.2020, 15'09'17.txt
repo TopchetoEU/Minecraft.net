@@ -1,0 +1,23 @@
+(Main)[Info] {19.04.2020, 15:09:18}: Starting window...
+(Main)[Info] {19.04.2020, 15:09:18}: Window initialised successfully
+(Main)[Info] {19.04.2020, 15:09:19}: MouseDown!
+(Main)[Error] {19.04.2020, 15:09:21}: An unexpected error occured!
+(Main)[Error] {19.04.2020, 15:09:22}: --------- Crash report: ---------
+(Main)[Error] {19.04.2020, 15:09:22}: If you don't know what is that, ask in forums or contact someone, who
+(Main)[Error] {19.04.2020, 15:09:23}: knows tehnology. TopchetoEU will be thankful, if you send him this report
+(Main)[Error] {19.04.2020, 15:09:23}:     System.Exception: Could not send key: A
+(Main)[Error] {19.04.2020, 15:09:30}:        at Minecraft.MainWindow.Keyboard.SimulateKeyPress(Key key) in C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\Keyboard.cs:line 97
+(Main)[Error] {19.04.2020, 15:09:30}:        at Minecraft.MainWindow.MainWindow.OnMouseDown(MouseButtonEventArgs e) in C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\MainWindow.cs:line 114
+(Main)[Error] {19.04.2020, 15:09:30}:        at OpenTK.NativeWindow.OnMouseDownInternal(Object sender, MouseButtonEventArgs e) in I:\work\github\opentk\src\OpenTK\NativeWindow.cs:line 912
+(Main)[Error] {19.04.2020, 15:09:30}:        at System.EventHandler`1.Invoke(Object sender, TEventArgs e)
+(Main)[Error] {19.04.2020, 15:09:30}:        at OpenTK.Platform.NativeWindowBase.OnMouseDown(MouseButton button) in I:\work\github\opentk\src\OpenTK\Platform\NativeWindowBase.cs:line 256
+(Main)[Error] {19.04.2020, 15:09:31}:        at OpenTK.Platform.Windows.WinGLNative.WindowProcedure(IntPtr handle, WindowMessage message, IntPtr wParam, IntPtr lParam) in I:\work\github\opentk\src\OpenTK\Platform\Windows\WinGLNative.cs:line 788
+(Main)[Error] {19.04.2020, 15:09:31}:        at OpenTK.Platform.Windows.Functions.DispatchMessage(MSG& msg)
+(Main)[Error] {19.04.2020, 15:09:31}:        at OpenTK.Platform.Windows.WinGLNative.ProcessEvents() in I:\work\github\opentk\src\OpenTK\Platform\Windows\WinGLNative.cs:line 1550
+(Main)[Error] {19.04.2020, 15:09:31}:        at OpenTK.NativeWindow.ProcessEvents(Boolean retainEvents) in I:\work\github\opentk\src\OpenTK\NativeWindow.cs:line 885
+(Main)[Error] {19.04.2020, 15:09:31}:        at OpenTK.GameWindow.Run(Double updates_per_second, Double frames_per_second) in I:\work\github\opentk\src\OpenTK\GameWindow.cs:line 368
+(Main)[Error] {19.04.2020, 15:09:31}:        at OpenTK.GameWindow.Run() in I:\work\github\opentk\src\OpenTK\GameWindow.cs:line 298
+(Main)[Error] {19.04.2020, 15:09:31}:        at Minecraft.MainWindow.MainWindow.Run() in C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\MainWindow.cs:line 52
+(Main)[Error] {19.04.2020, 15:09:31}: Sorry for the inconvenience!
+(Main)[Error] {19.04.2020, 15:09:31}: ---------------------------------
+(Main)[Info] {19.04.2020, 15:09:31}: For a full log, see the log dump file C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\Dump log 19.04.2020, 15'09'17.txt

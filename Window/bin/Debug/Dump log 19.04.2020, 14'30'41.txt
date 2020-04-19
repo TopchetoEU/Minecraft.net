@@ -1,0 +1,27 @@
+(Main)[Info] {19.04.2020, 14:30:41}: Starting window...
+(Main)[Info] {19.04.2020, 14:30:41}: Window initialised successfully
+(Main)[Info] {19.04.2020, 14:30:42}: MouseDown!
+(Main)[Info] {19.04.2020, 14:30:42}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:30:42}: MouseUp!
+(Main)[Info] {19.04.2020, 14:30:42}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:30:43}: MouseDown!
+(Main)[Info] {19.04.2020, 14:30:43}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:30:43}: MouseUp!
+(Main)[Info] {19.04.2020, 14:30:43}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:30:43}: MouseDown!
+(Main)[Info] {19.04.2020, 14:30:43}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:30:44}: MouseUp!
+(Main)[Info] {19.04.2020, 14:30:44}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:30:44}: MouseDown!
+(Main)[Info] {19.04.2020, 14:30:44}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:30:44}: MouseUp!
+(Main)[Info] {19.04.2020, 14:30:44}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:30:44}: MouseDown!
+(Main)[Info] {19.04.2020, 14:30:44}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:30:45}: MouseUp!
+(Main)[Info] {19.04.2020, 14:30:45}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:30:45}: MouseDown!
+(Main)[Info] {19.04.2020, 14:30:45}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 14:30:45}: MouseUp!
+(Main)[Info] {19.04.2020, 14:30:45}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 14:30:46}: The window closed successfully!
