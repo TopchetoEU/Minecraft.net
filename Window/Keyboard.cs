@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using OpenTK.Input;
 
-namespace Minecraft.MainWindow
+namespace Window.MainWindow
 {
     internal class WindowsAPI
     {
@@ -190,12 +190,12 @@ namespace Minecraft.MainWindow
         private const uint testKey = 0x09;
 
 
-        public static void SimulateKeyPress(ushort scanCode)
+        public static void SimulateKeyPress(Key scanCode)
         {
             INPUT[] inputs = new INPUT[1];
             inputs[0].type = WindowsAPI.INPUT_KEYBOARD;
             inputs[0].ki.dwFlags = 8;
-            inputs[0].ki.wScan = (scanCode);
+            inputs[0].ki.wScan = (ushort)(scanCode);
 
             uint intReturn = WindowsAPI.SendInput(1, inputs, Marshal.SizeOf(inputs[0]));
             if (intReturn != 1)
@@ -204,12 +204,12 @@ namespace Minecraft.MainWindow
             }
         }
 
-        public static void SimulateKeyRelease(ushort scanCode)
+        public static void SimulateKeyRelease(Key scanCode)
         {
             INPUT[] inputs = new INPUT[1];
             inputs[0].type = WindowsAPI.INPUT_KEYBOARD;
             inputs[0].ki.dwFlags = WindowsAPI.KEYEVENTF_KEYUP;
-            inputs[0].ki.wScan = scanCode;
+            inputs[0].ki.wScan = (ushort)(scanCode);
             uint intReturn = WindowsAPI.SendInput(1, inputs, Marshal.SizeOf(inputs[0]));
             if (intReturn != 1)
             {

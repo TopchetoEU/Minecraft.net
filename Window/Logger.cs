@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Minecraft.GUI
+namespace Window.GUI
 {
     /// <summary>
     /// Writes to console formatted message and dumps tme message into a file

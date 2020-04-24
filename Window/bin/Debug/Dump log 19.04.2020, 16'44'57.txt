@@ -1,0 +1,16 @@
+(Main)[Info] {19.04.2020, 16:44:57}: Starting window...
+(Main)[Info] {19.04.2020, 16:44:57}: Window initialised successfully
+(Main)[Info] {19.04.2020, 16:45:00}: Unknown I = 1
+(Main)[Info] {19.04.2020, 16:45:01}: Escape I = 2
+(Main)[Info] {19.04.2020, 16:45:02}: Number1 I = 3
+(Main)[Info] {19.04.2020, 16:45:09}: Number2 I = 4
+(Main)[Info] {19.04.2020, 16:45:09}: Number3 I = 5
+(Main)[Info] {19.04.2020, 16:45:10}: Number4 I = 6
+(Main)[Info] {19.04.2020, 16:45:10}: Number5 I = 7
+(Main)[Info] {19.04.2020, 16:45:10}: Number6 I = 8
+(Main)[Info] {19.04.2020, 16:45:11}: Number7 I = 9
+(Main)[Info] {19.04.2020, 16:45:11}: Number8 I = 10
+(Main)[Info] {19.04.2020, 16:45:12}: Number9 I = 11
+(Main)[Info] {19.04.2020, 16:45:12}: Number0 I = 12
+(Main)[Info] {19.04.2020, 16:45:12}: Minus I = 13
+(Main)[Info] {19.04.2020, 16:45:13}: The window closed successfully!

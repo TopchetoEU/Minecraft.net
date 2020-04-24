@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Drawing;
-using Minecraft.GUI;
+using Window.GUI;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 
-namespace Minecraft.MainWindow
+namespace Window.MainWindow
 {
     /// <summary>
     /// A OpenGL window to show
@@ -79,21 +79,16 @@ namespace Minecraft.MainWindow
         {
             if (!e.IsRepeat)
             {
-                Logger.Info(e.Key.ToKey() + " KeyDown!");
                 Keyboard.RegisterPressKey(e.Key.ToKey());
             }
         }
         /// <inheritdoc/>
         protected override void OnKeyUp(KeyboardKeyEventArgs e)
         {
-            Logger.Info(e.Key.ToKey() + " KeyUp!");
-            Keyboard.RegisterReleaseKey(e.Key.ToKey());
         }
         /// <inheritdoc/>
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-            if (Keyboard.IsKeyPressed(Key.Q)) Mouse.SimulateMove(new Position(0, 0));
-            if (Keyboard.IsKeyPressed(Key.ScrollLock)) throw new Exception("Intentional crash!");
         }
         /// <inheritdoc/>
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -111,14 +106,11 @@ namespace Minecraft.MainWindow
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             Mouse.RegisterPress(e.Button);
-            Keyboard.SimulateKeyPress(i);
         }
         /// <inheritdoc/>
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             Mouse.RegisterRelease(e.Button);
-            Keyboard.SimulateKeyRelease(i);
-            i++;
         }
 
         private static void Main()

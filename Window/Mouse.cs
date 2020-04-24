@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Minecraft.MainWindow
+namespace Window.MainWindow
 {
     /// <summary>
     /// A API for the mouse

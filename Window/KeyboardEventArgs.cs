@@ -1,6 +1,6 @@
 ﻿using OpenTK.Input;
 
-namespace Minecraft.MainWindow
+namespace Window.MainWindow
 {
     /// <summary>
     /// Arguments for keyboard event

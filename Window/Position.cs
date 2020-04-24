@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Minecraft.MainWindow
+namespace Window.MainWindow
 {
     /// <summary>
     /// A two-dimentional point in the space
