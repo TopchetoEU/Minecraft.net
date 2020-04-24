@@ -9,3 +9,4 @@ C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Window.csproj.Co
 C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Window.csproj.CopyComplete
 C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Minecraft.exe
 C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Minecraft.pdb
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\Documentation.xml

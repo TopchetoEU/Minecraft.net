@@ -1,19 +1,35 @@
 ﻿using System;
 using System.Drawing;
-using Minecraft.GUI;
+using Window.GUI;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 
-namespace Minecraft.MainWindow
+namespace Window.MainWindow
 {
-    partial class MainWindow : GameWindow
+    /// <summary>
+    /// A OpenGL window to show
+    /// </summary>
+    /// <inheritdoc/>
+    public class MainWindow : GameWindow
     {
+        ushort i = 0;
+        /// <summary>
+        /// The default logger
+        /// </summary>
         public Logger Logger { get; set; } = new Logger("Main");
+        /// <summary>
+        /// The API to the physical keyboard
+        /// </summary>
         public Keyboard Keyboard { get; } = new Keyboard();
+        /// <summary>
+        /// The API to the physical mouse
+        /// </summary>
         public Mouse Mouse { get; } = new Mouse();
-        private bool NaturalMouseMove = false;
 
+        /// <summary>
+        /// Gets the inner bounds of the window (excluding title bar and borders)
+        /// </summary>
         public Rectangle InnerBounds {
             get {
                 var loc = PointToScreen(new Point(ClientRectangle.X, ClientRectangle.Y));
@@ -26,9 +42,12 @@ namespace Minecraft.MainWindow
             }
         }
 
+        /// <summary>
+        /// Starts the appliucation
+        /// </summary>
         public new void Run()
         {
-                Logger.Info("Starting window...");
+            Logger.Info("Starting window...");
             try
             {
                 base.Run();
@@ -38,65 +57,63 @@ namespace Minecraft.MainWindow
                 Logger.DisplayException(error);
             }
         }
+
+        /// <inheritdoc/>
         protected override void OnLoad(EventArgs e)
         {
-            Title = "Minecraft.net";
             Logger.Info("Window initialised successfully");
-            Mouse.MouseMoved += MouseMoved;
         }
 
-        private void MouseMoved(object sender, MouseEventArgs e)
-        {
-            Logger.Info($"X: {e.Position.X}, Y: {e.Position.Y}");
-            if (!NaturalMouseMove)
-            {
-                var x = e.Position.X + InnerBounds.X;
-                var y = e.Position.Y + InnerBounds.Y;
-                if (e.Position.X >= 0 && e.Position.Y >= 0)OpenTK.Input.Mouse.SetPosition(x, y);
-                if (e.Position.X < 0) Logger.Error("Mouse X was set to a number, smaller than 0.");
-                if (e.Position.Y < 0) Logger.Error("Mouse Y was set to a number, smaller than 0.");
-
-                throw new Exception("Mouse can't be fake moved to a point, outside the window");
-            }
-            NaturalMouseMove = false;
-        }
-
+        /// <inheritdoc/>
         protected override void OnUnload(EventArgs e)
         {
             Logger.Info("The window closed successfully!");
         }
+        /// <inheritdoc/>
         protected override void OnResize(EventArgs e)
         {
             GL.Viewport(ClientRectangle);
         }
-
+        /// <inheritdoc/>
         protected override void OnKeyDown(KeyboardKeyEventArgs e)
         {
-            Keyboard.PressKey(e.Key);
+            if (!e.IsRepeat)
+            {
+                Keyboard.RegisterPressKey(e.Key.ToKey());
+            }
         }
+        /// <inheritdoc/>
         protected override void OnKeyUp(KeyboardKeyEventArgs e)
         {
-            Keyboard.ReleaseKey(e.Key);
         }
-
+        /// <inheritdoc/>
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-            if (Keyboard.IsKeyPressed(Key.Q)) Mouse.Move(new Position(-100, 0));
-            if (Keyboard.IsKeyPressed(Key.ScrollLock)) throw new Exception("Intentional crash!");
         }
+        /// <inheritdoc/>
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             SwapBuffers();
         }
-
+        /// <inheritdoc/>
         protected override void OnMouseMove(MouseMoveEventArgs e)
         {
-            NaturalMouseMove = true;
-            Mouse.Move(new Position(e.Position));
+            Mouse.RegisterMove(new Position(e.Position));
         }
-        public static void Main()
+        /// <inheritdoc/>
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            Mouse.RegisterPress(e.Button);
+        }
+        /// <inheritdoc/>
+        protected override void OnMouseUp(MouseButtonEventArgs e)
+        {
+            Mouse.RegisterRelease(e.Button);
+        }
+
+        private static void Main()
         {
             using (MainWindow example = new MainWindow())
             {
