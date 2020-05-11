@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using OpenTK.Input;
 
-namespace Window.MainWindow
+namespace MinecraftNetWindow.MainWindow
 {
     internal class WindowsAPI
     {
@@ -182,41 +182,6 @@ namespace Window.MainWindow
     /// </summary>
     public class Keyboard
     {
-        [DllImport("User32.dll")]
-        private static extern uint SendInput(uint numberOfInputs, [MarshalAs(UnmanagedType.LPArray, SizeConst = 1)] INPUT[] input, int structSize);
-
-        private const int KeyDown = 1;
-        private const int KeyUp = 2;
-        private const uint testKey = 0x09;
-
-
-        public static void SimulateKeyPress(Key scanCode)
-        {
-            INPUT[] inputs = new INPUT[1];
-            inputs[0].type = WindowsAPI.INPUT_KEYBOARD;
-            inputs[0].ki.dwFlags = 8;
-            inputs[0].ki.wScan = (ushort)(scanCode);
-
-            uint intReturn = WindowsAPI.SendInput(1, inputs, Marshal.SizeOf(inputs[0]));
-            if (intReturn != 1)
-            {
-                throw new Exception("Could not send key: " + scanCode);
-            }
-        }
-
-        public static void SimulateKeyRelease(Key scanCode)
-        {
-            INPUT[] inputs = new INPUT[1];
-            inputs[0].type = WindowsAPI.INPUT_KEYBOARD;
-            inputs[0].ki.dwFlags = WindowsAPI.KEYEVENTF_KEYUP;
-            inputs[0].ki.wScan = (ushort)(scanCode);
-            uint intReturn = WindowsAPI.SendInput(1, inputs, Marshal.SizeOf(inputs[0]));
-            if (intReturn != 1)
-            {
-                throw new Exception("Could not send key: " + scanCode);
-            }
-        }
-
         /// <summary>
         /// Fires when a key went down
         /// </summary>
@@ -229,7 +194,7 @@ namespace Window.MainWindow
         private List<Key> pressedKeys = new List<Key>();
 
         /// <summary>
-        /// Registers a key press. NOTE: This will have no actual key press. To simulate one, use <see cref="SimulateKeyPress(IntPtr, Key)"/>
+        /// Registers a key press. NOTE: This will have no actual key press.
         /// </summary>
         /// <param name="key">The key that went down</param>
         public void RegisterPressKey(Key key)
@@ -241,7 +206,7 @@ namespace Window.MainWindow
             }
         }
         /// <summary>
-        /// Registers a key release. NOTE: This will have no actual key release. To simulate one, use <see cref="SimulateKeyRelease(IntPtr, Key)"/>
+        /// Registers a key release. NOTE: This will have no actual key release.
         /// </summary>
         /// <param name="key">The key that went up</param>
         public void RegisterReleaseKey(Key key)

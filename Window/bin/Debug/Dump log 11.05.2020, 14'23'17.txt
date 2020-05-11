@@ -1,0 +1,3 @@
+(Main)[Info] {11.05.2020, 14:23:17}: Starting window...
+(Main)[Info] {11.05.2020, 14:23:17}: Window initialized successfully
+(Main)[Info] {11.05.2020, 14:23:22}: The window closed successfully!
