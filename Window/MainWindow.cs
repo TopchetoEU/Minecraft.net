@@ -174,7 +174,8 @@ namespace MinecraftNetWindow.MainWindow
                 }
 
 
-                var newData = new List<Vertice2D>();
+                var newVertex = new List<Vertice2D>();
+                var newTriangles = new List<MeshTriangle>();
 
                 x = (x) / Width * 2 - 1;
                 y = (Height - y) / Height * 2 - 1;
@@ -183,15 +184,19 @@ namespace MinecraftNetWindow.MainWindow
                 t = 1 - t;
                 t1 = 1 - t1;
 
-                // Part 1
-                newData.Add(new Vertice2D(x, y, s, t));
-                newData.Add(new Vertice2D(x1, y, s1, t));
-                newData.Add(new Vertice2D(x1, y1, s1, t1));
-                newData.Add(new Vertice2D(x, y1, s1, t1));
+                // Vertex
+                newVertex.Add(new Vertice2D(x, y, s, t));
+                newVertex.Add(new Vertice2D(x1, y, s1, t));
+                newVertex.Add(new Vertice2D(x1, y1, s1, t1));
+                newVertex.Add(new Vertice2D(x, y1, s1, t1));
 
-                guiMesh.FlushGeometry(newData.ToArray());
+                // Triangles
+                newTriangles.Add(new MeshTriangle(0, 1, 2));
+                newTriangles.Add(new MeshTriangle(0, 2, 3));
 
-                guiMesh.Draw(PrimitiveType.Quads);
+                guiMesh.FlushGeometry(newVertex.ToArray(), newTriangles.ToArray());
+
+                guiMesh.Draw();
             }
 
             GL.End();
@@ -228,27 +233,33 @@ void main()
         public Shader Shader { get; }
         public Atlas Atlas { get; }
 
-        public ObservableCollection<Vertice2D> Geometry { get; private set; } = new ObservableCollection<Vertice2D>();
+        public ObservableCollection<Vertice2D> Vertex { get; private set; } = new ObservableCollection<Vertice2D>();
+        public ObservableCollection<MeshTriangle> Triangles { get; private set; } = new ObservableCollection<MeshTriangle>();
 
-        public void FlushGeometry(Vertice2D[] geometry)
+        public void FlushGeometry(Vertice2D[] vertex, MeshTriangle[] triangles)
         {
-            Geometry = new ObservableCollection<Vertice2D>(geometry);
+            Vertex = new ObservableCollection<Vertice2D>(vertex);
+            Triangles = new ObservableCollection<MeshTriangle>(triangles);
             Calculate();
         }
 
         private Buffer<float> vertex;
-        private Buffer<int> indicies;
+        private Buffer<uint> indices;
 
         int vertexArrayID = 0;
 
         public void Calculate()
         {
-            var vertexData = Geometry.SelectMany(v => new[] {
+            var vertexData = Vertex.SelectMany(v => new[] {
                 v.Location.X, v.Location.Y
             }).ToArray();
+            var indicesData = Triangles.SelectMany(v => new[] {
+                v.IndexA, v.IndexB, v.IndexC,
+            }).ToArray();
 
-
+            indices.BindElements(indicesData);
             vertex.BindElements(vertexData);
+            vertex.Use();
 
             GL.BindVertexArray(vertexArrayID);
 
@@ -267,7 +278,7 @@ void main()
         private void init()
         {
             vertex = new Buffer<float>(BufferTarget.ArrayBuffer, BufferUsageHint.DynamicDraw, sizeof(float));
-            indicies = new Buffer<int>(BufferTarget.ElementArrayBuffer, BufferUsageHint.DynamicDraw, sizeof(uint));
+            indices = new Buffer<uint>(BufferTarget.ElementArrayBuffer, BufferUsageHint.DynamicDraw, sizeof(uint));
 
             Calculate();
         }
@@ -280,7 +291,7 @@ void main()
 
             init();
 
-            Geometry.CollectionChanged += Geometry_CollectionChanged;
+            Vertex.CollectionChanged += Geometry_CollectionChanged;
         }
 
         private void Geometry_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -288,11 +299,13 @@ void main()
             Calculate();
         }
 
-        public void Draw(PrimitiveType mode)
+        public void Draw()
         {
             Use();
+
             GL.BindVertexArray(vertexArrayID);
-            GL.DrawArrays(mode, 0, Geometry.Count);
+
+            GL.DrawElements(PrimitiveType.Triangles, Triangles.Count * 3, DrawElementsType.UnsignedInt, 0);
         }
 
         #region IDisposable Support
@@ -305,7 +318,7 @@ void main()
                 if (disposing)
                 {
                     vertex.Dispose();
-                    indicies.Dispose();
+                    indices.Dispose();
                     GL.DeleteVertexArray(vertexArrayID);
                 }
 
@@ -488,6 +501,20 @@ void main()
             Dispose(true);
         }
         #endregion
+    }
+
+    public class MeshTriangle
+    {
+        public uint IndexA { get; }
+        public uint IndexB { get; }
+        public uint IndexC { get; }
+
+        public MeshTriangle(uint indexA, uint indexB, uint indexC)
+        {
+            IndexA = indexA;
+            IndexB = indexB;
+            IndexC = indexC;
+        }
     }
 }
 
