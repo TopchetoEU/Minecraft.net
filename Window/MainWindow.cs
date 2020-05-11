@@ -191,7 +191,7 @@ namespace MinecraftNetWindow.MainWindow
 
                 guiMesh.FlushGeometry(newData.ToArray());
 
-                guiMesh.Draw(BeginMode.Quads);
+                guiMesh.Draw(PrimitiveType.Quads);
             }
 
             GL.End();
@@ -236,7 +236,6 @@ void main()
             Calculate();
         }
 
-        private int VertexBufferObject = 0;
         private int VertexArrayObject = 0;
 
         private Buffer<float> vertex;
@@ -244,14 +243,13 @@ void main()
 
         public void Calculate()
         {
-            var vertices = Geometry.SelectMany(v => new[] {
+            var vertexData = Geometry.SelectMany(v => new[] {
                 v.Location.X, v.Location.Y,
                 v.TextureLocation.X, v.TextureLocation.Y
             }).ToArray();
             GL.BindVertexArray(VertexArrayObject);
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferObject);
-            GL.BufferData(BufferTarget.ArrayBuffer, Geometry.Count * 4 * sizeof(float), vertices, BufferUsageHint.DynamicDraw);
+            vertex.BindElements(vertexData);
 
             var attrLoc = Shader.GetAttribLocation("aPosition");
 
@@ -268,8 +266,10 @@ void main()
 
         private void init()
         {
-            VertexBufferObject = GL.GenBuffer();
             VertexArrayObject = GL.GenVertexArray();
+
+            vertex = new Buffer<float>(BufferTarget.ArrayBuffer, BufferUsageHint.DynamicDraw, sizeof(float) * 4);
+            indicies = new Buffer<int>(BufferTarget.ElementArrayBuffer, BufferUsageHint.DynamicDraw, sizeof(uint) * 3);
 
             Calculate();
         }
@@ -289,14 +289,14 @@ void main()
             Calculate();
         }
 
-        public void Draw(BeginMode mode)
+        public void Draw(PrimitiveType mode)
         {
-            Use();
+            vertex.Use();
             GL.DrawArrays(mode, 0, Geometry.Count);
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool disposedValue = false;
 
         protected virtual void Dispose(bool disposing)
         {
@@ -304,30 +304,17 @@ void main()
             {
                 if (disposing)
                 {
-                    // TODO: dispose managed state (managed objects).
+                    vertex.Dispose();
+                    indicies.Dispose();
                 }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
 
                 disposedValue = true;
             }
         }
 
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~Mesh2D()
-        // {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
-
-        // This code added to correctly implement the disposable pattern.
         public void Dispose()
         {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
         }
         #endregion
     }
@@ -467,9 +454,13 @@ void main()
             GL.BufferData(target, elements.Length * elementSize, elements, usageHint);
         }
 
-        public Buffer(int id, BufferTarget target, BufferUsageHint usageHint, int elementSize)
+        public void Use()
         {
-            this.id = id;
+            GL.BindBuffer(target, id);
+        }
+
+        public Buffer(BufferTarget target, BufferUsageHint usageHint, int elementSize)
+        {
             this.target = target;
             this.usageHint = usageHint;
             this.elementSize = elementSize;
