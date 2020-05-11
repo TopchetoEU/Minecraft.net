@@ -236,40 +236,38 @@ void main()
             Calculate();
         }
 
-        private int VertexArrayObject = 0;
-
         private Buffer<float> vertex;
         private Buffer<int> indicies;
+
+        int vertexArrayID = 0;
 
         public void Calculate()
         {
             var vertexData = Geometry.SelectMany(v => new[] {
-                v.Location.X, v.Location.Y,
-                v.TextureLocation.X, v.TextureLocation.Y
+                v.Location.X, v.Location.Y
             }).ToArray();
-            GL.BindVertexArray(VertexArrayObject);
+
 
             vertex.BindElements(vertexData);
 
+            GL.BindVertexArray(vertexArrayID);
+
             var attrLoc = Shader.GetAttribLocation("aPosition");
 
-            GL.VertexAttribPointer(attrLoc, 3, VertexAttribPointerType.Float, false, 4 * sizeof(float), 0);
+            GL.VertexAttribPointer(attrLoc, 3, VertexAttribPointerType.Float, false, 2 * sizeof(float), 0);
             GL.EnableVertexAttribArray(attrLoc);
         }
 
         public void Use()
         {
-            GL.BindVertexArray(VertexArrayObject);
             Shader.Use();
             Atlas.Use();
         }
 
         private void init()
         {
-            VertexArrayObject = GL.GenVertexArray();
-
-            vertex = new Buffer<float>(BufferTarget.ArrayBuffer, BufferUsageHint.DynamicDraw, sizeof(float) * 4);
-            indicies = new Buffer<int>(BufferTarget.ElementArrayBuffer, BufferUsageHint.DynamicDraw, sizeof(uint) * 3);
+            vertex = new Buffer<float>(BufferTarget.ArrayBuffer, BufferUsageHint.DynamicDraw, sizeof(float));
+            indicies = new Buffer<int>(BufferTarget.ElementArrayBuffer, BufferUsageHint.DynamicDraw, sizeof(uint));
 
             Calculate();
         }
@@ -278,6 +276,7 @@ void main()
         {
             Shader = shader;
             Atlas = atlas;
+            vertexArrayID = GL.GenVertexArray();
 
             init();
 
@@ -291,7 +290,8 @@ void main()
 
         public void Draw(PrimitiveType mode)
         {
-            vertex.Use();
+            Use();
+            GL.BindVertexArray(vertexArrayID);
             GL.DrawArrays(mode, 0, Geometry.Count);
         }
 
@@ -306,6 +306,7 @@ void main()
                 {
                     vertex.Dispose();
                     indicies.Dispose();
+                    GL.DeleteVertexArray(vertexArrayID);
                 }
 
                 disposedValue = true;
@@ -441,15 +442,13 @@ void main()
 
     public class Buffer<T>: IDisposable where T: struct
     {
-        private int id = 0;
+        public int id { get; }
         private BufferTarget target;
         private BufferUsageHint usageHint;
         private int elementSize;
 
         public void BindElements(T[] elements)
         {
-            GL.BindVertexArray(id);
-
             GL.BindBuffer(target, id);
             GL.BufferData(target, elements.Length * elementSize, elements, usageHint);
         }
