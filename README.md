@@ -10,10 +10,8 @@ The project is absolutely open source, so anyone can contribute, or take it and 
 This project wouldn't pe possible, whitout making some side libraries, like:
 
  1. Window - Manages the GUI and 3D OpenGL rendering, by offering a easy to use API
- 2. 3D - Manages the 3D OpenGL rendering, and offers a easy to use API
- 3. GUI - Manages the GUI rendering (as well using OpenGL), and again offers a easy to use API
- 4. MinecraftNetCore - Contains core block system and modding API
- 5. MinecraftWorlds - A easy to use minecraft world reader
+ 2. MinecraftNetCore - Contains core block system and modding API
+ 3. MinecraftWorlds - A easy to use minecraft world reader
  ## Modding API
  Coming in the near future
 
