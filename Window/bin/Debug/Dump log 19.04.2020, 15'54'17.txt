@@ -1,0 +1,27 @@
+(Main)[Info] {19.04.2020, 15:54:17}: Starting window...
+(Main)[Info] {19.04.2020, 15:54:18}: Window initialised successfully
+(Main)[Info] {19.04.2020, 15:54:21}: NoName KeyDown!
+(Main)[Info] {19.04.2020, 15:54:22}: NoName KeyUp!
+(Main)[Info] {19.04.2020, 15:54:22}: Escape KeyDown!
+(Main)[Info] {19.04.2020, 15:54:23}: Escape KeyUp!
+(Main)[Info] {19.04.2020, 15:54:23}: D1 KeyDown!
+(Main)[Info] {19.04.2020, 15:54:23}: D1 KeyUp!
+(Main)[Info] {19.04.2020, 15:54:24}: D2 KeyDown!
+(Main)[Info] {19.04.2020, 15:54:24}: D2 KeyUp!
+(Main)[Info] {19.04.2020, 15:54:24}: D3 KeyDown!
+(Main)[Info] {19.04.2020, 15:54:24}: D3 KeyUp!
+(Main)[Info] {19.04.2020, 15:54:25}: D4 KeyDown!
+(Main)[Info] {19.04.2020, 15:54:25}: D4 KeyUp!
+(Main)[Info] {19.04.2020, 15:54:25}: D5 KeyDown!
+(Main)[Info] {19.04.2020, 15:54:25}: D5 KeyUp!
+(Main)[Info] {19.04.2020, 15:54:25}: D6 KeyDown!
+(Main)[Info] {19.04.2020, 15:54:26}: D6 KeyUp!
+(Main)[Info] {19.04.2020, 15:54:26}: D7 KeyDown!
+(Main)[Info] {19.04.2020, 15:54:26}: D7 KeyUp!
+(Main)[Info] {19.04.2020, 15:54:26}: D8 KeyDown!
+(Main)[Info] {19.04.2020, 15:54:26}: D8 KeyUp!
+(Main)[Info] {19.04.2020, 15:54:26}: D9 KeyDown!
+(Main)[Info] {19.04.2020, 15:54:27}: D9 KeyUp!
+(Main)[Info] {19.04.2020, 15:54:27}: D0 KeyDown!
+(Main)[Info] {19.04.2020, 15:54:27}: D0 KeyUp!
+(Main)[Info] {19.04.2020, 15:54:37}: The window closed successfully!
