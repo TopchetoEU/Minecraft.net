@@ -2,18 +2,22 @@
 
 ## The basics
 This is a indie project - clone of Minecraft - Java edition, which has as an aim to fix some preformance issues with Minecraft and best of all - making a modding api for all Minecraft modders out there.
-As we all know Java is slow and painful to develop for, so preformance is superior in .Net framework.
+As we all know Java is kinda daty, so I tought it would be a great to develop a MC clone on .Net Core (yes, core)
 The project is absolutely open source, so anyone can contribute, or take it and modify it.
 
 ## Sublibraries
 
-This project wouldn't pe possible, whitout making some side libraries, like:
+# WinGL (c++)
+The bridge between GLUT and .net core
 
-1. Window - Manages the GUI and 3D OpenGL rendering, by offering a easy to use API
-2. MinecraftNetCore - Contains core block system and modding API
-3. MinecraftWorlds - A easy to use minecraft world reader
-## Libraries in use
-1. OpenTK - literally it would have took me ages to make this project without a tool like OpenTK
-## Modding API
-Coming in the near future
+# LinGL (Coming soon, c++)
+The bridge between Linux's graphic library and .net core
 
+# MacGL (Coming in distant future, c++ i hope)
+The bridge between Mac's graphic library and .net core
+
+
+# NetGL (C#)
+The universal graphics library for .net core.
+Includes all functionality from OpenGL, as well as some more, added from me.
+Use this library freely in any project that you want.
