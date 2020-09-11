@@ -1,0 +1,9 @@
+D:\repos\Minecraft.net\NetGL\bin\Debug\netcoreapp3.1\NetGL.deps.json
+D:\repos\Minecraft.net\NetGL\bin\Debug\netcoreapp3.1\NetGL.dll
+D:\repos\Minecraft.net\NetGL\bin\Debug\netcoreapp3.1\NetGL.pdb
+D:\repos\Minecraft.net\NetGL\obj\Debug\netcoreapp3.1\NetGL.csprojAssemblyReference.cache
+D:\repos\Minecraft.net\NetGL\obj\Debug\netcoreapp3.1\NetGL.AssemblyInfoInputs.cache
+D:\repos\Minecraft.net\NetGL\obj\Debug\netcoreapp3.1\NetGL.AssemblyInfo.cs
+D:\repos\Minecraft.net\NetGL\obj\Debug\netcoreapp3.1\NetGL.csproj.CoreCompileInputs.cache
+D:\repos\Minecraft.net\NetGL\obj\Debug\netcoreapp3.1\NetGL.dll
+D:\repos\Minecraft.net\NetGL\obj\Debug\netcoreapp3.1\NetGL.pdb

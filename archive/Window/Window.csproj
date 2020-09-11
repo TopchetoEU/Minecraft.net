@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EC2213D0-A44B-4536-8727-F9765F0EB97D}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MinecraftNetWindow</RootNamespace>
+    <AssemblyName>MinecraftNetWindow</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Documentation.xml</DocumentationFile>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=3.2.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.3.2\lib\net20\OpenTK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Geometry\ArgumentMap.cs" />
+    <Compile Include="AutoSizeDirection.cs" />
+    <Compile Include="Geometry\CameraUniformLayouts.cs" />
+    <Compile Include="Geometry\FloatUniform.cs" />
+    <Compile Include="Geometry\ICamera.cs" />
+    <Compile Include="Geometry\IUniform.cs" />
+    <Compile Include="Geometry\Matrix2Uniform.cs" />
+    <Compile Include="Geometry\Matrix2x3Uniform.cs" />
+    <Compile Include="Geometry\Matrix2x4Uniform.cs" />
+    <Compile Include="Geometry\Matrix3Uniform.cs" />
+    <Compile Include="Geometry\Matrix3x2Uniform.cs" />
+    <Compile Include="Geometry\Matrix3x4Uniform.cs" />
+    <Compile Include="Geometry\Matrix4Uniform.cs" />
+    <Compile Include="Geometry\Matrix4x2Uniform.cs" />
+    <Compile Include="Geometry\Matrix4x3Uniform.cs" />
+    <Compile Include="Geometry\PrespectiveCamera.cs" />
+    <Compile Include="Geometry\Scene.cs" />
+    <Compile Include="Geometry\Vector2Uniform.cs" />
+    <Compile Include="Geometry\Vector3Uniform.cs" />
+    <Compile Include="Geometry\Vector4Uniform.cs" />
+    <Compile Include="ITransformable.cs" />
+    <Compile Include="Units\Animation.cs" />
+    <Compile Include="Units\ColoredVertex2D.cs" />
+    <Compile Include="Units\ColorisedVertex2D.cs" />
+    <Compile Include="Units\IInterpolateable.cs" />
+    <Compile Include="Units\IMeshIndicie.cs" />
+    <Compile Include="Geometry\IndicieType.cs" />
+    <Compile Include="Units\Keyframe.cs" />
+    <Compile Include="Units\MeshLine.cs" />
+    <Compile Include="Units\MeshPoint.cs" />
+    <Compile Include="Units\MeshQuad.cs" />
+    <Compile Include="Geometry\Shader.cs" />
+    <Compile Include="Units\SizeF3D.cs" />
+    <Compile Include="GUIElement.cs" />
+    <Compile Include="GUISprite.cs" />
+    <Compile Include="GUITextElement.cs" />
+    <Compile Include="Geometry\IShaderType.cs" />
+    <Compile Include="Units\IVertex.cs" />
+    <Compile Include="Geometry\Mesh.cs" />
+    <Compile Include="Geometry\MeshTriangle.cs" />
+    <Compile Include="Units\PointF3D.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Geometry\ShaderProgram.cs" />
+    <Compile Include="Geometry\ShaderArgument.cs" />
+    <Compile Include="Units\RotationF3D.cs" />
+    <Compile Include="Texture.cs" />
+    <Compile Include="Units\TexturedVertex2D.cs" />
+    <Compile Include="Units\TextVertex.cs" />
+    <Compile Include="Units\Vertex2D.cs" />
+    <Compile Include="Window.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
+    <None Include="App.config" />
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

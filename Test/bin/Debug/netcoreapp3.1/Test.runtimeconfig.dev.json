@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\TopchetoEU\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\TopchetoEU\\.nuget\\packages"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\OpenTK.dll
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\OpenTK.pdb
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\OpenTK.xml
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Window.csprojAssemblyReference.cache
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Window.csproj.CoreCompileInputs.cache
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\Window.csproj.CopyComplete
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\Documentation.xml
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\MinecraftNetWindow.exe.config
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\MinecraftNetWindow.exe
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\MinecraftNetWindow.pdb
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\MinecraftNetWindow.exe
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\obj\Debug\MinecraftNetWindow.pdb
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\Newtonsoft.Json.dll
+C:\Users\TopchetoEU\source\repos\Minecraft.net\Window\bin\Debug\Newtonsoft.Json.xml
