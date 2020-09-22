@@ -8,7 +8,7 @@ The project is absolutely open source, so anyone can contribute, or take it and 
 ## Sublibraries
 
 ### WinGL (c++)
-The bridge between GLUT and .net core
+The bridge between GLUT and OpenGL and .net core
 
 ### LinGL (Coming soon, c++)
 The bridge between Linux's graphic library and .net core
@@ -21,3 +21,8 @@ The bridge between Mac's graphic library and .net core
 The universal graphics library for .net core.
 Includes all functionality from OpenGL, as well as some more, added from me.
 Use this library freely in any project that you want.
+
+## This project wouldn't be possible without:
+1) freeglut - a free alternative to glut
+2) GLEW - OpenGL extension wrangler
+
