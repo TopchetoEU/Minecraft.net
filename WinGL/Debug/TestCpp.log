@@ -1,0 +1,6 @@
+﻿  dllmain.cpp
+D:\repos\Minecraft.net\TestCpp\dllmain.cpp(11,13): warning C4273: 'test': inconsistent dll linkage
+D:\repos\Minecraft.net\TestCpp\Api.h(9,21): message : see previous definition of 'test'
+  LINK : D:\repos\Minecraft.net\Debug\TestCpp.dll not found or not built by the last incremental link; performing full link
+     Creating library D:\repos\Minecraft.net\Debug\TestCpp.lib and object D:\repos\Minecraft.net\Debug\TestCpp.exp
+  TestCpp.vcxproj -> D:\repos\Minecraft.net\Debug\TestCpp.dll

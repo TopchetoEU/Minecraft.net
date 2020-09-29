@@ -1,0 +1,7 @@
+{
+    "Name": "Arial",
+    "Bitmap": "Arial.bmp",
+    "CharWidth": 16, "CharHeight": 24,
+    "CharBaseHeight": 15,
+    "HorMargin": 5, "VertMargin": 5
+}

@@ -1,0 +1,16 @@
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\Test.exe
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\Test.deps.json
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\Test.runtimeconfig.json
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\Test.runtimeconfig.dev.json
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\Test.dll
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\Test.pdb
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\NetGL.dll
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\NetGL.pdb
+D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.csprojAssemblyReference.cache
+D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.AssemblyInfoInputs.cache
+D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.AssemblyInfo.cs
+D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.csproj.CoreCompileInputs.cache
+D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.csproj.CopyComplete
+D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.dll
+D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.pdb
+D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.genruntimeconfig.cache

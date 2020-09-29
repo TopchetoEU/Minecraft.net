@@ -1,0 +1,43 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (TestCpp.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  dllmain.cpp
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(83,37): warning C4273: 'setup': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(10,22): message : see previous definition of 'setup'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(97,21): warning C4273: 'getCurrWindow': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(13,21): message : see previous definition of 'getCurrWindow'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(100,32): warning C4273: 'setCurrWindow': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(12,22): message : see previous definition of 'setCurrWindow'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(105,31): warning C4273: 'createWindow': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(15,21): message : see previous definition of 'createWindow'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(115,32): warning C4273: 'destroyWindow': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(16,22): message : see previous definition of 'destroyWindow'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(119,29): warning C4273: 'showWindow': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(18,22): message : see previous definition of 'showWindow'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(123,29): warning C4273: 'hideWindow': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(19,22): message : see previous definition of 'hideWindow'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(128,47): warning C4273: 'setDisplayFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(21,22): message : see previous definition of 'setDisplayFunc'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(137,67): warning C4273: 'setResizeFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(22,22): message : see previous definition of 'setResizeFunc'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(142,67): warning C4273: 'setKeyboardUpFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(24,22): message : see previous definition of 'setKeyboardUpFunc'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(146,69): warning C4273: 'setKeyboardDownFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(25,22): message : see previous definition of 'setKeyboardDownFunc'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(151,61): warning C4273: 'setMouseMoveFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(27,22): message : see previous definition of 'setMouseMoveFunc'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(155,73): warning C4273: 'setMouseDownFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(28,22): message : see previous definition of 'setMouseDownFunc'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(159,71): warning C4273: 'setMouseUpFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(29,22): message : see previous definition of 'setMouseUpFunc'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(164,46): warning C4273: 'setWindowTitle': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(31,22): message : see previous definition of 'setWindowTitle'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(169,32): warning C4273: 'startMainLoop': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(33,22): message : see previous definition of 'startMainLoop'
+D:\repos\Minecraft.net\WinGL\dllmain.cpp(174,13): warning C4273: 'test': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\Api.h(9,22): message : see previous definition of 'test'
+  WinGL.vcxproj -> D:\repos\Minecraft.net\Debug\WinGL.dll
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.

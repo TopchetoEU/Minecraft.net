@@ -1,0 +1,13 @@
+D:\repos\Minecraft.net\TestNet\bin\Debug\netcoreapp3.1\TestNet.exe
+D:\repos\Minecraft.net\TestNet\bin\Debug\netcoreapp3.1\TestNet.deps.json
+D:\repos\Minecraft.net\TestNet\bin\Debug\netcoreapp3.1\TestNet.runtimeconfig.json
+D:\repos\Minecraft.net\TestNet\bin\Debug\netcoreapp3.1\TestNet.runtimeconfig.dev.json
+D:\repos\Minecraft.net\TestNet\bin\Debug\netcoreapp3.1\TestNet.dll
+D:\repos\Minecraft.net\TestNet\bin\Debug\netcoreapp3.1\TestNet.pdb
+D:\repos\Minecraft.net\TestNet\obj\Debug\netcoreapp3.1\TestNet.AssemblyInfoInputs.cache
+D:\repos\Minecraft.net\TestNet\obj\Debug\netcoreapp3.1\TestNet.AssemblyInfo.cs
+D:\repos\Minecraft.net\TestNet\obj\Debug\netcoreapp3.1\TestNet.csproj.CoreCompileInputs.cache
+D:\repos\Minecraft.net\TestNet\obj\Debug\netcoreapp3.1\TestNet.dll
+D:\repos\Minecraft.net\TestNet\obj\Debug\netcoreapp3.1\TestNet.pdb
+D:\repos\Minecraft.net\TestNet\obj\Debug\netcoreapp3.1\TestNet.genruntimeconfig.cache
+D:\repos\Minecraft.net\TestNet\obj\Debug\netcoreapp3.1\TestNet.csprojAssemblyReference.cache
