@@ -6,28 +6,28 @@
 #define API __declspec(dllimport)
 #endif
 
-extern "C"  API void test();
-extern "C"  API void setup(char** args, int length);
+extern "C"  API void window_test();
+extern "C"  API void window_setup(char** args, int length);
 
-extern "C"  API void setCurrWindow(int window);
-extern "C"  API int getCurrWindow();
+extern "C"  API void window_setCurrWindow(int window);
+extern "C"  API int window_getCurrWindow();
 
-extern "C"  API int createWindow(char* title);
-extern "C"  API void destroyWindow(int window);
+extern "C"  API int window_createWindow(char* title);
+extern "C"  API void window_destroyWindow(int window);
 
-extern "C"  API void showWindow(int window);
-extern "C"  API void hideWindow(int window);
+extern "C"  API void window_showWindow(int window);
+extern "C"  API void window_hideWindow(int window);
 
-extern "C"  API void setDisplayFunc(int window, void(func)());
-extern "C"  API void setResizeFunc(int window, void(func)(int width, int height));
+extern "C"  API void window_setDisplayFunc(int window, void(func)());
+extern "C"  API void window_setResizeFunc(int window, void(func)(int width, int height));
 
-extern "C"  API void setKeyboardUpFunc(int window, void(__stdcall func)(int key));
-extern "C"  API void setKeyboardDownFunc(int window, void(__stdcall func)(int key));
+extern "C"  API void window_setKeyboardUpFunc(int window, void(__stdcall func)(int key));
+extern "C"  API void window_setKeyboardDownFunc(int window, void(__stdcall func)(int key));
 
-extern "C"  API void setMouseMoveFunc(int window, void(func)(int x, int y));
-extern "C"  API void setMouseDownFunc(int window, void(func)(int button, int x, int y));
-extern "C"  API void setMouseUpFunc(int window, void(func)(int button, int x, int y));
+extern "C"  API void window_setMouseMoveFunc(int window, void(func)(int x, int y));
+extern "C"  API void window_setMouseDownFunc(int window, void(func)(int button, int x, int y));
+extern "C"  API void window_setMouseUpFunc(int window, void(func)(int button, int x, int y));
 
-extern "C"  API void setWindowTitle(int window, char* title);
+extern "C"  API void window_setWindowTitle(int window, char* title);
 
-extern "C"  API void startMainLoop(int window);
+extern "C"  API void window_startMainLoop(int window);

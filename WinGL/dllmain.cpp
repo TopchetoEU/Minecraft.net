@@ -21,8 +21,8 @@ public:
 	HWND handle;
 	MouseActionFunc* mouseDown = nullptr;
 	MouseActionFunc* mouseUp = nullptr;
-	KeyboardActionFunc keyUp = nullptr;
-	KeyboardActionFunc keyDown = nullptr;
+	KeyboardActionFunc* keyUp = nullptr;
+	KeyboardActionFunc* keyDown = nullptr;
 	window(HWND handle) {
 		this->handle = handle;
 	}
@@ -38,14 +38,14 @@ map<int, window*> handles = map<int, window*>();
 
 void displayFunc() {
 }
-void mouseFunction(int button, int state, int x, int y) {
+void mouseEventHandle(int button, int state, int x, int y) {
 	for (const auto& pair : handles) {
 		window* wnd = pair.second;
 		if      (state == GLUT_DOWN && wnd->mouseDown != nullptr) wnd->mouseDown(button, x, y);
 		else if (state == GLUT_UP   && wnd->mouseUp   != nullptr) wnd->mouseUp  (button, x, y);
 	}
 }
-LRESULT CALLBACK keyboardFunction(int code, WPARAM w, LPARAM l) {
+long __stdcall keyboardFunction(int code, WPARAM w, LPARAM l) {
 	if (code < 0)
 		return CallNextHookEx(h, code, w, l);
 	else {
@@ -58,8 +58,31 @@ LRESULT CALLBACK keyboardFunction(int code, WPARAM w, LPARAM l) {
 			if (wnd->handle == GetActiveWindow()) {
 				KeyboardActionFunc func = NULL;
 
-				if (w == 256) func = wnd->keyDown;
-				if (w == 257) func = wnd->keyUp;
+				if (w == 256) func = *wnd->keyDown;
+				if (w == 257) func = *wnd->keyUp;
+
+				if (func != NULL) func(data->vkCode);
+			}
+		}
+
+		return NULL;
+	}
+}
+long __stdcall mouseFunction(int code, WPARAM w, LPARAM l) {
+	if (code < 0)
+		return CallNextHookEx(h, code, w, l);
+	else {
+		auto* data = (tagKBDLLHOOKSTRUCT*)l;
+
+		cout << "" << data->vkCode << "\n";
+
+		for (const auto& pair : handles) {
+			window* wnd = pair.second;
+			if (wnd->handle == GetActiveWindow()) {
+				KeyboardActionFunc func = NULL;
+
+				if (w == 256) func = *wnd->keyDown;
+				if (w == 257) func = *wnd->keyUp;
 
 				if (func != NULL) func(data->vkCode);
 			}
@@ -80,29 +103,29 @@ HHOOK installhook(HINSTANCE hmod) {
 	return h;
 }
 
-void setup(char** args, int length) {
+void window_setup(char** args, int length) {
 	if (!initialised) {
 		glutInit(&length, args);
-		glutMouseFunc(mouseFunction);
+		glutMouseFunc(mouseEventHandle);
 
 		installhook(GetModuleHandle(NULL));
 
 		initialised = true;
 	}
 }
-void setup() {
-	setup(0, {});
+void window_setup() {
+	window_setup(0, {});
 }
 
-int getCurrWindow() {
+int window_getCurrWindow() {
 	return glutGetWindow();
 }
-void setCurrWindow(int window) {
-	if (window != getCurrWindow())
+void window_setCurrWindow(int window) {
+	if (window != window_getCurrWindow())
 		glutSetWindow(window);
 }
 
-int createWindow(char* title) {
+int window_createWindow(char* title) {
 	int id = glutCreateWindow(title);
 	HWND handle = GetForegroundWindow();
 	window *wnd = new window(handle);
@@ -112,66 +135,66 @@ int createWindow(char* title) {
 	glutDisplayFunc(displayFunc);
 	return id;
 }
-void destroyWindow(int window) {
+void window_destroyWindow(int window) {
 	glutDestroyWindow(window);
 }
 
-void showWindow(int window) {
-	setCurrWindow(window);
+void window_showWindow(int window) {
+	window_setCurrWindow(window);
 	glutShowWindow();
 }
-void hideWindow(int window) {
-	setCurrWindow(window);
+void window_hideWindow(int window) {
+	window_setCurrWindow(window);
 	glutHideWindow();
 }
 
-void setDisplayFunc(int window, void(func)()) {
+void window_setDisplayFunc(int window, void(func)()) {
 	if (func == nullptr) {
 		glutDisplayFunc(displayFunc);
 	}
 	else {
-		setCurrWindow(window);
+		window_setCurrWindow(window);
 		glutDisplayFunc(func);
 	}
 }
-void setResizeFunc(int window, void(func)(int width, int height)) {
-	setCurrWindow(window);
+void window_setResizeFunc(int window, void(func)(int width, int height)) {
+	window_setCurrWindow(window);
 	glutReshapeFunc(func);
 }
 
-void setKeyboardUpFunc(int window, void(__stdcall func)(int key)) {
-	setCurrWindow(window);
-	handles[window]->keyUp = func;
+void window_setKeyboardUpFunc(int window, void(__stdcall func)(int key)) {
+	window_setCurrWindow(window);
+	handles[window]->keyUp = &func;
 }
-void setKeyboardDownFunc(int window, void(__stdcall func)(int key)) {
-	setCurrWindow(window);
-	handles[window]->keyDown = func;
+void window_setKeyboardDownFunc(int window, void(__stdcall func)(int key)) {
+	window_setCurrWindow(window);
+	handles[window]->keyDown = &func;
 }
 
-void setMouseMoveFunc(int window, void(func)(int x, int y)) {
-	setCurrWindow(window);
+void window_setMouseMoveFunc(int window, void(func)(int x, int y)) {
+	window_setCurrWindow(window);
 	glutMotionFunc(func);
 }
-void setMouseDownFunc(int window, void(func)(int button, int x, int y)) {
-	setCurrWindow(window);
+void window_setMouseDownFunc(int window, void(func)(int button, int x, int y)) {
+	window_setCurrWindow(window);
 	handles[window]->mouseDown = func;
 }
-void setMouseUpFunc(int window, void(func)(int button, int x, int y)) {
-	setCurrWindow(window);
+void window_setMouseUpFunc(int window, void(func)(int button, int x, int y)) {
+	window_setCurrWindow(window);
 	handles[window]->mouseUp = func;
 }
 
-void setWindowTitle(int window, char* title) {
-	setCurrWindow(window);
+void window_setWindowTitle(int window, char* title) {
+	window_setCurrWindow(window);
 	glutSetWindowTitle(title);
 }
 
-void startMainLoop(int window) {
-	setCurrWindow(window);
+void window_startMainLoop(int window) {
+	window_setCurrWindow(window);
 	glutMainLoop();
 }
 
-void test() {
+void window_test() {
 	int a = 0;
 	glutInit(&a, {});
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
