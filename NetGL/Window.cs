@@ -82,7 +82,6 @@ namespace NetGL
 
         public void Show()
         {
-            
             Console.WriteLine(ID);
             setKeyboardDownFunc(ID, KeyDownFunc);
             setKeyboardUpFunc(ID, KeyUpFunc);
