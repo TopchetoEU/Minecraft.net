@@ -12,66 +12,101 @@ namespace NetGL
             Key = key;
         }
     }
+
+    internal  delegate void KeyboardFunc(int key);
+
     public delegate void KeyboardEventHandler(object sender, KeyboardEventArgs e);
 
-    public class Window: IDisposable
+    public enum OS
+    {
+        Windows,
+        Linux,
+        Mac
+    }
+
+    /// <summary>
+    /// A simple os detector, dependant on build type. NOTE! Unsupported operating systems fallback to windows
+    /// </summary>
+    internal static class OSDetector
     {
         #region OS Detection
 #if LINUX
-        private const string Dll = "LinGL.dll";
+        private const OS os = OS.Linux;
+        internal const string GraphicsDLL = "MacGL.dll";
+#elif MACOS
+        private const OS os = OS.Mac;
+        internal const string GraphicsDLL = "LinGL.dll";
 #else
-        private const string Dll = "WinGL.dll";
-        private bool disposedValue;
+        private const OS os = OS.Windows;
+        internal const string GraphicsDLL = "WinGL.dll";
 #endif
         #endregion
 
-        private delegate void KeyboardFunc(int key);
+        public static string GetOSString(OS os)
+        {
+            switch (os)
+            {
+                case OS.Windows: return "WINDOWS";
+                case OS.Linux: return "LINUX";
+                case OS.Mac: return "MACOS";
+                default: return "DEFAULT";
+            }
+        }
+        public static OS CurrentOS => os;
+    }
+
+    internal static class LLWindow
+    {
+
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static void test();
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static void window_setup(string[] args, int length);
+
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static int window_createWindow(string title);
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static void window_destryWindow(int window);
+
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static void window_setDisplayFunc(int window, Action func);
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static void window_setKeyboardDownFunc(int window, KeyboardFunc func);
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static void window_setKeyboardUpFunc(int window, KeyboardFunc func);
+
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static void window_startMainLoop(int window);
+
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static void window_showWindow(int window);
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static void window_hideWindow(int window);
+
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static void window_setWindowTitle(int window, string title);
+    }
+    public class Window: IDisposable
+    {
+        public event KeyboardEventHandler KeyDown;
+        public event KeyboardEventHandler KeyUp;
 
         public int ID { get; }
         private string title;
+        private bool disposedValue;
         public string Title {
             get => title;
             set {
                 title = value;
-                setWindowTitle(ID, title);
+                LLWindow.window_setWindowTitle(ID, title);
             }
         }
 
-        public event KeyboardEventHandler KeyDown;
-        public event KeyboardEventHandler KeyUp;
-
-        [DllImport(Dll)]
-        private extern static void test();
-        [DllImport(Dll)]
-        private extern static void setup(string[] args, int length);
-
-        [DllImport(Dll)]
-        private extern static int createWindow(string title);
-        [DllImport(Dll)]
-        private extern static void destryWindow(int window);
-
-        [DllImport(Dll)]
-        private extern static void setDisplayFunc(int window, Action func);
-        [DllImport(Dll)]
-        private extern static void setKeyboardDownFunc(int window, KeyboardFunc func);
-        [DllImport(Dll)]
-        private extern static void setKeyboardUpFunc(int window, KeyboardFunc func);
-
-        [DllImport(Dll)]
-        private extern static void startMainLoop(int window);
-
-        [DllImport(Dll)]
-        private extern static void showWindow(int window);
-        [DllImport(Dll)]
-        private extern static void hideWindow(int window);
-
-        [DllImport(Dll)]
-        private extern static void setWindowTitle(int window, string title);
 
         public Window(string title)
         {
-            setup(new string[0], 0);
-            ID = createWindow(title);
+            LLWindow.window_setup(new string[0], 0);
+            ID = LLWindow.window_createWindow(title);
 
             this.title = title;
         }
@@ -83,14 +118,14 @@ namespace NetGL
         public void Show()
         {
             Console.WriteLine(ID);
-            setKeyboardDownFunc(ID, KeyDownFunc);
-            setKeyboardUpFunc(ID, KeyUpFunc);
-            showWindow(ID);
-            startMainLoop(ID);
+            LLWindow.window_setKeyboardDownFunc(ID, KeyDownFunc);
+            LLWindow.window_setKeyboardUpFunc(ID, KeyUpFunc);
+            LLWindow.window_showWindow(ID);
+            LLWindow.window_startMainLoop(ID);
         }
         public void Hide()
         {
-            hideWindow(ID);
+            LLWindow.window_hideWindow(ID);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -99,7 +134,7 @@ namespace NetGL
             {
                 if (disposing)
                 {
-                    destryWindow(ID);
+                    LLWindow.window_destryWindow(ID);
                 }
 
                 disposedValue = true;
