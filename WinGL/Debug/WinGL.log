@@ -1,40 +1,84 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (TestCpp.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  dllmain.cpp
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(106,44): warning C4273: 'window_setup': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(10,22): message : see previous definition of 'window_setup'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(120,28): warning C4273: 'window_getCurrWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(13,21): message : see previous definition of 'window_getCurrWindow'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(123,39): warning C4273: 'window_setCurrWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(12,22): message : see previous definition of 'window_setCurrWindow'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(128,38): warning C4273: 'window_createWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(15,21): message : see previous definition of 'window_createWindow'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(138,39): warning C4273: 'window_destroyWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(16,22): message : see previous definition of 'window_destroyWindow'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(142,36): warning C4273: 'window_showWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(18,22): message : see previous definition of 'window_showWindow'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(146,36): warning C4273: 'window_hideWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(19,22): message : see previous definition of 'window_hideWindow'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(151,54): warning C4273: 'window_setDisplayFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(21,22): message : see previous definition of 'window_setDisplayFunc'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(160,74): warning C4273: 'window_setResizeFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(22,22): message : see previous definition of 'window_setResizeFunc'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(165,74): warning C4273: 'window_setKeyboardUpFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(24,22): message : see previous definition of 'window_setKeyboardUpFunc'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(169,76): warning C4273: 'window_setKeyboardDownFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(25,22): message : see previous definition of 'window_setKeyboardDownFunc'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(174,68): warning C4273: 'window_setMouseMoveFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(27,22): message : see previous definition of 'window_setMouseMoveFunc'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(178,80): warning C4273: 'window_setMouseDownFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(28,22): message : see previous definition of 'window_setMouseDownFunc'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(182,78): warning C4273: 'window_setMouseUpFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(29,22): message : see previous definition of 'window_setMouseUpFunc'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(187,53): warning C4273: 'window_setWindowTitle': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(31,22): message : see previous definition of 'window_setWindowTitle'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(192,39): warning C4273: 'window_startMainLoop': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(33,22): message : see previous definition of 'window_startMainLoop'
-D:\repos\Minecraft.net\WinGL\dllmain.cpp(197,20): warning C4273: 'window_test': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\Api.h(9,22): message : see previous definition of 'window_test'
-     Creating library D:\repos\Minecraft.net\Debug\WinGL.lib and object D:\repos\Minecraft.net\Debug\WinGL.exp
+  graphics.cpp
+D:\repos\Minecraft.net\WinGL\graphics_api.h(45,62): warning C4190: 'graphics_getShaderSource' has C-linkage specified, but returns UDT 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' which is incompatible with C
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(143,22): warning C4273: 'graphics_init': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(11,21): message : see previous definition of 'graphics_init'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(150,29): warning C4273: 'graphics_swapBuffers': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(13,21): message : see previous definition of 'graphics_swapBuffers'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(154,27): warning C4273: 'graphics_createVAO': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(15,21): message : see previous definition of 'graphics_createVAO'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(162,38): warning C4273: 'graphics_destroyVAO': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(16,21): message : see previous definition of 'graphics_destroyVAO'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(173,41): warning C4273: 'graphics_createBuffer': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(18,21): message : see previous definition of 'graphics_createBuffer'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(183,40): warning C4273: 'graphics_destroyBuffer': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(19,21): message : see previous definition of 'graphics_destroyBuffer'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(203,49): warning C4273: 'graphics_setBuffer': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(21,21): message : see previous definition of 'graphics_setBuffer'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(214,38): warning C4273: 'graphics_getBuffer': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(22,21): message : see previous definition of 'graphics_getBuffer'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(218,79): warning C4273: 'graphics_setBufferData': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(24,21): message : see previous definition of 'graphics_setBufferData'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(221,66): warning C4273: 'graphics_getBufferData': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(25,21): message : see previous definition of 'graphics_getBufferData'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(225,34): warning C4273: 'graphics_setVAO': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(31,21): message : see previous definition of 'graphics_setVAO'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(235,24): warning C4273: 'graphics_getVAO': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(32,21): message : see previous definition of 'graphics_getVAO'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(249,113): warning C4273: 'graphics_createBufferAttribute': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(28,21): message : see previous definition of 'graphics_createBufferAttribute'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(253,62): warning C4273: 'graphics_destroyBufferAttribute': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(29,21): message : see previous definition of 'graphics_destroyBufferAttribute'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(257,48): warning C4273: 'graphics_clearBufferAttributes': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(27,21): message : see previous definition of 'graphics_clearBufferAttributes'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(264,73): warning C4273: 'graphics_drawBuffer': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(34,21): message : see previous definition of 'graphics_drawBuffer'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(270,53): warning C4273: 'graphics_loadNativeArray': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(36,21): message : see previous definition of 'graphics_loadNativeArray'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(277,20): warning C4018: '<': signed/unsigned mismatch
+D:\repos\Minecraft.net\WinGL\graphics.cpp(314,44): warning C4273: 'graphics_createNativeArray': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(37,21): message : see previous definition of 'graphics_createNativeArray'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(322,44): warning C4273: 'graphics_destroyNativeArray': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(38,21): message : see previous definition of 'graphics_destroyNativeArray'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(328,46): warning C4273: 'graphics_setShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(55,21): message : see previous definition of 'graphics_setShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(332,34): warning C4273: 'graphics_getShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(56,21): message : see previous definition of 'graphics_getShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(336,68): warning C4273: 'graphics_createShader': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(40,21): message : see previous definition of 'graphics_createShader'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(364,42): warning C4273: 'graphics_destroyShader': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(41,21): message : see previous definition of 'graphics_destroyShader'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(371,55): warning C4273: 'graphics_getShaderInfoLog': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(44,29): message : see previous definition of 'graphics_getShaderInfoLog'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(375,52): warning C4273: 'graphics_getShaderBuildSuccess': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(43,21): message : see previous definition of 'graphics_getShaderBuildSuccess'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(380,48): warning C4273: 'graphics_getShaderSource': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(45,23): message : see previous definition of 'graphics_getShaderSource'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(384,66): warning C4273: 'graphics_detachShaderFromProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(47,21): message : see previous definition of 'graphics_detachShaderFromProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(390,64): warning C4273: 'graphics_attachShaderToProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(48,21): message : see previous definition of 'graphics_attachShaderToProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(397,37): warning C4273: 'graphics_createShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(50,21): message : see previous definition of 'graphics_createShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(404,50): warning C4273: 'graphics_compileShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(51,21): message : see previous definition of 'graphics_compileShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(417,1): warning C4297: 'graphics_compileShaderProgram': function assumed not to throw an exception but does
+D:\repos\Minecraft.net\WinGL\graphics.cpp(417,1): message : __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+D:\repos\Minecraft.net\WinGL\graphics.cpp(419,50): warning C4273: 'graphics_destroyShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(52,21): message : see previous definition of 'graphics_destroyShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(428,60): warning C4273: 'graphics_loadShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(53,21): message : see previous definition of 'graphics_loadShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(441,65): warning C4273: 'graphics_setBackground': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(61,21): message : see previous definition of 'graphics_setBackground'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(449,69): warning C4273: 'graphics_getBackground': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(62,21): message : see previous definition of 'graphics_getBackground'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(456,32): warning C4273: 'graphics_clear': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(63,21): message : see previous definition of 'graphics_clear'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(460,28): warning C4273: 'testA': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(58,29): message : see previous definition of 'testA'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(463,20): warning C4273: 'testB': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(59,21): message : see previous definition of 'testB'
   WinGL.vcxproj -> D:\repos\Minecraft.net\Debug\WinGL.dll
           1 file(s) copied.
           1 file(s) copied.
