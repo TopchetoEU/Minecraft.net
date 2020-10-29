@@ -10,6 +10,9 @@
     <ClCompile Include="graphics.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="windowExperimental.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -22,6 +25,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="window_api.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="window_api_experimental.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,4 @@
-// dllmain.cpp : Defines the entry point for the DLL application.
-#include "pch.h"
+	#include "pch.h"
 #include "window_api.h"
 #include "framework.h"
 #include <iostream>
@@ -26,6 +25,11 @@ public:
 	KeyboardActionFunc* keyUp = nullptr;
 	KeyboardActionFunc* keyDown = nullptr;
 
+	ActionFunc* display = nullptr;
+
+	bool constantRefresh = false;
+	float fps = 60;
+
 	string title = "";
 
 	window(HWND handle, string title) {
@@ -47,6 +51,11 @@ uint currWindowId = 0;
 
 string intToString(uint value, int radix, const char* alphabet) {
 	string a = "";
+
+	if (value == 0) {
+		a += alphabet[0];
+		return a;
+	}
 
 	while (value > 0) {
 		a = alphabet[value % radix] + a;
@@ -113,16 +122,13 @@ public:
 	invalidIDError(string mesage) { this->message = message; }
 };
 
-void displayFunc() {
-}
-
 long __stdcall keyboardFunction(int code, WPARAM w, LPARAM l) {
 	if (code < 0)
 		return CallNextHookEx(keyboardHandle, code, w, l);
 	else {
 		auto* data = (tagKBDLLHOOKSTRUCT*)l;
 
-		auto process = [](tagKBDLLHOOKSTRUCT *data, window *wnd, uint w) -> void {
+		auto process = [](tagKBDLLHOOKSTRUCT* data, window* wnd, uint w) -> void {
 			KeyboardActionFunc* func = NULL;
 
 			if (w == 256) func = *wnd->keyDown;
@@ -171,9 +177,9 @@ long __stdcall mouseFunction(int code, WPARAM w, LPARAM l) {
 
 			switch (actionType)
 			{
-			case 0: if (wnd->mouseDown   != NULL) wnd->mouseDown(button, x, y);
-			case 1: if (wnd->mouseUp     != NULL) wnd->mouseUp(button, x, y);
-			case 2: if (wnd->mouseMove   != NULL) wnd->mouseMove(x, y);
+			case 0: if (wnd->mouseDown != NULL) wnd->mouseDown(button, x, y);
+			case 1: if (wnd->mouseUp != NULL) wnd->mouseUp(button, x, y);
+			case 2: if (wnd->mouseMove != NULL) wnd->mouseMove(x, y);
 			case 3: if (wnd->mouseScroll != NULL) wnd->mouseScroll(delta, x, y);
 			default:
 				break;
@@ -183,7 +189,7 @@ long __stdcall mouseFunction(int code, WPARAM w, LPARAM l) {
 		for (const auto& pair : handles) {
 			window* wnd = pair.second;
 			if (wnd->handle == GetActiveWindow()) {
-				RECT rect{0, 0, 0, 0};
+				RECT rect{ 0, 0, 0, 0 };
 				GetWindowRect(wnd->handle, &rect);
 
 				if (wnd->handle == GetActiveWindow() && PtInRect(&rect, data->pt)) process(data, wnd, w);
@@ -199,11 +205,11 @@ long __stdcall mouseFunction(int code, WPARAM w, LPARAM l) {
 void window_setup(char** args, int length) {
 	if (!initialised) {
 		keyboardHandle = SetWindowsHookExA(WH_KEYBOARD_LL, keyboardFunction, NULL, NULL);
-		mouseHandle    = SetWindowsHookExA(WH_MOUSE_LL, mouseFunction, NULL, NULL);
+		mouseHandle = SetWindowsHookExA(WH_MOUSE_LL, mouseFunction, NULL, NULL);
 
 		if (keyboardHandle == NULL)
 			genericError("Unable to initialise keyboard listener!, Internal error code: " + GetLastError()).throwError();
-		if (mouseHandle    == NULL)
+		if (mouseHandle == NULL)
 			genericError("Unable to initialise mouse listener!, Internal error code: " + GetLastError()).throwError();
 
 		glutInit(&length, args);
@@ -218,10 +224,10 @@ void window_setup() {
 }
 
 int window_getCurrWindow() {
+	currWindowId = glutGetWindow();
 	return glutGetWindow();
 }
 void window_setCurrWindow(int window) {
-	if (window != window_getCurrWindow())
 		glutSetWindow(window);
 }
 
@@ -232,7 +238,10 @@ int window_createWindow(char* title) {
 
 	handles.insert(std::make_pair(id, wnd));
 
-	glutDisplayFunc(displayFunc);
+	glutDisplayFunc([]() -> void {
+		cout << glutGetWindow();
+		handles[glutGetWindow()]->display();
+	});
 	return id;
 }
 void window_destroyWindow(int window) {
@@ -254,14 +263,8 @@ void window_hideWindow(int window) {
 	glutHideWindow();
 }
 
-void window_setDisplayFunc(int window, void(*func)()) {
-	if (func == nullptr) {
-		glutDisplayFunc(displayFunc);
-	}
-	else {
-		window_setCurrWindow(window);
-		glutDisplayFunc(func);
-	}
+void window_setDisplayFunc(int window, ActionFunc* func) {
+	handles[window]->display = func;
 }
 void window_setResizeFunc(int window, void(*func)(int width, int height)) {
 	window_setCurrWindow(window);
@@ -298,9 +301,12 @@ void window_setWindowTitle(int window, char* title) {
 	glutSetWindowTitle(title);
 	handles[window]->title = title;
 }
-
-void window_startMainLoop(int window) {
+void window_setWindowSize(int window, int w, int h) {
 	window_setCurrWindow(window);
+	glutReshapeWindow(w, h);
+}
+
+void window_startMainLoop() {
 	glutMainLoop();
 }
 
@@ -311,12 +317,12 @@ void window_test() {
 	glutInitWindowSize(1000, 250);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("A Simple OpenGL Windows Application with GLUT");
-	glutDisplayFunc(displayFunc);
+	//glutDisplayFunc(displayFunc);
 	glutMainLoop();
 }
 
 void window_getMousePosition(int* x, int* y) {
-	POINT p{0, 0};
+	POINT p{ 0, 0 };
 	GetCursorPos(&p);
 
 	int _x = ((int)p.x);
@@ -365,7 +371,7 @@ void window_spaceToClient(uint wnd, float& x, float& y) {
 	y = newY;
 }
 void window_clientToSpace(uint wnd, float& x, float& y) {
-	RECT newRect{0, 0, 1, 1};
+	RECT newRect{ 0, 0, 1, 1 };
 
 	GetWindowRect(handles[wnd]->handle, &newRect);
 
@@ -377,4 +383,18 @@ void window_clientToSpace(uint wnd, float& x, float& y) {
 
 	x = newX;
 	y = newY;
+}
+
+float window_getRefreshRate(int window) {
+	return handles[window]->fps;
+}
+void window_setRefreshRate(int window, float fps) {
+	handles[window]->fps = fps;
+}
+
+void window_setConstantRefresh(int window, bool refresh) {
+	handles[window]->constantRefresh = refresh;
+}
+bool window_getConstantRefresh(int window) {
+	return handles[window]->constantRefresh;
 }

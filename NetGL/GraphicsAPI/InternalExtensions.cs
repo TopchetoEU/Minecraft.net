@@ -1,11 +1,12 @@
-﻿using System;
+﻿using NetGL.WindowAPI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
 namespace NetGL.GraphicsAPI
 {
-    internal static class InternalExtensions
+    internal static partial class InternalExtensions
     {
         public static AttribPointer ToAttribPointer(this GraphicsType type)
         {
@@ -81,7 +82,7 @@ namespace NetGL.GraphicsAPI
             return size;
         }
 
-        public static Dictionary<uint, AttribPointer> ExtractAttribPointerMap(this Type type)
+        public static Dictionary<uint, AttribPointer> ExtractAttribPointerMap(this Type type, ShaderProgram program)
         {
             var props = type.GetValidProps();
 
@@ -92,7 +93,7 @@ namespace NetGL.GraphicsAPI
             {
                 if (prop.PropertyType.ToAttribPointer().TryStruct(out var attribPointer))
                 {
-                    map[i] = attribPointer;
+                    map[LLGraphics.graphics_getAttribLocation(program.Id, prop.Name)] = attribPointer;
                     i++;
                 }
             }

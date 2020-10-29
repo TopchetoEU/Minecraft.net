@@ -3,11 +3,12 @@ using System.Runtime.InteropServices;
 
 namespace NetGL.WindowAPI
 {
-    internal delegate void KeyboardFunc(int key);
-    internal delegate void MouseActionFunc(int data, int x, int y);
-    internal delegate void MouseMoveFunc(int x, int y);
+    public delegate void ExDisplayFunc();
+    public delegate void KeyboardFunc(int key);
+    public delegate void MouseActionFunc(int data, int x, int y);
+    public delegate void MouseMoveFunc(int x, int y);
 
-    internal static class LLWindow
+    public static class LLWindow
     {
 
         [DllImport(OSDetector.GraphicsDLL)]
@@ -46,7 +47,7 @@ namespace NetGL.WindowAPI
 
 
         [DllImport(OSDetector.GraphicsDLL)]
-        public extern static void window_startMainLoop(int window);
+        public extern static void window_startMainLoop();
 
 
         [DllImport(OSDetector.GraphicsDLL)]
@@ -59,6 +60,8 @@ namespace NetGL.WindowAPI
         public extern static void window_setWindowTitle(int window, string title);
         [DllImport(OSDetector.GraphicsDLL)]
         public extern static string window_getWindowTitle(int window);
+        [DllImport(OSDetector.GraphicsDLL)]
+        public extern static void window_setWindowSize(int window, int w, int h);
 
         [DllImport(OSDetector.GraphicsDLL)]
         public extern static void window_getMousePosition(ref int x, ref int y);
@@ -77,6 +80,37 @@ namespace NetGL.WindowAPI
 
         [DllImport(OSDetector.GraphicsDLL)]
         public extern static void window_clientToScreen(uint wnd, ref int x, ref int y);
+
+    }
+
+    public static class LLExWindow
+    {
+        [DllImport(OSDetector.GraphicsDLL)] public static extern uint window_ex_createWindow(string title);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_destryWindow(uint id);
+
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_showWindow(uint id);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_hideWindow(uint id);
+
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_activateWindow(uint id);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setDisplayFunc(uint id, ExDisplayFunc func);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setResizeFunc(uint id, ExResizeFunc func);
+
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setMouseMoveFunc(uint id, ExMouseMoveFunc func);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setMouseDownFunc(uint id, ExMouseActionFunc func);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setMouseUpFunc(uint id, ExMouseActionFunc func);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setScrollFunc(uint id, ExMouseActionFunc func);
+
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setWindowTitle(uint id, const char* title);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setWindowSize(uint id, int w, int h);
+
+        [DllImport(OSDetector.GraphicsDLL)] public static extern float window_ex_getRefreshRate(uint id);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setRefreshRate(uint id, float fps);
+
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setKeydownFunc(uint id, ExKeyboardFunc* func);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setKeyupFunc(uint id, ExKeyboardFunc* func);
+
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_activateMainLoop();
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_init();
 
     }
 }

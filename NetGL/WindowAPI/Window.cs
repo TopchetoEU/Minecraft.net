@@ -1,5 +1,7 @@
 ﻿using NetGL.GraphicsAPI;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NetGL.WindowAPI
 {
@@ -10,27 +12,37 @@ namespace NetGL.WindowAPI
         public event EventHandler Display;
         public event EventHandler Loaded;
 
-        public int ID { get; }
+        public bool ConstantRefresh { get; set; }
         private string title;
         private bool disposedValue;
+        private VectorI2 size;
+
+        public bool Opened { get; private set; }
+        public int ID { get; private set; } = -1;
+        public VectorI2 Size {
+            get => size;
+            set {
+                size = value;
+                if (Opened) LLWindow.window_setWindowSize(ID, size.X, size.Y);
+            }
+        }
         public string Title {
             get => title;
             set {
                 title = value;
-                LLWindow.window_setWindowTitle(ID, title);
+                if (Opened)
+                    LLWindow.window_setWindowTitle(ID, title);
             }
         }
 
-        public Graphics Graphics { get; }
+        public Graphics Graphics { get; private set; }
 
-        public Window(string title)
+        public Window(string title) : this(title, new VectorI2(300, 300)) { }
+        public Window(string title, VectorI2 size)
         {
-            LLWindow.window_setup(new string[0], 0);
-            ID = LLWindow.window_createWindow(title);
-
             this.title = title;
-            Graphics = new Graphics(this);
-        }
+            this.size = size;
+        } 
         ~Window()
         {
             Dispose(disposing: false);
@@ -38,61 +50,73 @@ namespace NetGL.WindowAPI
 
         struct TestElement
         {
-            public Point2 Point { get; set; }
-            public Point3 Color { get; set; }
+            public Vector2 Point { get; set; }
+            public Vector3 Color { get; set; }
 
-            public TestElement(Point2 point, Point3 color)
+            public TestElement(Vector2 point, Vector3 color)
             {
                 Point = point;
                 Color = color;
             }
         }
 
-        public PointI2 ScreenToClient(PointI2 point)
+        public VectorI2 ScreenToClient(VectorI2 point)
         {
             int x = point.X;
             int y = point.Y;
             LLWindow.window_screenToClient((uint)ID, ref x, ref y);
 
-            return new PointI2(x, y);
+            return new VectorI2(x, y);
         }
-        public PointI2 ClientToScreen(PointI2 point)
+        public VectorI2 ClientToScreen(VectorI2 point)
         {
             int x = point.X;
             int y = point.Y;
             LLWindow.window_clientToScreen((uint)ID, ref x, ref y);
 
-            return new PointI2(x, y);
+            return new VectorI2(x, y);
         }
 
-        public PointI2 SpaceToClient(Point2 point)
+        public VectorI2 SpaceToClient(Vector2 point)
         {
             float x = point.X;
             float y = point.Y;
 
             LLWindow.window_spaceToClient((uint)ID, ref x, ref y);
 
-            return new PointI2((int)x, (int)y);
+            return new VectorI2((int)x, (int)y);
         }
-        public Point2 ClientToSpace(PointI2 point)
+        public Vector2 ClientToSpace(VectorI2 point)
         {
             float x = point.X;
             float y = point.Y;
             LLWindow.window_clientToSpace((uint)ID, ref x, ref y);
 
-            return new Point2(x, y);
+            return new Vector2(x, y);
         }
 
         public void Show()
         {
+            LLWindow.window_setup(new string[0], 0);
+            ID = LLWindow.window_createWindow(title);
+
+            Graphics = new Graphics(this);
+
+            Use();
+
+            LLWindow.window_setWindowSize(ID, size.X, size.Y);
             LLWindow.window_setDisplayFunc(ID, DisplayFunc);
             LLWindow.window_setKeyboardDownFunc(ID, KeyDownFunc);
             LLWindow.window_setKeyboardUpFunc(ID, KeyUpFunc);
 
-            Loaded?.Invoke(this, new EventArgs());
+            Opened = true;
 
-            LLWindow.window_showWindow(ID);
-            LLWindow.window_startMainLoop(ID);
+            Loaded?.Invoke(this, new EventArgs());
+        }
+        public void ShowAsMain()
+        {
+            Show();
+            BeginLoop();
         }
         public void Hide()
         {
@@ -129,12 +153,20 @@ namespace NetGL.WindowAPI
 
         private void DisplayFunc()
         {
+            Use();
+            //Graphics.Clear();
             Display?.Invoke(this, new EventArgs());
+            Graphics.SwapBuffers();
         }
 
         public void Use()
         {
             LLWindow.window_setCurrWindow(ID);
+        }
+
+        public static void BeginLoop()
+        {
+            LLWindow.window_startMainLoop();
         }
     }
 }

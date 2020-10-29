@@ -41,8 +41,8 @@ namespace NetGL.WindowAPI
         private static event MouseEventHandler up;
         private static event MouseEventHandler move;
 
-        private static PointI2 position = new PointI2(0, 0);
-        public static PointI2 Position {
+        private static VectorI2 position = new VectorI2(0, 0);
+        public static VectorI2 Position {
             get {
                 Init();
                 return position;
@@ -72,20 +72,20 @@ namespace NetGL.WindowAPI
 
             LLWindow.window_getMousePosition(ref x, ref y);
 
-            position = new PointI2(x, y);
+            position = new VectorI2(x, y);
 
             LLWindow.window_setup(new string[0], 0);
 
             LLWindow.window_setMouseDownFunc(0,
-                (b, x, y) => down?.Invoke(null, new MouseEventArgs(new PointI2(x, y), (MouseButton)b, 0))
+                (b, x, y) => down?.Invoke(null, new MouseEventArgs(new VectorI2(x, y), (MouseButton)b, 0))
             );
             LLWindow.window_setMouseUpFunc(0,
-                (b, x, y) => down?.Invoke(null, new MouseEventArgs(new PointI2(x, y), (MouseButton)b, 0))
+                (b, x, y) => up?.Invoke(null, new MouseEventArgs(new VectorI2(x, y), (MouseButton)b, 0))
             );
             LLWindow.window_setMouseMoveFunc(0,
                 (x, y) =>
                 {
-                    move?.Invoke(null, new MouseEventArgs(new PointI2(x, y), 0, 0, nextFakeMove));
+                    move?.Invoke(null, new MouseEventArgs(new VectorI2(x, y), 0, 0, nextFakeMove));
                     nextFakeMove = false;
                 }
             );

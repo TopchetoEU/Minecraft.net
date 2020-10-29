@@ -19,7 +19,7 @@ namespace NetGL.GraphicsAPI
         public uint ByteLength { get; private set; } = 0;
         private uint target = (uint)BufferTarget.ArrayBuffer;
 
-        public VBO()
+        public VBO(ShaderProgram program)
         {
             LLGraphics.graphics_init();
             ArrayID = LLGraphics.graphics_createVAO();
@@ -33,7 +33,7 @@ namespace NetGL.GraphicsAPI
 
             structSize = typeof(T).GetBufferElementSize();
 
-            ApplyAttribPointers(typeof(T).ExtractAttribPointerMap());
+            ApplyAttribPointers(typeof(T).ExtractAttribPointerMap(program));
 
         }
 

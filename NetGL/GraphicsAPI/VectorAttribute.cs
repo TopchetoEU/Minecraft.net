@@ -6,15 +6,15 @@ namespace NetGL.GraphicsAPI
     public sealed class VectorAttribute: Attribute
     {
         public uint Dimensions { get; }
-        public GraphicsType Type { get; }
+        public MultiDimensionType Type { get; }
 
-        public VectorAttribute(uint dimensions, GraphicsType type)
+        public VectorAttribute(uint dimensions, MultiDimensionType type)
         {
             if (dimensions < 2 && dimensions > 4) throw new Exception("Dimensions can be between 2 and 4");
             Dimensions = dimensions;
             Type = type;
         }
 
-        internal AttribPointer ToAttribPointer() => new AttribPointer(Dimensions, Type);
+        internal AttribPointer ToAttribPointer() => new AttribPointer(Dimensions, Type.ToGraphicsType());
     }
 }

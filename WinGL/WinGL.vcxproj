@@ -100,7 +100,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>D:\repos\_assets\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(solutionDir)Debug\$(targetFileName) $(solutionDir)NetGL\bin\Debug\netcoreapp3.1
@@ -173,9 +173,11 @@ copy $(solutionDir)Debug\$(targetName).pdb $(solutionDir)Test\bin\Debug\netcorea
     <ClInclude Include="window_api.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="window_api_experimental.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="graphics.cpp" />
+    <ClCompile Include="windowExperimental.cpp" />
     <ClCompile Include="window.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

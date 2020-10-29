@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using NetGL;
 using NetGL.GraphicsAPI;
 using NetGL.WindowAPI;
@@ -9,70 +11,135 @@ namespace Test
     class Program
     {
 
-        static Window wnd = new Window("test");
-        static ShaderProgram program;
-        static Mesh<TestElement> mesh;
-        static void Main(string[] args)
+        private delegate void KeyboardFunc(int key);
+        private class ExWindow
         {
-            wnd.Loaded += Wnd_Loaded;
-            wnd.Display += Wnd_Display;
+            public static ExWindow Global { get; } = new ExWindow(0);
+            public event EventHandler Loaded;
+            public event EventHandler Activated;
+            public event EventHandler Displayed;
+            public event KeyboardEventHandler KeyDown;
+            public event KeyboardEventHandler KeyUp;
 
-            wnd.Show();
-        }
+            public uint ID { get; }
 
-        private static void Wnd_Display(object sender, EventArgs e)
-        {
-            wnd.Graphics.Clear();
-
-            mesh.Draw();
-            program.Use();
-
-            wnd.Graphics.SwapBuffers();
-        }
-
-        struct TestElement
-        {
-            public Point2 Location { get; set; }
-            public Point3 Color { get; set; }
-
-            public TestElement(float x, float y, float r, float g, float b)
+            private void DisplayFunc()
             {
-                Location = new Point2(x, y);
-                Color = new Point3(r, g, b);
+                Displayed?.Invoke(this, new EventArgs());
+            }
+            private void KeydownFunc(int key)
+            {
+                KeyDown?.Invoke(this, new KeyboardEventArgs((Key)key));
+            }
+            private void KeyupFunc(int key)
+            {
+                KeyUp?.Invoke(this, new KeyboardEventArgs((Key)key));
+            }
+
+            public ExWindow(string title)
+            {
+                ID = window_ex_createWindow(title);
+                window_ex_setDisplayFunc(ID, DisplayFunc);
+                window_ex_setKeydownFunc(ID, KeydownFunc);
+                window_ex_setKeyupFunc(ID, KeyupFunc);
+                GC.KeepAlive(Loaded);
+                GC.KeepAlive(Activated);
+                GC.KeepAlive(Displayed);
+                Loaded?.Invoke(this, new EventArgs());
+            }
+            private ExWindow(uint id)
+            {
+                ID = id;
+            }
+
+            public void Show()
+            {
+                window_ex_showWindow(ID);
+            }
+            public void Hide()
+            {
+                window_ex_hidewindow(ID);
+            }
+            public void Activate()
+            {
+                Activated?.Invoke(this, new EventArgs());
+                window_ex_activateWindow(ID);
+            }
+
+            public static void ActivateMainLoop()
+            {
+                window_ex_activateMainLoop();
             }
         }
+        [DllImport("WinGL.dll")] private static extern uint window_ex_createWindow(string title);
+        [DllImport("WinGL.dll")] private static extern void window_ex_showWindow(uint id);
+        [DllImport("WinGL.dll")] private static extern void window_ex_hidewindow(uint id);
+        [DllImport("WinGL.dll")] private static extern void window_ex_activateWindow(uint id);
+        [DllImport("WinGL.dll")] private static extern void window_ex_setDisplayFunc(uint id, Action func);
+        [DllImport("WinGL.dll")] private static extern void window_ex_activateMainLoop();
+        [DllImport("WinGL.dll")] private static extern void window_ex_init();
+        [DllImport("WinGL.dll")] private static extern void window_ex_setKeydownFunc(uint id, KeyboardFunc func);
+        [DllImport("WinGL.dll")] private static extern void window_ex_setKeyupFunc(uint id, KeyboardFunc func);
 
-        private static void Wnd_Loaded(object sender, EventArgs e)
+        static VBO<a> b;
+
+        static void Main(string[] args)
         {
-            var vert = new Shader(@"#version 330 core
-layout(location = 0) in vec2 vertPos;
-layout(location = 1) in vec3 vertColor;
+            window_ex_init();
 
-out vec4 _color;
+            var wnd = new ExWindow("a");
+
+            wnd.Displayed += A_Displaying;
+            wnd.KeyDown += (s, e) => Console.WriteLine(e.Key);
+
+            var vert = new Shader(@"#version 330 core
+in vec2 position;
 
 void main() {
-    gl_Position = vec4(vertPos, 1, 1);
-    _color = vec4(vertColor, 1);
-}", ShaderType.Vertex);
+    gl_Position = vec4(position, 1, 1);
+}
+", ShaderType.Vertex);
             var frag = new Shader(@"#version 330 core
 out vec4 color;
 
-in vec4 _color;
+void main() {
+    color = vec4(1, 0, 0, 1);
+}
+", ShaderType.Fragment);
 
-void main(){
-  color = _color;
-}", ShaderType.Fragment);
-
-            program = new ShaderProgram(vert, frag);
-
-            mesh = new Mesh<TestElement>();
-            mesh.LoadVertices(new [] {
-                new TestElement(1, 0, 1, 0, 0),
-                new TestElement(0, 0, 0, 1, 0),
-                new TestElement(0, 1, 0, 0, 1)
+            b = new VBO<a>(new ShaderProgram(vert, frag));
+            b.SetData(new[]
+            {
+                new a(new Vector2(0, 0)),
+                new a(new Vector2(1, 0)),
+                new a(new Vector2(0, 1))
             });
 
-            wnd.Graphics.BackgroundColor = new Point4(0, 0, 1, 1);
+            wnd.Show();
+            wnd.Activate();
+
+            ExWindow.ActivateMainLoop();
+        }
+
+        struct a
+        {
+            public Vector2 position { get; set; }
+
+            public a(Vector2 pos)
+            {
+                position = pos;
+            }
+        }
+
+        private static void A_Displaying(object sender, EventArgs e)
+        {
+            LLGraphics.graphics_clear(0x00004000);
+            b.TempDraw();
+        }
+
+        private static void A_KeyDown(object sender, KeyboardEventArgs e)
+        {
+            Console.WriteLine(e.Key);
         }
     }
 }

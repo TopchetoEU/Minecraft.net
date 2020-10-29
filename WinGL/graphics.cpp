@@ -4,7 +4,7 @@
 #include "graphics_api.h"
 #include "window_api.h"
 #include <gl/glew.h>
-#include <gl/glut.h>
+#include <gl/GL.h>
 #include <set>
 #include <list>
 #include <combaseapi.h>
@@ -144,11 +144,8 @@ void graphics_init() {
 	if (g_initialised) return;
 	g_initialised = true;
 
-	glewInit();
-}
-
-void graphics_swapBuffers() {
-	glutSwapBuffers();
+	auto err = glewInit(); 
+	if (err != GLEW_OK) cout << glewGetErrorString(err);
 }
 
 uint graphics_createVAO() {
@@ -274,7 +271,7 @@ uint graphics_loadNativeArray(void* arr, uint size) {
 
 	void* initArray = nativeArr;
 
-	for (int i = 0; i < size; i++, v++)
+	for (uint i = 0; i < size; i++, v++)
 	{
 		auto value = *v;
 
@@ -335,13 +332,14 @@ uint graphics_getShaderProgram() {
 
 uint graphics_createShader(uint type, const char* raw, int length) {
 	int a = 0;
-	auto shaderId = glCreateShader(type);
+	uint shaderId = glCreateShader(type);
 
 	auto shdr = new shader(shaderId, raw);
 
 	int success = 0;
 	int logSize = 0;
 
+	cout << 1;
 	glShaderSource(shaderId, 1, &raw, &length);
 	glCompileShader(shaderId);
 	glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
@@ -354,7 +352,7 @@ uint graphics_createShader(uint type, const char* raw, int length) {
 
 	if (logSize == 0) log = "";
 
-	shdr->buildSuccessfull = success == 1;
+	shdr->buildSuccessfull = logSize == 0;
 	shdr->error = log;
 
 	shaders.insert(make_pair(shaderId, shdr));
@@ -446,7 +444,7 @@ void graphics_setBackground(float r, float g, float b, float a) {
 	backB = b;
 	backA = a;
 }
-void graphics_getBackground(float *r, float *g, float *b, float *a) {
+void graphics_getBackground(float* r, float* g, float* b, float* a) {
 	r = new float(backR);
 	g = new float(backG);
 	b = new float(backB);
@@ -457,9 +455,120 @@ void graphics_clear(uint type) {
 	glClear(type);
 }
 
-nativeString testA(uint a) {
-	return nativiseString("test");
+uint graphics_getUniformLocation(uint program, char* name) {
+	return glGetUniformLocation(program, name);
 }
-bool testB(uint a) {
-	return false;
+uint graphics_getAttribLocation(uint program, char* name) {
+	return glGetAttribLocation(program, name);
+}
+
+void graphics_setUniformVec2(uint id, float x, float y) {
+	glUniform2f(id, x, y);
+}
+void graphics_setUniformVec3(uint id, float x, float y, float z) {
+	glUniform3f(id, x, y, z);
+}
+void graphics_setUniformVec4(uint id, float x, float y, float z, float w) {
+	glUniform4f(id, x, y, z, w);
+}
+
+void graphics_setUniformdVec2(uint id, double x, double y) {
+	glUniform2d(id, x, y);
+}
+void graphics_setUniformdVec3(uint id, double x, double y, double z) {
+	glUniform3d(id, x, y, z);
+}
+void graphics_setUniformdVec4(uint id, double x, double y, double z, double w) {
+	glUniform4d(id, x, y, z, w);
+}
+
+void graphics_setUniformiVec2(uint id, int x, int y) {
+	glUniform2i(id, x, y);
+}
+void graphics_setUniformiVec3(uint id, int x, int y, int z) {
+	glUniform3i(id, x, y, z);
+}
+void graphics_setUniformiVec4(uint id, int x, int y, int z, int w) {
+	glUniform4i(id, x, y, z, w);
+}
+
+void graphics_setUniformbVec2(uint id, bool x, bool y) {
+	graphics_setUniformiVec2(id, x, y);
+}
+void graphics_setUniformbVec3(uint id, bool x, bool y, bool z) {
+	graphics_setUniformiVec3(id, x, y, z);
+}
+void graphics_setUniformbVec4(uint id, bool x, bool y, bool z, bool w) {
+	graphics_setUniformiVec4(id, x, y, z, w);
+}
+
+void graphics_setUniformMat2(uint id,
+	float x1, float x2,
+	float y1, float y2
+) {
+	glUniformMatrix2fv(id, 1, false, new float[] {
+		x1, x2,
+		y1, y2
+	});
+}
+void graphics_setUniformMat3(uint id,
+	float x1, float x2, float x3,
+	float y1, float y2, float y3,
+	float z1, float z2, float z3
+) {
+	auto a = (float*)new float[] {
+		x1, y1, z1,
+		x2, y2, z2,
+		x3, y3, z3
+	};
+
+	glUniformMatrix3fv(id, 1, false, a);
+}
+void graphics_setUniformMat4(uint id,
+	float x1, float x2, float x3, float x4,
+	float y1, float y2, float y3, float y4,
+	float z1, float z2, float z3, float z4,
+	float w1, float w2, float w3, float w4
+) {
+	glUniformMatrix3fv(id, 1, false, new float[] {
+		x1, x2, x3, x4,
+		y1, y2, y3, y4,
+		z1, z2, z3, z4,
+		w1, w2, w3, w4
+	});
+}
+
+
+void graphics_setUniformMatd2(uint id,
+	double x1, double x2,
+	double y1, double y2
+) {
+	glUniformMatrix2dv(id, 1, false, new double[] {
+		x1, x2,
+		y1, y2
+	});
+}
+void graphics_setUniformMatd3(uint id,
+	double x1, double x2, double x3,
+	double y1, double y2, double y3,
+	double z1, double z2, double z3
+) {
+	glUniformMatrix3dv(id, 1, false, new double[] {
+		x1, x2, x3,
+		y1, y2, y3,
+		z1, z2, z3
+	});
+}
+void graphics_setUniformMatd4(uint id,
+	double x1, double x2, double x3, double x4,
+	double y1, double y2, double y3, double y4,
+	double z1, double z2, double z3, double z4,
+	double w1, double w2, double w3, double w4
+) {
+	glUniformMatrix3dv(id, 1, false, new double[] {
+			x1, x2, x3, x4,
+			y1, y2, y3, y4,
+			z1, z2, z3, z4,
+			w1, w2, w3, w4
+		});
 }

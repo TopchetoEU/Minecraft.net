@@ -19,14 +19,12 @@ namespace NetGL.GraphicsAPI
             if (!type.IsValueType) throw new Exception("Can't get attrib pointer for a non-value type");
 
 
-            var vecAttrib = type.GetCustomAttribute(typeof(VectorAttribute)) as VectorAttribute;
-
-            if (vecAttrib != null)
+            if (type.IsVector(out VectorAttribute vecAttrib))
             {
                 var size = vecAttrib.Dimensions;
                 var gType = vecAttrib.Type;
 
-                return new AttribPointer(size, gType);
+                return new AttribPointer(size, gType.ToGraphicsType());
             }
             else if (type.ToGraphicsType().TryStruct(out var gType))
             {
@@ -51,7 +49,7 @@ namespace NetGL.GraphicsAPI
                 var size = vecAttrib.Dimensions;
                 var gType = vecAttrib.Type;
 
-                attrib = new AttribPointer(size, gType);
+                attrib = new AttribPointer(size, gType.ToGraphicsType());
             }
             else if (type.ToGraphicsType().TryStruct(out var gType))
             {

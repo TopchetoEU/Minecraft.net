@@ -2,12 +2,12 @@
 {
     public class MouseEventArgs
     {
-        public PointI2 Position { get; }
+        public VectorI2 Position { get; }
         public MouseButton Button { get; }
         public int Delta { get; }
         public bool Fake { get; } = false;
 
-        public MouseEventArgs(PointI2 position, MouseButton button, int delta, bool fake = false)
+        public MouseEventArgs(VectorI2 position, MouseButton button, int delta, bool fake = false)
         {
             Position = position;
             Button = button;
