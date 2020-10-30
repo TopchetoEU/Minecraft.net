@@ -2,7 +2,7 @@
 #include "window_api.h"
 #include "framework.h"
 #include <iostream>
-#include <gl/glut.h>
+#include "GL/glut.h"
 #include <fstream>
 #include <map>
 

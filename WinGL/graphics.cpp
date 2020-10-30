@@ -3,7 +3,7 @@
 #include <map>
 #include "graphics_api.h"
 #include "window_api.h"
-#include <gl/glew.h>
+#include "gl/glew.h"
 #include <gl/GL.h>
 #include <set>
 #include <list>
@@ -149,8 +149,9 @@ void graphics_init() {
 }
 
 uint graphics_createVAO() {
+	cout << glewGetString(GLEW_VERSION);
 	uint vaoId = 0;
-	glCreateVertexArrays(1, &vaoId);
+	glGenVertexArrays(1, &vaoId);
 
 	vaos.insert(make_pair(vaoId, new vao(vaoId)));
 
@@ -245,7 +246,8 @@ void graphics_modifyBufferAttribute(uint buff, uint attrId, uint byteSize, uint 
 }
 void graphics_createBufferAttribute(uint buff, uint attrId, uint byteSize, uint type, uint stride, uint offset) {
 	graphics_modifyBufferAttribute(buff, attrId, byteSize, type, stride, (void*)offset);
-	glEnableVertexArrayAttrib(buff, attrId);
+	glEnableVertexAttribArray(attrId);
+	cout << "test";
 }
 void graphics_destroyBufferAttribute(uint buff, uint attrId) {
 	graphics_setVAO(buff);
@@ -412,7 +414,7 @@ void graphics_compileShaderProgram(uint program) {
 
 	glGetProgramInfoLog(program, logLength, NULL, logError);
 
-	if (logLength > 0) throw new exception((const char*)logError);
+	if (!(logLength == 0 || success == 1)) genericError((const char*)logError).throwError();
 }
 void graphics_destroyShaderProgram(uint program) {
 	for (auto shdr : *shaderPrograms[program]->shaders) {
@@ -506,7 +508,7 @@ void graphics_setUniformMat2(uint id,
 	float x1, float x2,
 	float y1, float y2
 ) {
-	glUniformMatrix2fv(id, 1, false, new float[] {
+	glUniformMatrix2fv(id, 1, false, new float[4] {
 		x1, x2,
 		y1, y2
 	});
@@ -516,7 +518,7 @@ void graphics_setUniformMat3(uint id,
 	float y1, float y2, float y3,
 	float z1, float z2, float z3
 ) {
-	auto a = (float*)new float[] {
+	auto a = (float*)new float[9] {
 		x1, y1, z1,
 		x2, y2, z2,
 		x3, y3, z3
@@ -530,7 +532,7 @@ void graphics_setUniformMat4(uint id,
 	float z1, float z2, float z3, float z4,
 	float w1, float w2, float w3, float w4
 ) {
-	glUniformMatrix3fv(id, 1, false, new float[] {
+	glUniformMatrix3fv(id, 1, false, new float[16] {
 		x1, x2, x3, x4,
 		y1, y2, y3, y4,
 		z1, z2, z3, z4,
@@ -543,7 +545,7 @@ void graphics_setUniformMatd2(uint id,
 	double x1, double x2,
 	double y1, double y2
 ) {
-	glUniformMatrix2dv(id, 1, false, new double[] {
+	glUniformMatrix2dv(id, 1, false, new double[4] {
 		x1, x2,
 		y1, y2
 	});
@@ -553,7 +555,7 @@ void graphics_setUniformMatd3(uint id,
 	double y1, double y2, double y3,
 	double z1, double z2, double z3
 ) {
-	glUniformMatrix3dv(id, 1, false, new double[] {
+	glUniformMatrix3dv(id, 1, false, new double[9] {
 		x1, x2, x3,
 		y1, y2, y3,
 		z1, z2, z3
@@ -565,7 +567,7 @@ void graphics_setUniformMatd4(uint id,
 	double z1, double z2, double z3, double z4,
 	double w1, double w2, double w3, double w4
 ) {
-	glUniformMatrix3dv(id, 1, false, new double[] {
+	glUniformMatrix3dv(id, 1, false, new double[16] {
 			x1, x2, x3, x4,
 			y1, y2, y3, y4,
 			z1, z2, z3, z4,

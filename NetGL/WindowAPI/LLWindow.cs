@@ -4,6 +4,11 @@ using System.Runtime.InteropServices;
 namespace NetGL.WindowAPI
 {
     public delegate void ExDisplayFunc();
+    public delegate void ExKeyboardFunc(int key);
+    public delegate void ExResizeFunc(int w, int h);
+    public delegate void ExMouseMoveFunc(int x, int y);
+    public delegate void ExMouseActionFunc(int action, int x, int y);
+    public delegate void ExMouseScrollFunc(int x, int y, int delta);
     public delegate void KeyboardFunc(int key);
     public delegate void MouseActionFunc(int data, int x, int y);
     public delegate void MouseMoveFunc(int x, int y);
@@ -100,14 +105,14 @@ namespace NetGL.WindowAPI
         [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setMouseUpFunc(uint id, ExMouseActionFunc func);
         [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setScrollFunc(uint id, ExMouseActionFunc func);
 
-        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setWindowTitle(uint id, const char* title);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setWindowTitle(uint id, string title);
         [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setWindowSize(uint id, int w, int h);
 
         [DllImport(OSDetector.GraphicsDLL)] public static extern float window_ex_getRefreshRate(uint id);
         [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setRefreshRate(uint id, float fps);
 
-        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setKeydownFunc(uint id, ExKeyboardFunc* func);
-        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setKeyupFunc(uint id, ExKeyboardFunc* func);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setKeydownFunc(uint id, ExKeyboardFunc func);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_setKeyupFunc(uint id, ExKeyboardFunc func);
 
         [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_activateMainLoop();
         [DllImport(OSDetector.GraphicsDLL)] public static extern void window_ex_init();

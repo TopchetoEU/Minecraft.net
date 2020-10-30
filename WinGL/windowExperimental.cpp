@@ -3,11 +3,10 @@
 #include <tchar.h>
 #include "pch.h"
 #include "framework.h"
-#include <gl/glew.h>
-#include <GL/glfw3native.h>
-#include <GL/glfw3.h>
-#include <gl/wglew.h>
-#include <gl/glut.h>
+#include "GL/glew.h"
+#include "GL/glfw3native.h"
+#include "GL/glfw3.h"
+#include "gl/wglew.h"
 #include <fstream>
 #include <map>
 #include "window_api.h"
@@ -188,6 +187,7 @@ uint window_ex_createWindow(const char* title) {
 		}
 	});
 	glfwMakeContextCurrent(_window);
+	glewExperimental = GL_TRUE;
 	glewInit();
 
 	auto wnd = new window(id, _window);
