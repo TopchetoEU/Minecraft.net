@@ -21,7 +21,6 @@ namespace NetGL.GraphicsAPI
 
         public VBO(ShaderProgram program)
         {
-            LLGraphics.graphics_init();
             ArrayID = LLGraphics.graphics_createVAO();
             BufferID = LLGraphics.graphics_createBuffer(target);
 

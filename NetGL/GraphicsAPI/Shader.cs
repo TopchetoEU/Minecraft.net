@@ -18,15 +18,13 @@ namespace NetGL.GraphicsAPI
 
         public Shader(string source, ShaderType type)
         {
-            LLGraphics.graphics_init();
-
             Source = source;
 
             Id = LLGraphics.graphics_createShader((uint)type, source, source.Length);
 
             var i = Id;
             BuildLog = LLGraphics.graphics_getShaderInfoLog(i);
-            BuildSuccess = BuildLog.Length == 0;
+            BuildSuccess = BuildLog.Length == 0 || BuildLog == "No errors.\n";
 
             if (!BuildSuccess)
             {
