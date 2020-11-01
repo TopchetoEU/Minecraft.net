@@ -26,11 +26,6 @@ namespace NetGL.GraphicsAPI
             attachedWindow.Use();
             LLGraphics.graphics_clear(0x00004000);
         }
-        public void SwapBuffers()
-        {
-            attachedWindow.Use();
-            LLGraphics.graphics_swapBuffers();
-        }
 
         public Graphics(Window window)
         {

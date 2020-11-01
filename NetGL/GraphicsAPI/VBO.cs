@@ -7,12 +7,10 @@ namespace NetGL.GraphicsAPI
     public class VBO<T>: IBuffer<T> where T : struct
     {
         private uint ArrayID;
-        private uint BufferID;
+        public uint ID { get; }
         private bool disposedValue;
 
         private uint structSize = 0;
-
-        private Type LastType;
 
         public uint Length { get; private set; } = 0;
         public uint UnpackedLength { get; private set; } = 0;
@@ -22,10 +20,10 @@ namespace NetGL.GraphicsAPI
         public VBO(ShaderProgram program)
         {
             ArrayID = LLGraphics.graphics_createVAO();
-            BufferID = LLGraphics.graphics_createBuffer(target);
+            ID = LLGraphics.graphics_createBuffer(target);
 
             LLGraphics.graphics_setVAO(ArrayID);
-            LLGraphics.graphics_setBuffer(target, BufferID);
+            LLGraphics.graphics_setBuffer(target, ID);
             var arrId = LLGraphics.graphics_createNativeArray(0);
             LLGraphics.graphics_setBufferData(target, 0, arrId, (uint)UsageHint.DynamicDraw);
             LLGraphics.graphics_destroyNativeArray(arrId);
@@ -38,7 +36,8 @@ namespace NetGL.GraphicsAPI
 
         public void Use()
         {
-            LLGraphics.graphics_setBuffer((uint)BufferTarget.ArrayBuffer, ArrayID);
+            LLGraphics.graphics_setVAO(ArrayID);
+            LLGraphics.graphics_setBuffer((uint)BufferTarget.ArrayBuffer, ID);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -46,7 +45,7 @@ namespace NetGL.GraphicsAPI
             if (!disposedValue)
             {
                 LLGraphics.graphics_destroyVAO(ArrayID);
-                LLGraphics.graphics_destroyBuffer(BufferID);
+                LLGraphics.graphics_destroyBuffer(ID);
                 disposedValue = true;
             }
         }
@@ -72,8 +71,12 @@ namespace NetGL.GraphicsAPI
 
             var data = new object[UnpackedLength];
             LLGraphics.graphics_setVAO(ArrayID);
-            LLGraphics.graphics_setBuffer(target, BufferID);
+            LLGraphics.graphics_setBuffer(target, ID);
             LLGraphics.graphics_getBufferData(target, UnpackedLength, data);
+
+            foreach (var item in data) {
+                Console.WriteLine((float)item);
+            }
 
             var elementSize = UnpackedLength / Length;
 
@@ -103,7 +106,7 @@ namespace NetGL.GraphicsAPI
                 NativeArrayElement.GetNativeArray(rawData),
                 (uint)rawData.Length);
 
-            LLGraphics.graphics_setVAO(ArrayID);
+            LLGraphics.graphics_setBuffer(target, ID);
             LLGraphics.graphics_setBufferData(target, size,
                 dataId,
                 (uint)UsageHint.DynamicDraw
@@ -113,7 +116,6 @@ namespace NetGL.GraphicsAPI
             ByteLength = size;
             Length = (uint)data.Length;
             UnpackedLength = (uint)rawData.Length;
-            LastType = typeof(T);
         }
 
         private void ApplyAttribPointers(Dictionary<uint, AttribPointer> pointers)
@@ -133,9 +135,96 @@ namespace NetGL.GraphicsAPI
             }
         }
 
-        public void TempDraw()
+        public void Draw(GraphicsPrimitive primitiveType)
         {
-            LLGraphics.graphics_drawBuffer(ArrayID, BufferID, Length, (uint)GraphicsPrimitive.Triangles);
+            LLGraphics.graphics_drawBuffer(ArrayID, ID, Length, (uint)primitiveType);
+        }
+    }
+    public class EBO: IBuffer<uint>
+    {
+        private bool disposedValue;
+
+        public uint ID { get; }
+        public uint Length { get; private set; }
+        public GraphicsPrimitive Primitive { get; set; }
+
+        public EBO(GraphicsPrimitive primitive = GraphicsPrimitive.Triangles)
+        {
+            ID = LLGraphics.graphics_createBuffer((uint)BufferTarget.ElementArrayBuffer);
+            Primitive = primitive;
+        }
+
+        public void SetData(uint[] data)
+        {
+            var size = sizeof(uint) * (uint)data.Length;
+
+            var rawData = data;
+
+            var dataId = LLGraphics.graphics_loadNativeArray(
+                NativeArrayElement.GetNativeArray(rawData.Select(v => (object)v).ToArray()),
+                (uint)rawData.Length);
+
+            LLGraphics.graphics_setBuffer((uint)BufferTarget.ElementArrayBuffer, ID);
+            LLGraphics.graphics_setBufferData((uint)BufferTarget.ElementArrayBuffer, size,
+                dataId,
+                (uint)UsageHint.DynamicDraw
+            );
+            LLGraphics.graphics_destroyNativeArray(dataId);
+
+            Length = (uint)data.Length;
+        }
+
+        public void Use()
+        {
+            LLGraphics.graphics_setBuffer((uint)BufferTarget.ElementArrayBuffer, ID);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue) {
+                if (disposing) {
+                    LLGraphics.graphics_destroyBuffer(ID);
+                }
+
+                disposedValue = true;
+            }
+        }
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        public void Draw<T>(VBO<T> vbo) where T : struct
+        {
+            vbo.Use();
+
+            uint size = 0;
+
+            switch (Primitive) {
+                case GraphicsPrimitive.Lines:
+                case GraphicsPrimitive.LineLoop:
+                case GraphicsPrimitive.LineStrip:
+                    size = 2;
+                    break;
+                case GraphicsPrimitive.Triangles:
+                case GraphicsPrimitive.TriangleStrip:
+                case GraphicsPrimitive.TriangleFan:
+                    size = 3;
+                    break;
+                case GraphicsPrimitive.Quads:
+                case GraphicsPrimitive.QuadStrip:
+                    size = 4;
+                    break;
+                case GraphicsPrimitive.Polygon:
+                    size = vbo.Length;
+                    break;
+            }
+
+            vbo.Use();
+            Use();
+
+            LLGraphics.graphics_drawElement((uint)Primitive, Length / size, Length, ID, vbo.ID);
         }
     }
 }

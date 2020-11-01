@@ -34,6 +34,10 @@ public:
 
 	float fps = 60;
 
+	float actualTime = -1;
+
+	bool vsync = true;
+
 	int x = 0, y = 0;
 
 	ExDisplayFunc* display = nullptr;

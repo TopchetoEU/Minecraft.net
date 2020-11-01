@@ -57,7 +57,7 @@ public:
 };
 
 graphics::graphics() {
-
+	backA = 0; backR = 0; backG = 0; backB = 0;
 }
 
 nativeString nativiseString(string val) {
@@ -201,9 +201,16 @@ void graphics_clearBufferAttributes(uint buff) {
 }
 
 void graphics_drawBuffer(uint vaoId, uint buff, uint amount, uint mode) {
+	graphicsCheck();
 	graphics_setVAO(vaoId);
 	graphics_setBuffer(currGraphics->buffers[buff]->type, buff);
 	glDrawArrays(mode, 0, amount);
+}
+void graphics_drawElement(uint indicieType, uint indicieCount, uint eboLength, uint ebo, uint vbo) {
+	graphicsCheck();
+	graphics_setBuffer(GL_ARRAY_BUFFER, vbo);
+	graphics_setBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glDrawElements(indicieType, eboLength, GL_UNSIGNED_INT, 0);
 }
 
 uint graphics_loadNativeArray(void* arr, uint size) {
@@ -230,6 +237,11 @@ uint graphics_loadNativeArray(void* arr, uint size) {
 		case GL_UNSIGNED_SHORT:
 			*(ushort*)nativeArr = *(ushort*)(ushort*)value.Value;
 			nativeArr = (ushort*)nativeArr + 1;
+			break;
+		case GL_UNSIGNED_INT:
+			*(uint*)nativeArr = *(uint*)(uint*)value.Value;
+			cout << "test";
+			nativeArr = (uint*)nativeArr + 1;
 			break;
 		case GL_INT:
 			*(int*)nativeArr = *(int*)(int*)value.Value;

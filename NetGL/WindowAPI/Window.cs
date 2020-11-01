@@ -7,10 +7,11 @@ namespace NetGL.WindowAPI
 {
     public class Window: IDisposable
     {
-        public event KeyboardEventHandler KeyDown;
-        public event KeyboardEventHandler KeyUp;
+        public event KeyboardEventHandler KeyPressed;
+        public event KeyboardEventHandler KeyReleased;
         public event EventHandler Display;
         public event EventHandler Loaded;
+        public event ResizeEventHandler SizeChanged;
 
         public bool ConstantRefresh { get; set; }
         private string title;
@@ -18,7 +19,7 @@ namespace NetGL.WindowAPI
         private VectorI2 size;
 
         public bool Opened { get; private set; }
-        public int ID { get; private set; } = -1;
+        public uint ID { get; private set; } = 0;
         public VectorI2 Size {
             get => size;
             set {
@@ -48,7 +49,18 @@ namespace NetGL.WindowAPI
             };
             KeydownFunc = KeyDownFunc;
             KeyupFunc = KeyUpFunc;
-        } 
+            ResizeFunc = (w, h) => {
+                SizeChanged?.Invoke(this, new ResizeEventArgs(w, h));
+            };
+
+            SizeChanged += Window_SizeChanged;
+        }
+
+        private void Window_SizeChanged(object sender, ResizeEventArgs e)
+        {
+            size = e.Size;
+        }
+
         ~Window()
         {
             Dispose(disposing: false);
@@ -101,9 +113,8 @@ namespace NetGL.WindowAPI
 
             LLWindow.window_setWindowSize(ID, size.X, size.Y);
 
-            var displayfunc = (Action)DisplayFunc;
-
             LLWindow.window_setDisplayFunc(ID, DisplayFunc);
+            LLWindow.window_setResizeFunc(ID, ResizeFunc);
             LLWindow.window_setKeydownFunc(ID, KeydownFunc);
             LLWindow.window_setKeyupFunc(ID, KeyupFunc);
 
@@ -142,17 +153,19 @@ namespace NetGL.WindowAPI
 
         private void KeyDownFunc(int key)
         {
-            KeyDown?.Invoke(this, new KeyboardEventArgs((Key)key));
+            KeyPressed?.Invoke(this, new KeyboardEventArgs((Key)key));
         }
         private void KeyUpFunc(int key)
         {
-            KeyUp?.Invoke(this, new KeyboardEventArgs((Key)key));
+            KeyReleased?.Invoke(this, new KeyboardEventArgs((Key)key));
         }
 
         Action DisplayFunc;
         KeyboardFunc KeydownFunc;
         KeyboardFunc KeyupFunc;
+        ResizeFunc ResizeFunc;
 
+        [Obsolete("This metod won't do anything and it's kept just for backward compatibility")]
         public void Use()
         {
         }

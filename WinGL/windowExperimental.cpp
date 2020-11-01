@@ -6,6 +6,7 @@
 #include <map>
 #include <iostream>
 #include <sstream>
+#include <chrono>
 
 #define out
 
@@ -129,6 +130,7 @@ void initWindowEvents(window* wnd) {
 		if (wnd) {
 			setCurrWindowContext(wnd);
 			glViewport(0, 0, x, y);
+			if (wnd->resize != nullptr) wnd->resize(x, y);
 			if (wnd->display != nullptr) wnd->display();
 			glfwSwapBuffers(_window);
 		}
@@ -154,6 +156,7 @@ void initWindow(window* wnd) {
 
 	initWindowEvents(wnd);
 	initWindowGraphics(wnd);
+	glfwSwapInterval(0);
 }
 
 uint window_createWindow(const char* title) {
@@ -197,6 +200,13 @@ void window_hideWindow(uint id) {
 	wnd->active = false;
 }
 
+bool window_setVSync(uint id, bool vsync) {
+	auto wnd = getWindow(id);
+	wnd->vsync = vsync;
+	setCurrWindowContext(wnd);
+	glfwWindowHint();
+}
+
 void window_activateMainLoop() {
 	bool active = true;
 	while (active) {
@@ -208,11 +218,18 @@ void window_activateMainLoop() {
 					window_hideWindow(wnd.first);
 				}
 				else {
+					typedef chrono::high_resolution_clock clock;
+					auto start = clock::now();
+
 					active = true;
 
 					setCurrWindowContext(wnd.second);
 					if (wnd.second->display != nullptr) wnd.second->display();
 					glfwSwapBuffers(wnd.second->handle);
+
+					auto end = clock::now();
+
+					wnd.second->actualTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
 				}
 			}
 		}
