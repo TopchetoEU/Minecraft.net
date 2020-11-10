@@ -1,19 +1,12 @@
-
-#include <windows.h>
-#include <tchar.h>
 #include "pch.h"
+#include "gl/glew.h"
 #include "framework.h"
-#include <gl/glew.h>
-#include <GL/glfw3native.h>
-#include <GL/glfw3.h>
-#include <gl/wglew.h>
-#include <gl/glut.h>
-#include <fstream>
-#include <map>
-#include "window_api.h"
 #include "window_api_experimental.h"
+#include "graphics_api.h"
+#include <map>
 #include <iostream>
 #include <sstream>
+#include <chrono>
 
 #define out
 
@@ -32,118 +25,71 @@ public:
 	}
 };
 
-struct window {
-public:
-	string title = "";
-	uint id;
-	GLFWwindow* handle;
-	bool shown = false;
-	bool active = false;
+window::window(uint id) {
+	this->id = id;
+	this->attachedGraphics = nullptr;
+}
+const char* uintToString(uint num, int radix, const char* digits) {
+	uint len = 0;
+	if (num == 0) return "0";
 
-	float fps = 60;
+	for (uint tempNum = num; num > 0; num /= radix) len++;
 
-	int x = 0, y = 0;
+	char* stringified = new char[len];
 
-	ExDisplayFunc* display = nullptr;
-	ExResizeFunc* resize = nullptr;
+	for (uint i = 0; num > 0; i++)
+	{
+		stringified[len - 1] = digits[num % 10];
 
-	ExMouseMoveFunc* mouseMove = nullptr;
-	ExMouseActionFunc* mouseDown = nullptr;
-	ExMouseActionFunc* mouseUp = nullptr;
-	ExMouseScrollFunc* scroll = nullptr;
-
-	ExKeyboardFunc* keyDown = nullptr;
-	ExKeyboardFunc* keyUp = nullptr;
-
-	window(uint id, GLFWwindow* handle) {
-		this->id = id;
-		this->handle = handle;
+		num /= 10;
 	}
-};
+
+	return stringified;
+}
 
 map<uint, window*> windows = map<uint, window*>();
-window* globalWindow = new window(0, NULL);
-WNDCLASSEX* windowClass;
+
+bool initialised = false;
 
 uint nextId = 1;
 
-TCHAR* toWide(const char* source) {
-	TCHAR* coverted = new TCHAR[strlen(source) + 1];
-	size_t b = 0;
-	mbstowcs_s(&b, coverted, strlen(source) + 1, source, _TRUNCATE);
-
-	return coverted;
-}
-wstring toWide(const string& str)
-{
-	int size_needed = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);
-	std::wstring wstrTo(size_needed, 0);
-	MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), &wstrTo[0], size_needed);
-	return wstrTo;
-}
-
-window* getNonGlobalWindow(uint window) {
-	if (window == 0)
-		error(L"Can't access the global window from here!").throwError();
-	if (windows.find(window) == windows.end())
-		error(L"The window id specified doesn't exist!").throwError();
-
-	return windows[window];
-}
 window* getWindow(uint window) {
 	if (window == 0)
-		return globalWindow;
+		error(L"The window id must be a whole number, bigger than 0").throwError();
 	if (windows.find(window) == windows.end())
 		throw "The window id specified doesn't exist!";
 
 	return windows[window];
 }
-wstring GetErrorMessage()
-{
-	DWORD dw = GetLastError();
-
-	wstringstream displayBuffer;
-	displayBuffer << L"Error 0x";
-	displayBuffer << toWide(intToString(dw, 16, "0123456789ABCDEF"));
-
-	LPWSTR messageBuffer{};
-	if (FormatMessageW(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		0,
-		dw,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		(LPWSTR)&messageBuffer,
-		0,
-		0))
-	{
-		displayBuffer << L": " << messageBuffer;
-		LocalFree(messageBuffer);
-	}
-
-	return displayBuffer.str();
-}
-void dumpLastError() {
-	wcout << GetErrorMessage();
-	throw;
+window* getNonGlobalWindow(uint window) {
+	return getWindow(window);
 }
 
-void window_ex_init() {
-	glfwInit();
+void window_setup() {
+	if (!initialised)
+		glfwInit();
+	initialised = true;
 }
 
 window* getWindowByHandle(GLFWwindow* _window) {
 	window* wnd = NULL;
 
 	for (auto w : windows) {
-		if (w.second->handle == _window) wnd = w.second;
+		if (w.second->handle == _window && w.second->active) {
+			wnd = w.second;
+		}
 	}
 
 	return wnd;
 }
 
-uint window_ex_createWindow(const char* title) {
-	uint id = nextId++;
-	auto _window = glfwCreateWindow(300, 300, title, NULL, NULL);
+void setCurrWindowContext(window* wnd) {
+	glfwMakeContextCurrent(wnd->handle);
+	setCurrContext(wnd->attachedGraphics);
+}
+
+void initWindowEvents(window* wnd) {
+	auto _window = wnd->handle;
 
 	glfwSetKeyCallback(_window, [](GLFWwindow* _window, int key, int scancode, int action, int mods) -> void {
 		auto wnd = getWindowByHandle(_window);
@@ -164,13 +110,13 @@ uint window_ex_createWindow(const char* title) {
 			case GLFW_RELEASE: if (wnd->mouseUp != nullptr)  wnd->mouseUp(key, wnd->x, wnd->y);
 			}
 		}
-	});
+		});
 	glfwSetScrollCallback(_window, [](auto* _window, double offsetX, double offsetY) {
 		window* wnd = getWindowByHandle(_window);
 		if (wnd) {
 			if (wnd->scroll != nullptr) wnd->scroll(wnd->x, wnd->y, (int)(offsetX + offsetY));
 		}
-	});
+		});
 	glfwSetCursorPosCallback(_window, [](auto* _window, double x, double y) {
 		window* wnd = getWindowByHandle(_window);
 		if (wnd) {
@@ -178,32 +124,66 @@ uint window_ex_createWindow(const char* title) {
 			wnd->y = (int)y;
 			if (wnd->mouseMove != nullptr) wnd->mouseMove((int)x, (int)y);
 		}
-	});
+		});
 	glfwSetWindowSizeCallback(_window, [](auto* _window, int x, int y) {
 		window* wnd = getWindowByHandle(_window);
 		if (wnd) {
+			setCurrWindowContext(wnd);
 			glViewport(0, 0, x, y);
-			wnd->display();
+			if (wnd->resize != nullptr) wnd->resize(x, y);
+			if (wnd->display != nullptr) wnd->display();
 			glfwSwapBuffers(_window);
 		}
-	});
+		});
+}
+void initWindowGraphics(window* wnd) {
+	auto _window = wnd->handle;
 	glfwMakeContextCurrent(_window);
-	glewInit();
 
-	auto wnd = new window(id, _window);
+	glewExperimental = GL_TRUE;
+	auto err = glewInit();
+	if (err != GLEW_OK) {
+		cout << glewGetErrorString(err);
+		throw err;
+	}
+
+	setCurrContext(wnd->attachedGraphics);
+}
+void initWindow(window* wnd) {
+	auto _window = glfwCreateWindow(300, 300, wnd->title.c_str(), NULL, NULL);
+
+	wnd->handle = _window;
+
+	initWindowEvents(wnd);
+	initWindowGraphics(wnd);
+	glfwSwapInterval(0);
+}
+
+uint window_createWindow(const char* title) {
+	uint id = nextId++;
+
+	window_setup();
+
+	auto wnd = new window(id);
+
+	wnd->attachedGraphics = new graphics();
+	wnd->attachedGraphics->g_initialised = true;
 	wnd->title = string(title);
 	wnd->shown = true;
+
+	initWindow(wnd);
 
 	windows.insert(make_pair(id, wnd));
 
 	return id;
 }
-void window_ex_destryWindow(uint id)
+void window_destryWindow(uint id)
 {
 	glfwDestroyWindow(windows[id]->handle);
+	windows.erase(id);
 }
 
-void window_ex_showWindow(uint id) {
+void window_showWindow(uint id) {
 	auto wnd = getNonGlobalWindow(id);
 
 	if (!wnd->shown)
@@ -211,91 +191,108 @@ void window_ex_showWindow(uint id) {
 
 	wnd->shown = true;
 }
-void window_ex_hideWindow(uint id) {
+void window_hideWindow(uint id) {
 	auto wnd = getNonGlobalWindow(id);
 
 	if (wnd->shown)
 		glfwHideWindow(wnd->handle);
 	wnd->shown = false;
+	wnd->active = false;
 }
 
-void window_ex_activateMainLoop() {
+bool window_setVSync(uint id, bool vsync) {
+	auto wnd = getWindow(id);
+	wnd->vsync = vsync;
+	setCurrWindowContext(wnd);
+	glfwWindowHint();
+}
+
+void window_activateMainLoop() {
 	bool active = true;
 	while (active) {
 		active = false;
 		for (auto wnd : windows) {
 			if (wnd.second->active) {
-				if (glfwWindowShouldClose(wnd.second->handle)) wnd.second->active = false;
+				if (glfwWindowShouldClose(wnd.second->handle)) {
+					wnd.second->active = false;
+					window_hideWindow(wnd.first);
+				}
 				else {
+					typedef chrono::high_resolution_clock clock;
+					auto start = clock::now();
+
 					active = true;
 
-					glfwMakeContextCurrent(wnd.second->handle);
+					setCurrWindowContext(wnd.second);
 					if (wnd.second->display != nullptr) wnd.second->display();
 					glfwSwapBuffers(wnd.second->handle);
-					glfwPollEvents();
+
+					auto end = clock::now();
+
+					wnd.second->actualTime = chrono::duration_cast<chrono::milliseconds>(end - start).count();
 				}
 			}
 		}
+		glfwPollEvents();
 	}
 }
-void window_ex_activateWindow(uint id) {
+void window_activateWindow(uint id) {
 	auto wnd = getNonGlobalWindow(id);
 	wnd->active = true;
 }
 
-void window_ex_setDisplayFunc(uint id, ExDisplayFunc* func) {
+void window_setDisplayFunc(uint id, ExDisplayFunc* func) {
 	if (id == 0 && func == nullptr) throw "Can't set default display function to null!";
 
 	auto a = getWindow(id);
+	setCurrWindowContext(a);
 	a->display = func;
 }
-void window_ex_setResizeFunc(uint id, ExResizeFunc* func)
+void window_setResizeFunc(uint id, ExResizeFunc* func)
 {
 	getWindow(id)->resize = func;
 }
 
-void window_ex_setMouseMoveFunc(uint id, ExMouseMoveFunc* func)
+void window_setMouseMoveFunc(uint id, ExMouseMoveFunc* func)
 {
 	getWindow(id)->mouseMove = func;
 }
-
-void window_ex_setMouseDownFunc(uint id, ExMouseActionFunc* func)
+void window_setMouseDownFunc(uint id, ExMouseActionFunc* func)
 {
 	getWindow(id)->mouseDown = func;
 }
-void window_ex_setMouseUpFunc(uint id, ExMouseActionFunc* func)
+void window_setMouseUpFunc(uint id, ExMouseActionFunc* func)
 {
 	getWindow(id)->mouseUp = func;
 }
-void window_ex_setScrollFunc(uint id, ExMouseActionFunc* func)
+void window_setScrollFunc(uint id, ExMouseActionFunc* func)
 {
 	getWindow(id)->scroll = func;
 }
 
-void window_ex_setWindowTitle(uint id, const char* title)
+void window_setWindowTitle(uint id, const char* title)
 {
 	glfwSetWindowTitle(getWindow(id)->handle, title);
 }
 
-void window_ex_setWindowSize(uint id, int w, int h)
+void window_setWindowSize(uint id, int w, int h)
 {
 	glfwSetWindowSize(getWindow(id)->handle, w, h);
 }
-
-float window_ex_getRefreshRate(uint id)
+void window_getWindowSize(uint id, int* w, int* h) {
+	glfwGetWindowSize(getWindow(id)->handle, w, h);
+}
+float window_getRefreshRate(uint id)
 {
 	return getWindow(id)->fps;
 }
+void window_setRefreshRate(uint id, float fps) {
+	getWindow(id)->fps = fps;
+}
 
-void window_ex_setKeydownFunc(uint id, ExKeyboardFunc* func) {
+void window_setKeydownFunc(uint id, ExKeyboardFunc* func) {
 	getWindow(id)->keyDown = func;
 }
-void window_ex_setKeyupFunc(uint id, ExKeyboardFunc* func) {
+void window_setKeyupFunc(uint id, ExKeyboardFunc* func) {
 	getWindow(id)->keyUp = func;
-}
-
-void abc() {
-	uint a = window_ex_createWindow("test");
-	window_ex_showWindow(a);
-	window_ex_activateWindow(a);
 }

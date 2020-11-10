@@ -8,11 +8,98 @@
 #define API __declspec(dllimport)
 #endif
 
-#include "framework.h"
 
-extern "C" API void graphics_init();
+#include <list>
+#include <iostream>
+#include <map>
 
-extern "C" API void graphics_swapBuffers();
+using std::list;
+using std::map;
+
+using std::string;
+
+struct attribute {
+public:
+	uint id;
+	uint byteSize;
+	uint type;
+	uint stride;
+	object arrayOffset;
+
+	attribute(uint id, uint size, uint type, uint stride, object offset) {
+		this->id = id;
+		this->byteSize = size;
+		this->type = type;
+		this->stride = stride;
+		this->arrayOffset = offset;
+	}
+};
+struct buffer {
+public:
+	uint type;
+	uint id;
+
+	buffer(uint type, uint id) {
+		this->id = id;
+		this->type = type;
+	}
+};
+struct vao {
+public:
+	uint id;
+	map<uint, attribute*> attributes = map<uint, attribute*>();
+
+	vao(uint id) {
+		this->id = id;
+	}
+};
+struct shader {
+public:
+	uint id;
+	std::string source;
+
+	list<uint>* correlatedPrograms = new list<uint>();
+
+	string error;
+	bool buildSuccessfull = false;
+
+	shader(uint id, string source) {
+		this->id = id;
+		this->source = source;
+	}
+};
+struct shaderProgram {
+public:
+	uint id;
+	list<uint>* shaders = new list<uint>();
+
+	shaderProgram(uint id) {
+		this->id = id;
+	}
+};
+
+class graphics {
+public:
+	map<uint, uint> bountBuffers = map<uint, uint>();
+	map<uint, buffer*> buffers = map<uint, buffer*>();
+	map<uint, vao*> vaos = map<uint, vao*>();
+	map<uint, void*> nativeArrays = map<uint, void*>();
+	map<uint, shader*> shaders = map<uint, shader*>();
+	map<uint, shaderProgram*> shaderPrograms = map<uint, shaderProgram*>();
+
+	uint selectedShaderProgram = 0;
+
+	uint nextArray = 1;
+
+	uint bountVAO = 0;
+	bool g_initialised = false;
+
+	float backR, backG, backB, backA;
+
+	graphics();
+};
+
+void setCurrContext(graphics* grph);
 
 extern "C" API uint graphics_createVAO();
 extern "C" API void graphics_destroyVAO(uint vaoId);
@@ -34,6 +121,7 @@ extern "C" API void graphics_setVAO(uint vaoId);
 extern "C" API uint graphics_getVAO();
 
 extern "C" API void graphics_drawBuffer(uint vaoId, uint buff, uint amount, uint mode);
+extern "C" API void graphics_drawElement(uint indicieType, uint indicieCount, uint eboLength, uint ebo, uint vbo);
 
 extern "C" API uint graphics_loadNativeArray(void* arr, uint size);
 extern "C" API uint graphics_createNativeArray(uint size);

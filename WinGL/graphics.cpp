@@ -1,76 +1,19 @@
-#include "framework.h"
 #include "pch.h"
 #include <map>
 #include "graphics_api.h"
-#include "window_api.h"
-#include <gl/glew.h>
-#include <gl/GL.h>
+#include "gl/glew.h"
+#include "window_api_experimental.h"
 #include <set>
 #include <list>
+#include <iostream>
 #include <combaseapi.h>
 
-struct attribute {
-public:
-	uint id;
-	uint byteSize;
-	uint type;
-	uint stride;
-	object arrayOffset;
+using std::string;
 
-	attribute(uint id, uint size, uint type, uint stride, object offset) {
-		this->id = id;
-		this->byteSize = size;
-		this->type = type;
-		this->stride = stride;
-		this->arrayOffset = offset;
-	}
-};
-struct buffer {
-public:
-	uint type;
-	uint id;
-
-	buffer(uint type, uint id) {
-		this->id = id;
-		this->type = type;
-	}
-};
-struct vao {
-public:
-	uint id;
-	map<uint, attribute*> attributes = map<uint, attribute*>();
-
-	vao(uint id) {
-		this->id = id;
-	}
-};
-struct shader {
-public:
-	uint id;
-	string source;
-
-	list<uint>* correlatedPrograms = new list<uint>();
-
-	string error;
-	bool buildSuccessfull = false;
-
-	shader(uint id, string source) {
-		this->id = id;
-		this->source = source;
-	}
-};
-struct shaderProgram {
-public:
-	uint id;
-	list<uint>* shaders = new list<uint>();
-
-	shaderProgram(uint id) {
-		this->id = id;
-	}
-};
-
-typedef unsigned char ubyte;
-typedef unsigned short ushort;
+using std::list;
+using std::map;
+using std::make_pair;
+using std::cout;
 
 struct NativeArrayElement
 {
@@ -91,14 +34,11 @@ public:
 	virtual string getMessage() = 0;
 	virtual uint getCode() = 0;
 	void throwError() {
-		cout << getName() << " (0x" << intToString(getCode(), 16, "0123456789ABCDEF") << ") threw with a message of: " << getMessage() << endl;
-
-		SetLastError(getCode());
+		cout << getName() << " (0x" << uintToString(getCode(), 16, "0123456789ABCDEF") << ") threw with a message of: " << getMessage() << endl;
 
 		throw getCode();
 	}
 };
-
 class genericError : public throwable {
 private:
 	string message = "aaa";
@@ -116,19 +56,9 @@ public:
 	genericError(string message, string name) { setMessage(message); setName(name); }
 };
 
-map<uint, uint> bountBuffers = map<uint, uint>();
-map<uint, buffer*> buffers = map<uint, buffer*>();
-map<uint, vao*> vaos = map<uint, vao*>();
-map<uint, void*> nativeArrays = map<uint, void*>();
-map<uint, shader*> shaders = map<uint, shader*>();
-map<uint, shaderProgram*> shaderPrograms = map<uint, shaderProgram*>();
-
-uint selectedShaderProgram = 0;
-
-uint nextArray = 1;
-
-uint bountVAO = 0;
-bool g_initialised = false;
+graphics::graphics() {
+	backA = 0; backR = 0; backG = 0; backB = 0;
+}
 
 nativeString nativiseString(string val) {
 	auto ptr = (char*)CoTaskMemAlloc(strlen(val.c_str()) + 1);
@@ -140,26 +70,38 @@ nativeString nativiseString(string val) {
 	return ptr;
 }
 
-void graphics_init() {
-	if (g_initialised) return;
-	g_initialised = true;
+graphics* currGraphics = nullptr;
 
-	auto err = glewInit(); 
-	if (err != GLEW_OK) cout << glewGetErrorString(err);
+bool graphicsCheck() {
+	if (currGraphics == nullptr) {
+		genericError(
+			"There is no current window graphics context selected. Maybe you're not drawing at the moment?"
+		).throwError();
+		return false;
+	}
+	else if (!currGraphics->g_initialised) {
+		genericError("The currently selected graphic context is not initialised.").throwError();
+		return false;
+	}
+
+	return true;
+}
+void setCurrContext(graphics* grph) {
+	currGraphics = grph;
 }
 
 uint graphics_createVAO() {
 	uint vaoId = 0;
-	glCreateVertexArrays(1, &vaoId);
+	glGenVertexArrays(1, &vaoId);
 
-	vaos.insert(make_pair(vaoId, new vao(vaoId)));
+	currGraphics->vaos.insert(make_pair(vaoId, new vao(vaoId)));
 
 	return vaoId;
 }
 void graphics_destroyVAO(uint vaoId) {
-	if (vaos.find(vaoId) != vaos.end()) {
+	if (currGraphics->vaos.find(vaoId) != currGraphics->vaos.end()) {
 		glDeleteVertexArrays(1, &vaoId);
-		vaos.erase(vaoId);
+		currGraphics->vaos.erase(vaoId);
 	}
 	else genericError(
 		"An attempt was made to delete an unexistant vertex array object",
@@ -173,14 +115,14 @@ uint graphics_createBuffer(uint target) {
 	glGenBuffers(1, &bufferId);
 
 
-	buffers.insert(make_pair(bufferId, new buffer(target, bufferId)));
+	currGraphics->buffers.insert(make_pair(bufferId, new buffer(target, bufferId)));
 
 	return bufferId;
 }
 void graphics_destroyBuffer(uint buff) {
-	if (buffers.find(buff) != buffers.end()) {
+	if (currGraphics->buffers.find(buff) != currGraphics->buffers.end()) {
 		glDeleteBuffers(0, &buff);
-		buffers.erase(buff);
+		currGraphics->buffers.erase(buff);
 	}
 	else genericError(
 		"An attempt was made to delete an unexistant buffer",
@@ -189,54 +131,54 @@ void graphics_destroyBuffer(uint buff) {
 }
 
 bool checkBuffExistance(uint target) {
-	bool exists = bountBuffers.find(target) != bountBuffers.end();
+	bool exists = currGraphics->bountBuffers.find(target) != currGraphics->bountBuffers.end();
 
 	if (!exists)
-		bountBuffers.insert(make_pair(target, 0));
+		currGraphics->bountBuffers.insert(make_pair(target, 0));
 
 	return exists;
 }
 
 void graphics_setBuffer(uint target, uint buff) {
-	if (buffers.find(buff) == buffers.end()) genericError(
+	if (currGraphics->buffers.find(buff) == currGraphics->buffers.end()) genericError(
 		"An attempt was made to bind an unexistant buffer",
 		"bufferBindError"
 	).throwError();
-	if (bountBuffers[target] != buff) {
+	if (currGraphics->bountBuffers[target] != buff) {
 		glBindBuffer(target, buff);
 		checkBuffExistance(target);
-		bountBuffers[target] = buff;
+		currGraphics->bountBuffers[target] = buff;
 	}
 }
 uint graphics_getBuffer(uint target) {
-	return bountBuffers[target];
+	return currGraphics->bountBuffers[target];
 }
 
 void graphics_setBufferData(uint target, uint size, uint dataArr, uint usage) {
-	glBufferData(target, size, nativeArrays[dataArr], usage);
+	glBufferData(target, size, currGraphics->nativeArrays[dataArr], usage);
 }
 void graphics_getBufferData(uint target, uint size, object data) {
 	glGetBufferSubData(target, 0, size, data);
 }
 
 void graphics_setVAO(uint vaoId) {
-	if (vaos.find(vaoId) == vaos.end()) genericError(
+	if (currGraphics->vaos.find(vaoId) == currGraphics->vaos.end()) genericError(
 		"An attempt was made to bind an unexistant buffer",
 		"bufferBindError"
 	).throwError();
-	if (bountVAO != vaoId) {
+	if (currGraphics->bountVAO != vaoId) {
 		glBindVertexArray(vaoId);
-		bountVAO = vaoId;
+		currGraphics->bountVAO = vaoId;
 	}
 }
 uint graphics_getVAO() {
-	return bountVAO;
+	return currGraphics->bountVAO;
 }
 
 void graphics_modifyBufferAttribute(uint buff, uint attrId, uint byteSize, uint type, uint stride, object arrayOffset) {
 	graphics_setVAO(buff);
 
-	vaos[buff]->attributes.insert(make_pair(
+	currGraphics->vaos[buff]->attributes.insert(make_pair(
 		attrId,
 		new attribute(attrId, byteSize, type, stride, 0)
 	));
@@ -245,7 +187,7 @@ void graphics_modifyBufferAttribute(uint buff, uint attrId, uint byteSize, uint 
 }
 void graphics_createBufferAttribute(uint buff, uint attrId, uint byteSize, uint type, uint stride, uint offset) {
 	graphics_modifyBufferAttribute(buff, attrId, byteSize, type, stride, (void*)offset);
-	glEnableVertexArrayAttrib(buff, attrId);
+	glEnableVertexAttribArray(attrId);
 }
 void graphics_destroyBufferAttribute(uint buff, uint attrId) {
 	graphics_setVAO(buff);
@@ -253,21 +195,28 @@ void graphics_destroyBufferAttribute(uint buff, uint attrId) {
 }
 void graphics_clearBufferAttributes(uint buff) {
 	graphics_setVAO(buff);
-	for (auto pair : vaos[buff]->attributes) {
+	for (auto pair : currGraphics->vaos[buff]->attributes) {
 		glDisableVertexArrayAttrib(buff, pair.first);
 	}
 }
 
 void graphics_drawBuffer(uint vaoId, uint buff, uint amount, uint mode) {
+	graphicsCheck();
 	graphics_setVAO(vaoId);
-	graphics_setBuffer(buffers[buff]->type, buff);
+	graphics_setBuffer(currGraphics->buffers[buff]->type, buff);
 	glDrawArrays(mode, 0, amount);
+}
+void graphics_drawElement(uint indicieType, uint indicieCount, uint eboLength, uint ebo, uint vbo) {
+	graphicsCheck();
+	graphics_setBuffer(GL_ARRAY_BUFFER, vbo);
+	graphics_setBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glDrawElements(indicieType, eboLength, GL_UNSIGNED_INT, 0);
 }
 
 uint graphics_loadNativeArray(void* arr, uint size) {
 	auto* v = (NativeArrayElement*)arr;
 	void* nativeArr = new void* [size];
-	uint id = nextArray++;
+	uint id = currGraphics->nextArray++;
 
 	void* initArray = nativeArr;
 
@@ -289,6 +238,11 @@ uint graphics_loadNativeArray(void* arr, uint size) {
 			*(ushort*)nativeArr = *(ushort*)(ushort*)value.Value;
 			nativeArr = (ushort*)nativeArr + 1;
 			break;
+		case GL_UNSIGNED_INT:
+			*(uint*)nativeArr = *(uint*)(uint*)value.Value;
+			cout << "test";
+			nativeArr = (uint*)nativeArr + 1;
+			break;
 		case GL_INT:
 			*(int*)nativeArr = *(int*)(int*)value.Value;
 			nativeArr = (int*)nativeArr + 1;
@@ -304,30 +258,30 @@ uint graphics_loadNativeArray(void* arr, uint size) {
 		}
 	}
 
-	nativeArrays.insert(make_pair(id, initArray));
+	currGraphics->nativeArrays.insert(make_pair(id, initArray));
 
 	return id;
 }
 uint graphics_createNativeArray(uint size) {
 	void* nativeArr = new void* [size];
-	uint id = nextArray++;
+	uint id = currGraphics->nextArray++;
 
-	nativeArrays.insert(make_pair(id, nativeArr));
+	currGraphics->nativeArrays.insert(make_pair(id, nativeArr));
 
 	return id;
 }
 void graphics_destroyNativeArray(uint arr) {
-	delete nativeArrays[arr];
+	delete currGraphics->nativeArrays[arr];
 
-	nativeArrays.erase(arr);
+	currGraphics->nativeArrays.erase(arr);
 }
 
 void graphics_setShaderProgram(uint program) {
 	glUseProgram(program);
-	selectedShaderProgram = program;
+	currGraphics->selectedShaderProgram = program;
 }
 uint graphics_getShaderProgram() {
-	return selectedShaderProgram;
+	return currGraphics->selectedShaderProgram;
 }
 
 uint graphics_createShader(uint type, const char* raw, int length) {
@@ -339,7 +293,6 @@ uint graphics_createShader(uint type, const char* raw, int length) {
 	int success = 0;
 	int logSize = 0;
 
-	cout << 1;
 	glShaderSource(shaderId, 1, &raw, &length);
 	glCompileShader(shaderId);
 	glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
@@ -355,47 +308,48 @@ uint graphics_createShader(uint type, const char* raw, int length) {
 	shdr->buildSuccessfull = logSize == 0;
 	shdr->error = log;
 
-	shaders.insert(make_pair(shaderId, shdr));
+	currGraphics->shaders.insert(make_pair(shaderId, shdr));
 
 	return shaderId;
 }
 void graphics_destroyShader(uint shader) {
-
 	glDeleteShader(shader);
+
+	currGraphics->shaders.erase(shader);
 }
 
 uint test = 0;
 
 nativeString graphics_getShaderInfoLog(uint shaderId) {
-	auto a = shaders[shaderId];
+	auto a = currGraphics->shaders[shaderId];
 	return nativiseString(a->error);
 }
 bool graphics_getShaderBuildSuccess(uint shaderId) {
-	auto a = shaders[shaderId]->buildSuccessfull;
+	auto a = currGraphics->shaders[shaderId]->buildSuccessfull;
 
 	return a;
 }
 string graphics_getShaderSource(uint shaderId) {
-	return shaders[shaderId]->source;
+	return currGraphics->shaders[shaderId]->source;
 }
 
 void graphics_detachShaderFromProgram(uint program, uint shader) {
 	glDetachShader(program, shader);
 
-	shaderPrograms[program]->shaders->remove(shader);
-	shaders[shader]->correlatedPrograms->remove(program);
+	currGraphics->shaderPrograms[program]->shaders->remove(shader);
+	currGraphics->shaders[shader]->correlatedPrograms->remove(program);
 }
 void graphics_attachShaderToProgram(uint program, uint shader) {
 	glAttachShader(program, shader);
 
-	shaderPrograms[program]->shaders->push_back(shader);
-	shaders[shader]->correlatedPrograms->push_back(program);
+	currGraphics->shaderPrograms[program]->shaders->push_back(shader);
+	currGraphics->shaders[shader]->correlatedPrograms->push_back(program);
 }
 
 uint graphics_createShaderProgram() {
 	uint id = glCreateProgram();
 
-	shaderPrograms.insert(make_pair(id, new shaderProgram(id)));
+	currGraphics->shaderPrograms.insert(make_pair(id, new shaderProgram(id)));
 
 	return id;
 }
@@ -412,14 +366,14 @@ void graphics_compileShaderProgram(uint program) {
 
 	glGetProgramInfoLog(program, logLength, NULL, logError);
 
-	if (logLength > 0) throw new exception((const char*)logError);
+	if (!(logLength == 0 || success == 1)) genericError((const char*)logError).throwError();
 }
 void graphics_destroyShaderProgram(uint program) {
-	for (auto shdr : *shaderPrograms[program]->shaders) {
+	for (auto shdr : *currGraphics->shaderPrograms[program]->shaders) {
 		graphics_detachShaderFromProgram(program, shdr);
 	}
 
-	shaderPrograms.erase(program);
+	currGraphics->shaderPrograms.erase(program);
 
 	glDeleteProgram(program);
 }
@@ -434,21 +388,19 @@ uint graphics_loadShaderProgram(uint* shaders, uint count) {
 	return program;
 }
 
-float backR = 0, backG = 0, backB = 0, backA = 0;
-
 void graphics_setBackground(float r, float g, float b, float a) {
 	glClearColor(r, g, b, a);
 
-	backR = r;
-	backG = g;
-	backB = b;
-	backA = a;
+	currGraphics->backR = r;
+	currGraphics->backG = g;
+	currGraphics->backB = b;
+	currGraphics->backA = a;
 }
 void graphics_getBackground(float* r, float* g, float* b, float* a) {
-	r = new float(backR);
-	g = new float(backG);
-	b = new float(backB);
-	a = new float(backA);
+	r = new float(currGraphics->backR);
+	g = new float(currGraphics->backG);
+	b = new float(currGraphics->backB);
+	a = new float(currGraphics->backA);
 }
 
 void graphics_clear(uint type) {
@@ -506,17 +458,17 @@ void graphics_setUniformMat2(uint id,
 	float x1, float x2,
 	float y1, float y2
 ) {
-	glUniformMatrix2fv(id, 1, false, new float[] {
+	glUniformMatrix2fv(id, 1, false, new float[4]{
 		x1, x2,
 		y1, y2
-	});
+		});
 }
 void graphics_setUniformMat3(uint id,
 	float x1, float x2, float x3,
 	float y1, float y2, float y3,
 	float z1, float z2, float z3
 ) {
-	auto a = (float*)new float[] {
+	auto a = (float*)new float[9]{
 		x1, y1, z1,
 		x2, y2, z2,
 		x3, y3, z3
@@ -530,12 +482,12 @@ void graphics_setUniformMat4(uint id,
 	float z1, float z2, float z3, float z4,
 	float w1, float w2, float w3, float w4
 ) {
-	glUniformMatrix3fv(id, 1, false, new float[] {
+	glUniformMatrix3fv(id, 1, false, new float[16]{
 		x1, x2, x3, x4,
 		y1, y2, y3, y4,
 		z1, z2, z3, z4,
 		w1, w2, w3, w4
-	});
+		});
 }
 
 
@@ -543,21 +495,21 @@ void graphics_setUniformMatd2(uint id,
 	double x1, double x2,
 	double y1, double y2
 ) {
-	glUniformMatrix2dv(id, 1, false, new double[] {
+	glUniformMatrix2dv(id, 1, false, new double[4]{
 		x1, x2,
 		y1, y2
-	});
+		});
 }
 void graphics_setUniformMatd3(uint id,
 	double x1, double x2, double x3,
 	double y1, double y2, double y3,
 	double z1, double z2, double z3
 ) {
-	glUniformMatrix3dv(id, 1, false, new double[] {
+	glUniformMatrix3dv(id, 1, false, new double[9]{
 		x1, x2, x3,
 		y1, y2, y3,
 		z1, z2, z3
-	});
+		});
 }
 void graphics_setUniformMatd4(uint id,
 	double x1, double x2, double x3, double x4,
@@ -565,7 +517,7 @@ void graphics_setUniformMatd4(uint id,
 	double z1, double z2, double z3, double z4,
 	double w1, double w2, double w3, double w4
 ) {
-	glUniformMatrix3dv(id, 1, false, new double[] {
+	glUniformMatrix3dv(id, 1, false, new double[16]{
 			x1, x2, x3, x4,
 			y1, y2, y3, y4,
 			z1, z2, z3, z4,

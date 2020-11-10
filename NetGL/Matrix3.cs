@@ -91,17 +91,21 @@ namespace NetGL
 
             var m = (Matrix3)obj;
 
-            var x1 = X1 * m.X1 + X2 * m.Y1 + X3 * m.Z1;
-            var x2 = X1 * m.X2 + X2 * m.Y2 + X3 * m.Z2;
-            var x3 = X1 * m.X3 + X2 * m.Y3 + X3 * m.Z3;
+            var a = m;
+            var b = this;
 
-            var y1 = Y1 * m.X1 + Y2 * m.Y1 + Y3 * m.Z1;
-            var y2 = Y1 * m.X2 + Y2 * m.Y2 + Y3 * m.Z2;
-            var y3 = Y1 * m.X3 + Y2 * m.Y3 + Y3 * m.Z3;
 
-            var z1 = Z1 * m.X1 + Z2 * m.Y1 + Z3 * m.Z1;
-            var z2 = Z1 * m.X2 + Z2 * m.Y2 + Z3 * m.Z2;
-            var z3 = Z1 * m.X3 + Z2 * m.Y3 + Z3 * m.Z3;
+            var x1 = a.X1 * b.X1 + a.X2 * b.Y1 + a.X3 * b.Z1;
+            var x2 = a.X1 * b.X2 + a.X2 * b.Y2 + a.X3 * b.Z2;
+            var x3 = a.X1 * b.X3 + a.X2 * b.Y3 + a.X3 * b.Z3;
+
+            var y1 = a.Y1 * b.X1 + a.Y2 * b.Y1 + a.Y3 * b.Z1;
+            var y2 = a.Y1 * b.X2 + a.Y2 * b.Y2 + a.Y3 * b.Z2;
+            var y3 = a.Y1 * b.X3 + a.Y2 * b.Y3 + a.Y3 * b.Z3;
+
+            var z1 = a.Z1 * b.X1 + a.Z2 * b.Y1 + a.Z3 * b.Z1;
+            var z2 = a.Z1 * b.X2 + a.Z2 * b.Y2 + a.Z3 * b.Z2;
+            var z3 = a.Z1 * b.X3 + a.Z2 * b.Y3 + a.Z3 * b.Z3;
 
             return new Matrix3(x1, x2, x3, y1, y2, y3, z1, z2, z3);
         }
@@ -157,17 +161,13 @@ namespace NetGL
         {
             return new Matrix3(new Matrix2(1, 0, 0, y));
         }
-        public static Matrix3 CreateScaleZ(float z)
+        public static Matrix3 CreateScale(float x, float y)
         {
-            return new Matrix3(1, 0, 0, 0, 1, 0, 0, 0, z);
-        }
-        public static Matrix3 CreateScale(float x, float y, float z)
-        {
-            return new Matrix3(x, 0, 0, 0, y, 0, 0, 0, z);
+            return new Matrix3(x, 0, 0, 0, y, 0, 0, 0, 1);
         }
         public static Matrix3 CreateScale(float scale)
         {
-            return CreateScale(scale, scale, scale);
+            return CreateScale(scale, scale);
         }
     
         public static Matrix3 CreateRotation(float deg)

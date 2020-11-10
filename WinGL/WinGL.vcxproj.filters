@@ -4,9 +4,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="window.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="graphics.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -22,9 +19,6 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="graphics_api.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="window_api.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="window_api_experimental.h">

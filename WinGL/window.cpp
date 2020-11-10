@@ -1,8 +1,8 @@
-	#include "pch.h"
+#include "pch.h"
 #include "window_api.h"
 #include "framework.h"
 #include <iostream>
-#include <gl/glut.h>
+#include "GL/glfw3.h"
 #include <fstream>
 #include <map>
 
@@ -25,7 +25,9 @@ public:
 	KeyboardActionFunc* keyUp = nullptr;
 	KeyboardActionFunc* keyDown = nullptr;
 
-	ActionFunc* display = nullptr;
+	ResizeFunc* resize = nullptr;
+
+	DisplayFunc* display = nullptr;
 
 	bool constantRefresh = false;
 	float fps = 60;
@@ -43,9 +45,7 @@ public:
 };
 
 bool initialised = false;
-HHOOK keyboardHandle;
-HHOOK mouseHandle;
-map<int, window*> handles = map<int, window*>();
+map<int, window*> handles = map<int, window*>(); >
 
 uint currWindowId = 0;
 
@@ -204,17 +204,15 @@ long __stdcall mouseFunction(int code, WPARAM w, LPARAM l) {
 
 void window_setup(char** args, int length) {
 	if (!initialised) {
-		keyboardHandle = SetWindowsHookExA(WH_KEYBOARD_LL, keyboardFunction, NULL, NULL);
-		mouseHandle = SetWindowsHookExA(WH_MOUSE_LL, mouseFunction, NULL, NULL);
+		if (!glfwInit()) {
+			char* errDesc;
 
-		if (keyboardHandle == NULL)
-			genericError("Unable to initialise keyboard listener!, Internal error code: " + GetLastError()).throwError();
-		if (mouseHandle == NULL)
-			genericError("Unable to initialise mouse listener!, Internal error code: " + GetLastError()).throwError();
+			glfwGetError(&errDesc);
+			cout << "Could not initialise window API: " << errDesc;
 
-		glutInit(&length, args);
-
-		handles.insert(make_pair(0, new window(NULL, "global")));
+			glfwTerminate();
+			return;
+		}
 
 		initialised = true;
 	}
@@ -228,7 +226,7 @@ int window_getCurrWindow() {
 	return glutGetWindow();
 }
 void window_setCurrWindow(int window) {
-		glutSetWindow(window);
+	glutSetWindow(window);
 }
 
 int window_createWindow(char* title) {
@@ -241,7 +239,7 @@ int window_createWindow(char* title) {
 	glutDisplayFunc([]() -> void {
 		cout << glutGetWindow();
 		handles[glutGetWindow()]->display();
-	});
+		});
 	return id;
 }
 void window_destroyWindow(int window) {
@@ -263,12 +261,11 @@ void window_hideWindow(int window) {
 	glutHideWindow();
 }
 
-void window_setDisplayFunc(int window, ActionFunc* func) {
+void window_setDisplayFunc(int window, DisplayFunc* func) {
 	handles[window]->display = func;
 }
-void window_setResizeFunc(int window, void(*func)(int width, int height)) {
-	window_setCurrWindow(window);
-	glutReshapeFunc(func);
+void window_setResizeFunc(int window, ResizeFunc* func) {
+	handles[window]->resize = func;
 }
 
 void window_setKeyboardUpFunc(int window, KeyboardActionFunc* func) {

@@ -7,10 +7,11 @@ namespace NetGL.WindowAPI
 {
     public class Window: IDisposable
     {
-        public event KeyboardEventHandler KeyDown;
-        public event KeyboardEventHandler KeyUp;
+        public event KeyboardEventHandler KeyPressed;
+        public event KeyboardEventHandler KeyReleased;
         public event EventHandler Display;
         public event EventHandler Loaded;
+        public event ResizeEventHandler SizeChanged;
 
         public bool ConstantRefresh { get; set; }
         private string title;
@@ -18,7 +19,7 @@ namespace NetGL.WindowAPI
         private VectorI2 size;
 
         public bool Opened { get; private set; }
-        public int ID { get; private set; } = -1;
+        public uint ID { get; private set; } = 0;
         public VectorI2 Size {
             get => size;
             set {
@@ -42,22 +43,27 @@ namespace NetGL.WindowAPI
         {
             this.title = title;
             this.size = size;
-        } 
+            DisplayFunc = () =>
+            {
+                Display?.Invoke(this, new EventArgs());
+            };
+            KeydownFunc = KeyDownFunc;
+            KeyupFunc = KeyUpFunc;
+            ResizeFunc = (w, h) => {
+                SizeChanged?.Invoke(this, new ResizeEventArgs(w, h));
+            };
+
+            SizeChanged += Window_SizeChanged;
+        }
+
+        private void Window_SizeChanged(object sender, ResizeEventArgs e)
+        {
+            size = e.Size;
+        }
+
         ~Window()
         {
             Dispose(disposing: false);
-        }
-
-        struct TestElement
-        {
-            public Vector2 Point { get; set; }
-            public Vector3 Color { get; set; }
-
-            public TestElement(Vector2 point, Vector3 color)
-            {
-                Point = point;
-                Color = color;
-            }
         }
 
         public VectorI2 ScreenToClient(VectorI2 point)
@@ -95,19 +101,22 @@ namespace NetGL.WindowAPI
             return new Vector2(x, y);
         }
 
+
         public void Show()
         {
-            LLWindow.window_setup(new string[0], 0);
+            LLWindow.window_setup();
             ID = LLWindow.window_createWindow(title);
 
             Graphics = new Graphics(this);
 
-            Use();
+            LLWindow.window_activateWindow((uint)ID);
 
             LLWindow.window_setWindowSize(ID, size.X, size.Y);
+
             LLWindow.window_setDisplayFunc(ID, DisplayFunc);
-            LLWindow.window_setKeyboardDownFunc(ID, KeyDownFunc);
-            LLWindow.window_setKeyboardUpFunc(ID, KeyUpFunc);
+            LLWindow.window_setResizeFunc(ID, ResizeFunc);
+            LLWindow.window_setKeydownFunc(ID, KeydownFunc);
+            LLWindow.window_setKeyupFunc(ID, KeyupFunc);
 
             Opened = true;
 
@@ -144,29 +153,26 @@ namespace NetGL.WindowAPI
 
         private void KeyDownFunc(int key)
         {
-            KeyDown?.Invoke(this, new KeyboardEventArgs((Key)key));
+            KeyPressed?.Invoke(this, new KeyboardEventArgs((Key)key));
         }
         private void KeyUpFunc(int key)
         {
-            KeyUp?.Invoke(this, new KeyboardEventArgs((Key)key));
+            KeyReleased?.Invoke(this, new KeyboardEventArgs((Key)key));
         }
 
-        private void DisplayFunc()
-        {
-            Use();
-            //Graphics.Clear();
-            Display?.Invoke(this, new EventArgs());
-            Graphics.SwapBuffers();
-        }
+        Action DisplayFunc;
+        KeyboardFunc KeydownFunc;
+        KeyboardFunc KeyupFunc;
+        ResizeFunc ResizeFunc;
 
+        [Obsolete("This metod won't do anything and it's kept just for backward compatibility")]
         public void Use()
         {
-            LLWindow.window_setCurrWindow(ID);
         }
 
         public static void BeginLoop()
         {
-            LLWindow.window_startMainLoop();
+            LLWindow.window_activateMainLoop();
         }
     }
 }

@@ -94,8 +94,6 @@ namespace NetGL.GraphicsAPI
 
         public ShaderProgram(params Shader[] shaders)
         {
-            LLGraphics.graphics_init();
-
             Id = LLGraphics.graphics_createShaderProgram();
 
             shaders = shaders.Distinct(new CustomEqualityComparer<Shader>((a, b) => a.Id == b.Id)).ToArray();
