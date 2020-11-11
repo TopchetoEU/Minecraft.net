@@ -1,58 +1,62 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (TestCpp.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  windowExperimental.cpp
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(8,1): warning C4005: 'API': macro redefinition
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(3): message : see previous definition of 'API'
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (TestCpp.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  window.cpp
+D:\repos\Minecraft.net\WinGL\window_api.h(8,1): warning C4005: 'API': macro redefinition
+D:\repos\Minecraft.net\WinGL\window_api.h(3): message : see previous definition of 'API'
 D:\repos\Minecraft.net\WinGL\graphics_api.h(3,1): warning C4005: 'API': macro redefinition
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(8): message : see previous definition of 'API'
+D:\repos\Minecraft.net\WinGL\window_api.h(8): message : see previous definition of 'API'
 D:\repos\Minecraft.net\WinGL\graphics_api.h(8,1): warning C4005: 'API': macro redefinition
 D:\repos\Minecraft.net\WinGL\graphics_api.h(3): message : see previous definition of 'API'
-D:\repos\Minecraft.net\WinGL\graphics_api.h(135,62): warning C4190: 'graphics_getShaderSource' has C-linkage specified, but returns UDT 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' which is incompatible with C
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xstring(4575): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(68,21): warning C4273: 'window_setup': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(82,21): message : see previous definition of 'window_setup'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(162,45): warning C4273: 'window_createWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(57,21): message : see previous definition of 'window_createWindow'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(181,1): warning C4273: 'window_destryWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(58,21): message : see previous definition of 'window_destryWindow'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(186,33): warning C4273: 'window_showWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(60,21): message : see previous definition of 'window_showWindow'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(194,33): warning C4273: 'window_hideWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(61,21): message : see previous definition of 'window_hideWindow'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(203,32): warning C4273: 'window_activateMainLoop': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(81,21): message : see previous definition of 'window_activateMainLoop'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(225,93): warning C4244: '=': conversion from '_Rep' to 'float', possible loss of data
+D:\repos\Minecraft.net\WinGL\graphics_api.h(162,62): warning C4190: 'graphics_getShaderSource' has C-linkage specified, but returns UDT 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' which is incompatible with C
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+D:\repos\Minecraft.net\WinGL\window.cpp(68,21): warning C4273: 'window_setup': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(85,21): message : see previous definition of 'window_setup'
+D:\repos\Minecraft.net\WinGL\window.cpp(166,45): warning C4273: 'window_createWindow': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(60,21): message : see previous definition of 'window_createWindow'
+D:\repos\Minecraft.net\WinGL\window.cpp(185,1): warning C4273: 'window_destryWindow': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(61,21): message : see previous definition of 'window_destryWindow'
+D:\repos\Minecraft.net\WinGL\window.cpp(190,33): warning C4273: 'window_showWindow': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(63,21): message : see previous definition of 'window_showWindow'
+D:\repos\Minecraft.net\WinGL\window.cpp(198,33): warning C4273: 'window_hideWindow': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(64,21): message : see previous definition of 'window_hideWindow'
+D:\repos\Minecraft.net\WinGL\window.cpp(214,32): warning C4273: 'window_activateMainLoop': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(84,21): message : see previous definition of 'window_activateMainLoop'
+D:\repos\Minecraft.net\WinGL\window.cpp(236,93): warning C4244: '=': conversion from '_Rep' to 'float', possible loss of data
           with
           [
               _Rep=__int64
           ]
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(232,37): warning C4273: 'window_activateWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(63,21): message : see previous definition of 'window_activateWindow'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(237,58): warning C4273: 'window_setDisplayFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(64,21): message : see previous definition of 'window_setDisplayFunc'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(238,1): warning C4297: 'window_setDisplayFunc': function assumed not to throw an exception but does
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(238,1): message : __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(245,1): warning C4273: 'window_setResizeFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(65,21): message : see previous definition of 'window_setResizeFunc'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(250,1): warning C4273: 'window_setMouseMoveFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(67,21): message : see previous definition of 'window_setMouseMoveFunc'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(254,1): warning C4273: 'window_setMouseDownFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(68,21): message : see previous definition of 'window_setMouseDownFunc'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(258,1): warning C4273: 'window_setMouseUpFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(69,21): message : see previous definition of 'window_setMouseUpFunc'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(262,1): warning C4273: 'window_setScrollFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(70,21): message : see previous definition of 'window_setScrollFunc'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(267,1): warning C4273: 'window_setWindowTitle': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(72,21): message : see previous definition of 'window_setWindowTitle'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(272,1): warning C4273: 'window_setWindowSize': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(73,21): message : see previous definition of 'window_setWindowSize'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(279,1): warning C4273: 'window_getRefreshRate': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(75,22): message : see previous definition of 'window_getRefreshRate'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(282,48): warning C4273: 'window_setRefreshRate': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(76,21): message : see previous definition of 'window_setRefreshRate'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(286,59): warning C4273: 'window_setKeydownFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(78,21): message : see previous definition of 'window_setKeydownFunc'
-D:\repos\Minecraft.net\WinGL\windowExperimental.cpp(289,57): warning C4273: 'window_setKeyupFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api_experimental.h(79,21): message : see previous definition of 'window_setKeyupFunc'
+D:\repos\Minecraft.net\WinGL\window.cpp(243,37): warning C4273: 'window_activateWindow': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(66,21): message : see previous definition of 'window_activateWindow'
+D:\repos\Minecraft.net\WinGL\window.cpp(248,58): warning C4273: 'window_setDisplayFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(67,21): message : see previous definition of 'window_setDisplayFunc'
+D:\repos\Minecraft.net\WinGL\window.cpp(249,1): warning C4297: 'window_setDisplayFunc': function assumed not to throw an exception but does
+D:\repos\Minecraft.net\WinGL\window.cpp(249,1): message : __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
+D:\repos\Minecraft.net\WinGL\window.cpp(256,1): warning C4273: 'window_setResizeFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(68,21): message : see previous definition of 'window_setResizeFunc'
+D:\repos\Minecraft.net\WinGL\window.cpp(261,1): warning C4273: 'window_setMouseMoveFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(70,21): message : see previous definition of 'window_setMouseMoveFunc'
+D:\repos\Minecraft.net\WinGL\window.cpp(265,1): warning C4273: 'window_setMouseDownFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(71,21): message : see previous definition of 'window_setMouseDownFunc'
+D:\repos\Minecraft.net\WinGL\window.cpp(269,1): warning C4273: 'window_setMouseUpFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(72,21): message : see previous definition of 'window_setMouseUpFunc'
+D:\repos\Minecraft.net\WinGL\window.cpp(273,1): warning C4273: 'window_setScrollFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(73,21): message : see previous definition of 'window_setScrollFunc'
+D:\repos\Minecraft.net\WinGL\window.cpp(278,1): warning C4273: 'window_setWindowTitle': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(75,21): message : see previous definition of 'window_setWindowTitle'
+D:\repos\Minecraft.net\WinGL\window.cpp(283,1): warning C4273: 'window_setWindowSize': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(76,21): message : see previous definition of 'window_setWindowSize'
+D:\repos\Minecraft.net\WinGL\window.cpp(290,1): warning C4273: 'window_getRefreshRate': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(78,22): message : see previous definition of 'window_getRefreshRate'
+D:\repos\Minecraft.net\WinGL\window.cpp(293,48): warning C4273: 'window_setRefreshRate': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(79,21): message : see previous definition of 'window_setRefreshRate'
+D:\repos\Minecraft.net\WinGL\window.cpp(297,59): warning C4273: 'window_setKeydownFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(81,21): message : see previous definition of 'window_setKeydownFunc'
+D:\repos\Minecraft.net\WinGL\window.cpp(300,57): warning C4273: 'window_setKeyupFunc': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(82,21): message : see previous definition of 'window_setKeyupFunc'
+D:\repos\Minecraft.net\WinGL\window.cpp(304,53): warning C4273: 'window_setMousePosition': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(87,21): message : see previous definition of 'window_setMousePosition'
+D:\repos\Minecraft.net\WinGL\window.cpp(309,1): warning C4273: 'window_setMouseLocked': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(88,21): message : see previous definition of 'window_setMouseLocked'
   WinGL.vcxproj -> D:\repos\Minecraft.net\Debug\WinGL.dll
           1 file(s) copied.
           1 file(s) copied.

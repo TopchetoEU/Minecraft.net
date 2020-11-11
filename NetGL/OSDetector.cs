@@ -8,10 +8,10 @@
         #region OS Detection
 #if LINUX
         private const OS os = OS.Linux;
-        internal const string GraphicsDLL = "MacGL.dll";
+        internal const string GraphicsDLL = "LinGL.so";
 #elif MACOS
         private const OS os = OS.Mac;
-        internal const string GraphicsDLL = "LinGL.dll";
+        internal const string GraphicsDLL = "MacGL.dylib";
 #else
         private const OS os = OS.Windows;
         internal const string GraphicsDLL = "WinGL.dll";
@@ -22,9 +22,9 @@
         {
             switch (os)
             {
-                case OS.Windows: return "WINDOWS";
                 case OS.Linux: return "LINUX";
                 case OS.Mac: return "MACOS";
+                case OS.Windows:
                 default: return "DEFAULT";
             }
         }

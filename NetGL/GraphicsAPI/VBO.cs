@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NetGL.GraphicsAPI
 {
-    public class VBO<T>: IBuffer<T> where T : struct
+    public class VBO: IBuffer
     {
         private uint ArrayID;
         public uint ID { get; }
@@ -12,12 +12,15 @@ namespace NetGL.GraphicsAPI
 
         private uint structSize = 0;
 
+        private Type lastType = null;
+
         public uint Length { get; private set; } = 0;
         public uint UnpackedLength { get; private set; } = 0;
         public uint ByteLength { get; private set; } = 0;
         private uint target = (uint)BufferTarget.ArrayBuffer;
+        private ShaderProgram program;
 
-        public VBO(ShaderProgram program)
+        internal VBO(ShaderProgram program)
         {
             ArrayID = LLGraphics.graphics_createVAO();
             ID = LLGraphics.graphics_createBuffer(target);
@@ -27,11 +30,7 @@ namespace NetGL.GraphicsAPI
             var arrId = LLGraphics.graphics_createNativeArray(0);
             LLGraphics.graphics_setBufferData(target, 0, arrId, (uint)UsageHint.DynamicDraw);
             LLGraphics.graphics_destroyNativeArray(arrId);
-
-            structSize = typeof(T).GetBufferElementSize();
-
-            ApplyAttribPointers(typeof(T).ExtractAttribPointerMap(program));
-
+            this.program = program;
         }
 
         public void Use()
@@ -65,7 +64,8 @@ namespace NetGL.GraphicsAPI
         /// Broken
         /// </summary>
         /// <returns></returns>
-        private T[] GetData()
+        [Obsolete("Isn't working properly", true)]
+        private T[] GetData<T>() where T : struct
         {
             // TODO: Fix me
 
@@ -73,10 +73,6 @@ namespace NetGL.GraphicsAPI
             LLGraphics.graphics_setVAO(ArrayID);
             LLGraphics.graphics_setBuffer(target, ID);
             LLGraphics.graphics_getBufferData(target, UnpackedLength, data);
-
-            foreach (var item in data) {
-                Console.WriteLine((float)item);
-            }
 
             var elementSize = UnpackedLength / Length;
 
@@ -96,8 +92,16 @@ namespace NetGL.GraphicsAPI
                 .Select(pack => BufferElementPacker<T>.Pack(pack))
                 .ToArray();
         }
-        public void SetData(T[] data)
+        public void SetData<T>(T[] data)  where T : struct
         {
+            if (typeof(T) != lastType) {
+                structSize = typeof(T).GetBufferElementSize();
+
+                ApplyAttribPointers(typeof(T).ExtractAttribPointerMap(program));
+            }
+
+            lastType = typeof(T);
+
             var size = structSize * (uint)data.Length;
 
             var rawData = data.SelectMany(v => BufferElementPacker<T>.Unpack(v)).ToArray();
@@ -135,20 +139,21 @@ namespace NetGL.GraphicsAPI
             }
         }
 
-        public void Draw(GraphicsPrimitive primitiveType)
+        internal void Draw(GraphicsPrimitive primitiveType)
         {
             LLGraphics.graphics_drawBuffer(ArrayID, ID, Length, (uint)primitiveType);
         }
     }
-    public class EBO: IBuffer<uint>
+    public class EBO: IBuffer
     {
         private bool disposedValue;
 
         public uint ID { get; }
         public uint Length { get; private set; }
+        public uint ByteLength => Length * sizeof(uint);
         public GraphicsPrimitive Primitive { get; set; }
 
-        public EBO(GraphicsPrimitive primitive = GraphicsPrimitive.Triangles)
+        internal EBO(GraphicsPrimitive primitive = GraphicsPrimitive.Triangles)
         {
             ID = LLGraphics.graphics_createBuffer((uint)BufferTarget.ElementArrayBuffer);
             Primitive = primitive;
@@ -195,36 +200,16 @@ namespace NetGL.GraphicsAPI
             GC.SuppressFinalize(this);
         }
 
-        public void Draw<T>(VBO<T> vbo) where T : struct
+        public void Draw(VBO vbo, Graphics graphics)
         {
-            vbo.Use();
+            graphics.DrawObject(vbo, this);
+        }
 
-            uint size = 0;
-
-            switch (Primitive) {
-                case GraphicsPrimitive.Lines:
-                case GraphicsPrimitive.LineLoop:
-                case GraphicsPrimitive.LineStrip:
-                    size = 2;
-                    break;
-                case GraphicsPrimitive.Triangles:
-                case GraphicsPrimitive.TriangleStrip:
-                case GraphicsPrimitive.TriangleFan:
-                    size = 3;
-                    break;
-                case GraphicsPrimitive.Quads:
-                case GraphicsPrimitive.QuadStrip:
-                    size = 4;
-                    break;
-                case GraphicsPrimitive.Polygon:
-                    size = vbo.Length;
-                    break;
-            }
-
-            vbo.Use();
-            Use();
-
-            LLGraphics.graphics_drawElement((uint)Primitive, Length / size, Length, ID, vbo.ID);
+        void IBuffer.SetData<T>(T[] data)
+        {
+            if (typeof(T) != typeof(uint))
+                throw new Exception("EBO can only take uint elements");
+            SetData(data.Cast<uint>().ToArray());
         }
     }
 }

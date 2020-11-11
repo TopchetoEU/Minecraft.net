@@ -11,6 +11,87 @@ namespace NetGL
         [VectorDimension(0)] public float X { get; set; }
         [VectorDimension(1)] public float Y { get; set; }
 
+        internal static int getCharComponent(char @char)
+        {
+            switch (@char.ToString().ToLower()[0]) {
+                case 'r':
+                case 'x':
+                case 's':
+                    return 0;
+                case 'g':
+                case 'y':
+                case 't':
+                    return 1;
+                case 'b':
+                case 'z':
+                case 'p':
+                    return 2;
+                case 'a':
+                case 'w':
+                case 'q':
+                    return 3;
+                default:
+                    return -1;
+            }
+        }
+
+        public float this[int component] {
+            get {
+                switch (component) {
+                    case 0:
+                        return X;
+                    case 1:
+                        return Y;
+                    default:
+                        throw new Exception("Invalid component index");
+                }
+            }
+            set {
+                switch (component) {
+                    case 0:
+                        X = value;
+                        break;
+                    case 1:
+                        Y = value;
+                        break;
+                        break;
+                    default:
+                        throw new Exception("Invalid component index");
+                }
+            }
+        }
+
+        public Vector2 this[char a, char b] {
+            get {
+                var x = getCharComponent(a);
+                var y = getCharComponent(b);
+
+                return new Vector2(this[x], this[y]);
+            }
+            set {
+                var x = getCharComponent(a);
+                var y = getCharComponent(b);
+
+                if (x == y)
+                    throw new Exception("Can't assign vector's diffrent components to the same component");
+
+                this[x] = value.X;
+                this[y] = value.Y;
+            }
+        }
+        public float this[char component] {
+            get {
+                var x = getCharComponent(component);
+
+                return this[x];
+            }
+            set {
+                var x = getCharComponent(component);
+
+                this[x] = value;
+            }
+        }
+
         public float Length {
             get => (float)Math.Sqrt(LengthSquared);
             set {

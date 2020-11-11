@@ -1,5 +1,8 @@
 ﻿namespace NetGL.GraphicsAPI
 {
+    /// <summary>
+    /// All primitive types
+    /// </summary>
     public enum GraphicsPrimitive
     {
         Lines = 0x0001,

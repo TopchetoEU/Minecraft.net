@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetGL.GraphicsAPI
 {
-    public static partial class LLGraphics
+    internal static partial class LLGraphics
     {
 
         [DllImport(OSDetector.GraphicsDLL)] public static extern uint graphics_createVAO();
@@ -69,6 +69,41 @@ namespace NetGL.GraphicsAPI
 
         [DllImport(OSDetector.GraphicsDLL)] public static extern void graphics_clear(uint type);
 
+        [DllImport(OSDetector.GraphicsDLL)] public static extern uint graphics_createTexture();
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void graphics_destroyTexture(uint id);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern uint graphics_getTexture(uint target);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void graphics_setTexture(uint id, uint target);
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void graphics_setTexture1DData(
+            uint target, uint length, uint textureFormat, uint dataType, uint dataArrId
+        );
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void graphics_setTexture2DData(
+            uint target, uint width, uint height, uint textureFormat, uint dataType, uint dataArrId
+        );
+        [DllImport(OSDetector.GraphicsDLL)] public static extern void graphics_setTexture3DData(
+            uint target, uint width, uint height, uint depth, uint textureFormat, uint dataType, uint dataArrId
+        );
+        [DllImport(OSDetector.GraphicsDLL)] internal static extern void graphics_setUniformTex2(
+            uint id, uint uniformId
+        );
+        [DllImport(OSDetector.GraphicsDLL)] internal static extern void graphics_setTextureParameter(
+            uint target, uint paramName, int value
+        );
+
+        [DllImport(OSDetector.GraphicsDLL)] internal static extern void graphics_setRenderOption(
+            uint option, bool enabled
+        );
+        [DllImport(OSDetector.GraphicsDLL)] internal static extern void graphics_setAlphaTestOptions(
+            uint func, float val
+        );
+        [DllImport(OSDetector.GraphicsDLL)] internal static extern void graphics_setDepthTestOptions(
+            uint func
+        );
+        [DllImport(OSDetector.GraphicsDLL)] internal static extern void graphics_setBlendingOptions(
+            uint sourceFunc, uint destFunc
+        );
+        [DllImport(OSDetector.GraphicsDLL)] internal static extern void graphics_setStencilOptions(
+            uint func, int refrence, uint mask
+        );
 
         [DllImport(OSDetector.GraphicsDLL)] public static extern uint graphics_getUniformLocation(uint program, string name);
         [DllImport(OSDetector.GraphicsDLL)] public static extern uint graphics_getAttribLocation(uint program, string name);

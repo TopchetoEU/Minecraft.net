@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace NetGL.GraphicsAPI
 {
-    public static class BufferElementPacker<T> where T : struct
+    internal static class BufferElementPacker<T> where T : struct
     {
         public static ValueType[] Unpack(T element)
         {

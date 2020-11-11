@@ -8,6 +8,17 @@
 #define API __declspec(dllimport)
 #endif
 
+#define BlendFunc 0xFA00
+#define AlphaFunc 0xFA01
+#define DepthFunc 0xFA02
+#define StencilFunc 0xFA02
+
+#define Blending 0xFA10
+#define Culling 0xFA11
+#define Dithering 0xFA12
+#define DepthTest 0xFA13
+#define StencilTest 0xFA14
+
 
 #include <list>
 #include <iostream>
@@ -77,6 +88,17 @@ public:
 		this->id = id;
 	}
 };
+struct activeTexture {
+	uint textureId = 0;
+	uint target = 0;
+	uint slot = 0;
+
+	activeTexture(uint id, uint target, uint slot) {
+		this->textureId = id;
+		this->target = target;
+		this->slot = slot;
+	}
+};
 
 class graphics {
 public:
@@ -86,6 +108,11 @@ public:
 	map<uint, void*> nativeArrays = map<uint, void*>();
 	map<uint, shader*> shaders = map<uint, shader*>();
 	map<uint, shaderProgram*> shaderPrograms = map<uint, shaderProgram*>();
+	list<uint> textures = list<uint>();
+
+	uint workingTextureSpace = 0;
+
+	activeTexture* activeTextureSlots[32];
 
 	uint selectedShaderProgram = 0;
 
@@ -167,6 +194,23 @@ extern "C" API void graphics_setUniformiVec4(uint id, int x, int y, int z, int w
 extern "C" API void graphics_setUniformbVec2(uint id, bool x, bool y);
 extern "C" API void graphics_setUniformbVec3(uint id, bool x, bool y, bool z);
 extern "C" API void graphics_setUniformbVec4(uint id, bool x, bool y, bool z, bool w);
+
+extern "C" API uint graphics_createTexture();
+extern "C" API void graphics_destroyTexture(uint id);
+extern "C" API uint graphics_getTexture(uint target);
+extern "C" API void graphics_setTexture(uint id, uint target);
+extern "C" API void graphics_setTexture1DData(uint target, uint length, uint textureFormat, uint dataType, uint dataArrId);
+extern "C" API void graphics_setTexture2DData(uint target, uint width, uint height, uint textureFormat, uint dataType, uint dataArrId);
+extern "C" API void graphics_setTexture3DData(uint target, uint width, uint height, uint depth, uint textureFormat, uint dataType, uint dataArrId);
+extern "C" API void graphics_setTextureParameter(uint target, uint paramName, int value);
+extern "C" API void graphics_setUniformTex2(uint target, uint uniformId);
+
+extern "C" API void graphics_setRenderOption(uint option, bool enabled);
+extern "C" API void graphics_setAlphaTestOptions(uint func, float val);
+extern "C" API void graphics_setDepthTestOptions(uint func);
+extern "C" API void graphics_setBlendingOptions(uint sourceFunc, uint destFunc);
+extern "C" API void graphics_setStencilOptions(uint func, int ref, uint mask);
+
 
 extern "C" API void graphics_setUniformMat2(uint id,
 	float x1, float x2,

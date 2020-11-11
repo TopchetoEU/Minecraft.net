@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "6HXL6En5u5BR+J0TnaeJ/398ah7riGsJqT04T92K+wWObduP6np7vbWCmB8IiZP9kjS0iYo8Uv9NPeQD/bFv+A==",
+  "dgSpecHash": "UK/Lv11z+RwnnW2BeLWDiGxDW7wNOhTAnpCXtJzWwsEzgWfbu7SYTV+P+Mhr9AVQL2DckguRZcMRpOyGTSNHnA==",
   "success": true,
   "projectFilePath": "D:\\repos\\Minecraft.net\\NetGL\\NetGL.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\TopchetoEU\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\TopchetoEU\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\TopchetoEU\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

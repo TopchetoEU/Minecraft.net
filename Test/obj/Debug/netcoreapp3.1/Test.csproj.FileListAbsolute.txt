@@ -14,3 +14,9 @@ D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.csproj.CopyComplete
 D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.dll
 D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.pdb
 D:\repos\Minecraft.net\Test\obj\Debug\netcoreapp3.1\Test.genruntimeconfig.cache
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\repos\Minecraft.net\Test\bin\Debug\netcoreapp3.1\NetGL.xml

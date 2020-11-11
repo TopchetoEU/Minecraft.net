@@ -92,7 +92,7 @@ namespace NetGL.GraphicsAPI
             }
         }
 
-        public ShaderProgram(params Shader[] shaders)
+        internal ShaderProgram(params Shader[] shaders)
         {
             Id = LLGraphics.graphics_createShaderProgram();
 
@@ -113,6 +113,8 @@ namespace NetGL.GraphicsAPI
 
         public void ApplyUniform(IMatrix<float> matrix, string name)
         {
+            if (name == null)
+                throw new ArgumentException("Name can't be null", "name");
             Use();
 
             if (matrix.GetType().IsMatrix(out var attr))
@@ -146,6 +148,8 @@ namespace NetGL.GraphicsAPI
         }
         public void ApplyUniform(IMatrix<double> matrix, string name)
         {
+            if (name == null)
+                throw new ArgumentException("Name can't be null", "name");
             Use();
 
             if (matrix.GetType().IsMatrix(out var attr))
@@ -179,6 +183,8 @@ namespace NetGL.GraphicsAPI
 
         public void ApplyUniform(IVector<float> vector, string name)
         {
+            if (name == null)
+                throw new ArgumentException("Name can't be null", "name");
             Use();
 
             if (vector.GetType().IsVector(out var attr))
@@ -204,6 +210,8 @@ namespace NetGL.GraphicsAPI
         }
         public void ApplyUniform(IVector<int> vector, string name)
         {
+            if (name == null)
+                throw new ArgumentException("Name can't be null", "name");
             Use();
 
             if (vector.GetType().IsVector(out var attr))
@@ -229,6 +237,8 @@ namespace NetGL.GraphicsAPI
         }
         public void ApplyUniform(IVector<double> vector, string name)
         {
+            if (name == null)
+                throw new ArgumentException("Name can't be null", "name");
             Use();
 
             if (vector.GetType().IsVector(out var attr))
@@ -251,6 +261,14 @@ namespace NetGL.GraphicsAPI
                         throw new Exception("Vector not supported");
                 }
             }
+        }
+        public void ApplyUniform(Texture2D texture, string name)
+        {
+            if (name == null)
+                throw new ArgumentException("Name can't be null", "name");
+            var id = LLGraphics.graphics_getUniformLocation(Id, name);
+            Use();
+            texture.Bind(id);
         }
     }
 }

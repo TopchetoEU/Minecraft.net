@@ -3,7 +3,7 @@
 namespace NetGL.GraphicsAPI
 {
     [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = true)]
-    public sealed class VectorAttribute: Attribute
+    internal sealed class VectorAttribute: Attribute
     {
         public uint Dimensions { get; }
         public MultiDimensionType Type { get; }

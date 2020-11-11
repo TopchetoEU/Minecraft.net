@@ -8,27 +8,81 @@
 #define API __declspec(dllimport)
 #endif
 
-typedef void(__stdcall DisplayFunc)();
-typedef void(__stdcall KeyboardActionFunc)(int code);
-typedef void(__stdcall MouseActionFunc)(int data, int x, int y);
-typedef void(__stdcall MouseMovementFunc)(int x, int y);
-typedef void(__stdcall ResizeFunc)(int w, int h);
+typedef void(__stdcall ExDisplayFunc)();
+typedef void(__stdcall ExKeyboardFunc)(int key);
+typedef void(__stdcall ExMouseActionFunc)(int action, int x, int y);
+typedef void(__stdcall ExMouseMoveFunc)(int x, int y);
+typedef void(__stdcall ExResizeFunc)(int w, int h);
+typedef void(__stdcall ExMouseScrollFunc)(int x, int y, int delta);
 
-typedef unsigned int uint;
+#include <glfw3.h>
+#include <iostream>
+#include "graphics_api.h"
+#include "framework.h"
 
+using namespace std;
 
-extern "C" API void window_test();
+class window {
+public:
+	std::string title;
+	uint id;
 
-extern "C" API void window_setCurrWindow(int window);
-extern "C" API int window_getCurrWindow();
+	GLFWwindow* handle = NULL;
+	graphics* attachedGraphics;
 
-extern "C" API void window_screenToClient(uint wnd, int& x, int& y);
-extern "C" API void window_clientToSpace(uint wnd, float& x, float& y);
-extern "C" API void window_spaceToClient(uint wnd, float& x, float& y);
-extern "C" API void window_clientToScreen(uint wnd, int& x, int& y);
+	bool shown = false;
+	bool active = false;
 
-extern "C" API void window_getMousePosition(int *x, int *y);
-extern "C" API void window_setMousePosition(int x, int y);
+	float fps = 60;
 
-extern "C" API void window_setConstantRefresh(int window, bool refresh);
-extern "C" API bool window_getConstantRefresh(int window);
+	float actualTime = -1;
+
+	bool vsync = true;
+
+	int x = 0, y = 0;
+
+	ExDisplayFunc* display = nullptr;
+	ExResizeFunc* resize = nullptr;
+
+	ExMouseMoveFunc* mouseMove = nullptr;
+	ExMouseActionFunc* mouseDown = nullptr;
+	ExMouseActionFunc* mouseUp = nullptr;
+	ExMouseScrollFunc* scroll = nullptr;
+
+	ExKeyboardFunc* keyDown = nullptr;
+	ExKeyboardFunc* keyUp = nullptr;
+
+	window(uint id);
+};
+
+window* getWindow(uint id);
+
+extern "C" API uint window_createWindow(const char* title);
+extern "C" API void window_destryWindow(uint id);
+
+extern "C" API void window_showWindow(uint id);
+extern "C" API void window_hideWindow(uint id);
+
+extern "C" API void window_activateWindow(uint id);
+extern "C" API void window_setDisplayFunc(uint id, ExDisplayFunc * func);
+extern "C" API void window_setResizeFunc(uint id, ExResizeFunc* func);
+
+extern "C" API void window_setMouseMoveFunc(uint id, ExMouseMoveFunc * func);
+extern "C" API void window_setMouseDownFunc(uint id, ExMouseActionFunc * func);
+extern "C" API void window_setMouseUpFunc(uint id, ExMouseActionFunc * func);
+extern "C" API void window_setScrollFunc(uint id, ExMouseActionFunc * func);
+
+extern "C" API void window_setWindowTitle(uint id, const char* title);
+extern "C" API void window_setWindowSize(uint id, int w, int h);
+
+extern "C" API float window_getRefreshRate(uint id);
+extern "C" API void window_setRefreshRate(uint id, float fps);
+
+extern "C" API void window_setKeydownFunc(uint id, ExKeyboardFunc * func);
+extern "C" API void window_setKeyupFunc(uint id, ExKeyboardFunc * func);
+
+extern "C" API void window_activateMainLoop();
+extern "C" API void window_setup();
+
+extern "C" API void window_setMousePosition(uint wnd, int x, int y);
+extern "C" API void window_setMouseLocked(uint wnd, bool value);

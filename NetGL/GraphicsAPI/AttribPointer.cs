@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetGL.WindowAPI;
+using System;
 using System.Reflection;
 
 namespace NetGL.GraphicsAPI
@@ -31,37 +32,6 @@ namespace NetGL.GraphicsAPI
                 return new AttribPointer(1, gType);
             }
             else throw new Exception("Invalid graphics type");
-        }
-        public static AttribPointer FromStruct<T>() where T : struct
-        {
-            return FromStruct(typeof(T));
-        }
-
-        public static bool TryFromStruct(Type type, out AttribPointer? attrib)
-        {
-            if (!type.IsValueType) attrib = null;
-
-
-            var vecAttrib = type.GetCustomAttribute(typeof(VectorAttribute)) as VectorAttribute;
-
-            if (vecAttrib != null)
-            {
-                var size = vecAttrib.Dimensions;
-                var gType = vecAttrib.Type;
-
-                attrib = new AttribPointer(size, gType.ToGraphicsType());
-            }
-            else if (type.ToGraphicsType().TryStruct(out var gType))
-            {
-                attrib = new AttribPointer(1, gType);
-            }
-            else attrib = null;
-
-            return attrib.HasValue;
-        }
-        public static bool TryFromStruct<T>(out AttribPointer? attrib)
-        {
-            return TryFromStruct(typeof(T), out attrib);
         }
     }
 }

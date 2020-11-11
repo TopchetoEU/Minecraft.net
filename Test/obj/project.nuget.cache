@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "wsFoqABPowcyrLiLltuSH/HAhAacX9T6n+A5KSDdD1rrizOhgePDjRTg1lwZ3Lq01q4veCNZC1YURhwKz+yrlQ==",
+  "dgSpecHash": "nVriZqSIiA9F0PoSmBi2V53N5zapLf7Pus+FpqkT92pujXCxuPLyw7enZw8ZW1czCe2+E4mZA/yO7d3vBQ9VSQ==",
   "success": true,
   "projectFilePath": "D:\\repos\\Minecraft.net\\Test\\Test.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\TopchetoEU\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\TopchetoEU\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\TopchetoEU\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

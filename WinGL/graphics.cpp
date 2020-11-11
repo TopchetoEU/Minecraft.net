@@ -2,7 +2,7 @@
 #include <map>
 #include "graphics_api.h"
 #include "gl/glew.h"
-#include "window_api_experimental.h"
+#include "window_api.h"
 #include <set>
 #include <list>
 #include <iostream>
@@ -39,7 +39,7 @@ public:
 		throw getCode();
 	}
 };
-class genericError : public throwable {
+class error : public throwable {
 private:
 	string message = "aaa";
 	string name = "genericError";
@@ -51,9 +51,9 @@ public:
 
 	uint getCode() { return 0xFFFF0000; }
 
-	genericError() { setMessage("A generic error was thrown"); }
-	genericError(string message) { setMessage(message); }
-	genericError(string message, string name) { setMessage(message); setName(name); }
+	error() { setMessage("A generic error was thrown"); }
+	error(string message) { setMessage(message); }
+	error(string message, string name) { setMessage(message); setName(name); }
 };
 
 graphics::graphics() {
@@ -74,13 +74,13 @@ graphics* currGraphics = nullptr;
 
 bool graphicsCheck() {
 	if (currGraphics == nullptr) {
-		genericError(
+		error(
 			"There is no current window graphics context selected. Maybe you're not drawing at the moment?"
 		).throwError();
 		return false;
 	}
 	else if (!currGraphics->g_initialised) {
-		genericError("The currently selected graphic context is not initialised.").throwError();
+		error("The currently selected graphic context is not initialised.").throwError();
 		return false;
 	}
 
@@ -103,7 +103,7 @@ void graphics_destroyVAO(uint vaoId) {
 		glDeleteVertexArrays(1, &vaoId);
 		currGraphics->vaos.erase(vaoId);
 	}
-	else genericError(
+	else error(
 		"An attempt was made to delete an unexistant vertex array object",
 		"objectDeleteError"
 	).throwError();
@@ -124,7 +124,7 @@ void graphics_destroyBuffer(uint buff) {
 		glDeleteBuffers(0, &buff);
 		currGraphics->buffers.erase(buff);
 	}
-	else genericError(
+	else error(
 		"An attempt was made to delete an unexistant buffer",
 		"objectDeleteError"
 	).throwError();
@@ -140,7 +140,7 @@ bool checkBuffExistance(uint target) {
 }
 
 void graphics_setBuffer(uint target, uint buff) {
-	if (currGraphics->buffers.find(buff) == currGraphics->buffers.end()) genericError(
+	if (currGraphics->buffers.find(buff) == currGraphics->buffers.end()) error(
 		"An attempt was made to bind an unexistant buffer",
 		"bufferBindError"
 	).throwError();
@@ -162,7 +162,7 @@ void graphics_getBufferData(uint target, uint size, object data) {
 }
 
 void graphics_setVAO(uint vaoId) {
-	if (currGraphics->vaos.find(vaoId) == currGraphics->vaos.end()) genericError(
+	if (currGraphics->vaos.find(vaoId) == currGraphics->vaos.end()) error(
 		"An attempt was made to bind an unexistant buffer",
 		"bufferBindError"
 	).throwError();
@@ -240,7 +240,6 @@ uint graphics_loadNativeArray(void* arr, uint size) {
 			break;
 		case GL_UNSIGNED_INT:
 			*(uint*)nativeArr = *(uint*)(uint*)value.Value;
-			cout << "test";
 			nativeArr = (uint*)nativeArr + 1;
 			break;
 		case GL_INT:
@@ -248,7 +247,7 @@ uint graphics_loadNativeArray(void* arr, uint size) {
 			nativeArr = (int*)nativeArr + 1;
 			break;
 		case GL_FLOAT:
-			*(float*)nativeArr = *(float*)(float*)value.Value;;
+			*(float*)nativeArr = *(float*)(float*)value.Value;
 			nativeArr = (float*)nativeArr + 1;
 			break;
 		case GL_DOUBLE:
@@ -318,8 +317,6 @@ void graphics_destroyShader(uint shader) {
 	currGraphics->shaders.erase(shader);
 }
 
-uint test = 0;
-
 nativeString graphics_getShaderInfoLog(uint shaderId) {
 	auto a = currGraphics->shaders[shaderId];
 	return nativiseString(a->error);
@@ -366,7 +363,7 @@ void graphics_compileShaderProgram(uint program) {
 
 	glGetProgramInfoLog(program, logLength, NULL, logError);
 
-	if (!(logLength == 0 || success == 1)) genericError((const char*)logError).throwError();
+	if (!(logLength == 0 || success == 1)) error((const char*)logError).throwError();
 }
 void graphics_destroyShaderProgram(uint program) {
 	for (auto shdr : *currGraphics->shaderPrograms[program]->shaders) {
@@ -388,6 +385,137 @@ uint graphics_loadShaderProgram(uint* shaders, uint count) {
 	return program;
 }
 
+uint graphics_createTexture() {
+	graphicsCheck();
+	uint id = 0;
+
+	glGenTextures(1, &id);
+
+	currGraphics->textures.push_back(id);
+
+	return id;
+}
+void graphics_destroyTexture(uint id) {
+	graphicsCheck();
+
+	if (find(currGraphics->textures.begin(), currGraphics->textures.end(), id) == currGraphics->textures.end())
+		error("Can't destroy the texture, since it wasn't created in the first place").throwError();
+
+	glDeleteTextures(1, &id);
+
+	int i = 0;
+	for (auto tex : currGraphics->activeTextureSlots) {
+		if (tex->textureId == id) currGraphics->activeTextureSlots[i] = nullptr;
+		i++;
+	}
+}
+uint graphics_getTexture(uint target) {
+	graphicsCheck();
+	if (currGraphics->activeTextureSlots[0] == nullptr) return 0;
+	else
+		if (currGraphics->activeTextureSlots[0]->target == target)
+			return currGraphics->activeTextureSlots[0]->textureId;
+		else return 0;
+}
+void graphics_setTexture(uint id, uint target) {
+	graphicsCheck();
+	glBindTexture(target, id);
+	currGraphics->activeTextureSlots[currGraphics->workingTextureSpace] =
+		new activeTexture(id, target, currGraphics->workingTextureSpace);
+}
+void graphics_setTexture1DData(uint target, uint length, uint textureFormat, uint dataType, uint dataArrId) {
+	graphicsCheck();
+
+	uint tex = graphics_getTexture(target);
+	
+	if (tex == 0)
+		error("Can't load texture data to an unused target").throwError();
+
+	if (currGraphics->nativeArrays.find(dataArrId) == currGraphics->nativeArrays.end())
+		error("The native array specified could not be found").throwError();
+
+	glTexImage1D(target, 0, GL_RGBA,
+		length, 0,
+		textureFormat, dataType, currGraphics->nativeArrays[dataArrId]);
+}
+void graphics_setTexture2DData(uint target, uint width, uint height, uint textureFormat, uint dataType, uint dataArrId) {
+	graphicsCheck();
+
+	uint tex = graphics_getTexture(target);
+
+	if (tex == 0)
+		error("Can't load texture data to an unused target").throwError();
+
+	if (currGraphics->nativeArrays.find(dataArrId) == currGraphics->nativeArrays.end())
+		error("The native array specified could not be found").throwError();
+
+	glTexImage2D(target, 0, GL_RGBA,
+		width, height, 0,
+		textureFormat, dataType, currGraphics->nativeArrays[dataArrId]);
+}
+void graphics_setTexture3DData(uint target, uint width, uint height, uint depth, uint textureFormat, uint dataType, uint dataArrId) {
+	graphicsCheck();
+
+	uint tex = graphics_getTexture(target);
+
+	if (tex == 0)
+		error("Can't load texture data to an unused target").throwError();
+
+	if (currGraphics->nativeArrays.find(dataArrId) == currGraphics->nativeArrays.end())
+		error("The native array specified could not be found").throwError();
+
+	glTexImage3D(target, 0, GL_RGBA,
+		width, height, depth, 0,
+		textureFormat, dataType, currGraphics->nativeArrays[dataArrId]);
+}
+void graphics_setTextureParameter(uint target, uint paramName, int value) {
+	graphicsCheck();
+
+	uint tex = graphics_getTexture(target);
+
+	if (tex == 0)
+		error("Can't set parameters to an unused target").throwError();
+
+	glTexParameteri(target, paramName, value);
+}
+
+void graphics_setUniformTex2(uint target, uint uniformId) {
+	bool spaceFound = true;
+	int workingSpace = -1;
+	auto currTexture = graphics_getTexture(target);
+
+	if (currTexture == 0) error(
+		string("Can't set an unbount texture to an uniform.")
+			.append("Consider binding a texture before setting it to an uniform.")
+			.c_str()
+	).throwError();
+
+	glActiveTexture(currGraphics->workingTextureSpace);
+	glUniform1i(uniformId, uint(currGraphics->workingTextureSpace));
+
+	for (uint i = 0; i < 32; i++) {
+		auto tex = currGraphics->activeTextureSlots[i];
+		auto id = 0;
+		if (tex != nullptr) id = tex->textureId;
+
+		if (id == 0) {
+			currGraphics->workingTextureSpace = i;
+			workingSpace = i;
+
+			glActiveTexture(GL_TEXTURE0 + i);
+
+			break;
+		}
+	}
+
+	if (workingSpace == -1)
+		cout
+		<< "Warning: All texture slots (32) have been allocated. "
+		<< "There is no free space for working with texture, so this functuionality is restricted to "
+		<< " creating and destroying textures. Consider deallocating some textures, or destroying them.";
+	else currGraphics->workingTextureSpace = (uint)workingSpace;
+}
+
 void graphics_setBackground(float r, float g, float b, float a) {
 	glClearColor(r, g, b, a);
 
@@ -405,6 +533,46 @@ void graphics_getBackground(float* r, float* g, float* b, float* a) {
 
 void graphics_clear(uint type) {
 	glClear(type);
+}
+
+void graphics_setRenderOption(uint option, bool enabled) {
+	graphicsCheck();
+	uint internalFunc = 0;
+
+	switch (option)
+	{
+	case Blending:
+		internalFunc = GL_BLEND;
+	case Culling:
+		internalFunc = GL_CULL_FACE;
+	case Dithering:
+		internalFunc = GL_DITHER;
+	case DepthTest:
+		internalFunc = GL_DEPTH_TEST;
+	case StencilTest:
+		internalFunc = GL_STENCIL_TEST;
+	default:
+		error("The option selected is not valid").throwError();
+		break;
+	}
+
+	if (enabled) glEnable(internalFunc);
+	else glDisable(internalFunc);
+}
+void graphics_setAlphaTestOptions(uint func, float val) {
+	graphicsCheck();
+	glAlphaFunc(func, val);
+}
+void graphics_setDepthTestOptions(uint func) {
+	graphicsCheck();
+	glDepthFunc(func);
+}
+void graphics_setBlendingOptions(uint sourceFunc, uint destFunc) {
+	glBlendFunc(sourceFunc, destFunc);
+}
+void graphics_setStencilOptions(uint func, int ref, uint mask) {
+	graphicsCheck();
+	glStencilFunc(func, ref, mask);
 }
 
 uint graphics_getUniformLocation(uint program, char* name) {
@@ -482,12 +650,14 @@ void graphics_setUniformMat4(uint id,
 	float z1, float z2, float z3, float z4,
 	float w1, float w2, float w3, float w4
 ) {
-	glUniformMatrix3fv(id, 1, false, new float[16]{
+	auto a = (float*) new float[16]{
 		x1, x2, x3, x4,
 		y1, y2, y3, y4,
 		z1, z2, z3, z4,
 		w1, w2, w3, w4
-		});
+	};
+
+	glUniformMatrix4fv(id, 1, true, a);
 }
 
 

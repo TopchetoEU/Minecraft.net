@@ -1,6 +1,6 @@
 ﻿namespace NetGL.GraphicsAPI
 {
-    public enum GraphicsType
+    internal enum GraphicsType
     {
         Boolean,
         UnsginedByte = 0x1401,
@@ -11,7 +11,7 @@
         Float = 0x1406,
         Double = 0x140A,
     }
-    public enum MultiDimensionType
+    internal enum MultiDimensionType
     {
         Boolean,
         Int = 0x1404,

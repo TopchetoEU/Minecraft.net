@@ -7,7 +7,7 @@
     <ClCompile Include="graphics.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="windowExperimental.cpp">
+    <ClCompile Include="window.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -21,7 +21,7 @@
     <ClInclude Include="graphics_api.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="window_api_experimental.h">
+    <ClInclude Include="window_api.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

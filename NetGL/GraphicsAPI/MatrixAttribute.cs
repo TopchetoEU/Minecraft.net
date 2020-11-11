@@ -3,7 +3,7 @@
 namespace NetGL.GraphicsAPI
 {
     [AttributeUsage(AttributeTargets.Struct, Inherited = false, AllowMultiple = true)]
-    public sealed class MatrixAttribute: Attribute
+    internal sealed class MatrixAttribute: Attribute
     {
         public uint Width { get; }
         public uint Height { get; }

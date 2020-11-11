@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetGL.GraphicsAPI
 {
-    public static partial class LLGraphics
+	internal static partial class LLGraphics
     {
 		[DllImport(OSDetector.GraphicsDLL)]
 		public static extern void graphics_setUniformVec2(uint id, float x, float y);

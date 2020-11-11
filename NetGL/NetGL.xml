@@ -1,0 +1,429 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetGL</name>
+    </assembly>
+    <members>
+        <member name="T:NetGL.GraphicsAPI.ClearType">
+            <summary>
+            The type of clearing of screen
+            </summary>
+        </member>
+        <member name="F:NetGL.GraphicsAPI.ClearType.ColorBuffer">
+            <summary>
+            Clears the color information from the screen, effectively resetting it
+            </summary>
+        </member>
+        <member name="F:NetGL.GraphicsAPI.ClearType.DepthBuffer">
+            <summary>
+            Clears any depth buffer sotred data (it is required for depth testing to work propertly)
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.Graphics">
+            <summary>
+            Graphics object, used to modify window-level global states
+            </summary>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.Graphics.Clear(NetGL.GraphicsAPI.ClearType)">
+            <summary>
+            Clears the specified buffers
+            </summary>
+            <param name="type">The buffer to clear (you can clear multiple buffer, by listing the buffers with "|")</param>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Graphics.DepthTesting">
+            <summary>
+            Depth testing in scene (compares each pixel with the already drawn objects)
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Graphics.StencilTesting">
+            <summary>
+            Stencil testing in scene. Determines wether or not a pixel is drawn, depending on the selected stencil buffer
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Graphics.AlphaBlending">
+            <summary>
+            When two transparent primitives overlap, blends between them to produce another color
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Graphics.BackfaceCulling">
+            <summary>
+            Discards faces that are not pointing towards the camera (primitive vertices must be going clockwide)
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Graphics.Dithering">
+            <summary>
+            Uses dithering for expressing higher bit colors
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Graphics.DepthTestFunction">
+            <summary>
+            The comparasion function for depth testing
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Graphics.SourceBlendFunction">
+            <summary>
+            The blending function for the primitive drawn
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Graphics.DestinationBlendFunction">
+            <summary>
+            The blending function for the already drawn on screen
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Graphics.BackgorundColor">
+            <summary>
+            The background color of the window
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.GraphicsEventArgs">
+            <summary>
+            Arguments for any events, including graphics manipulation
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.GraphicsEventArgs.Graphics">
+            <summary>
+            The graphics, allocated for drawing in the current event,
+            they might break everything, if used outside the event
+            </summary>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.GraphicsEventArgs.#ctor(NetGL.GraphicsAPI.Graphics)">
+            <summary>
+            Creates new graphics event
+            </summary>
+            <param name="grph">The graphics to use</param>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.GraphicsPrimitive">
+            <summary>
+            All primitive types
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.IBuffer">
+            <summary>
+            The standart definition for a buffer
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.IBuffer.Length">
+            <summary>
+            The length of the buffer
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.IBuffer.ByteLength">
+            <summary>
+            The length in memory of the buffer
+            </summary>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.IBuffer.SetData``1(``0[])">
+            <summary>
+            Sets the data of the buffer
+            </summary>
+            <typeparam name="T">The type of data to set</typeparam>
+            <param name="data">The data to set</param>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.IDrawable">
+            <summary>
+            An object that can be drawn on screen
+            </summary>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.IDrawable.Draw(NetGL.GraphicsAPI.Graphics)">
+            <summary>
+            Draws the object on screen
+            </summary>
+            <param name="graphics">The graphics being used to draw the object</param>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.IgonrePropertyAttribute">
+            <summary>
+            Ignores a property of a vertice struct
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.ITexture">
+            <summary>
+            A texture that has different dimensions and the abillity to take new data; very similar to the buffer
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.ITexture.Sizes">
+            <summary>
+            The different dimensions of the texture, going form Width, Height ...
+            </summary>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.ITexture.SetData(System.Single[],NetGL.GraphicsAPI.PixelFormat)">
+            <summary>
+            Sets the data of the texture
+            </summary>
+            <param name="data">The data to set</param>
+            <param name="format">The format of the pixels</param>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.ITexture.SetData(System.Collections.Generic.IEnumerable{System.Single},NetGL.GraphicsAPI.PixelFormat)">
+            <summary>
+            Sets the data of the texture
+            </summary>
+            <param name="data">The data to set</param>
+            <param name="format">The format of the pixels</param>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.IUsable">
+            <summary>
+            An object that can be used
+            </summary>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.IUsable.Use">
+            <summary>
+            Use the object
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.Mesh">
+            <summary>
+            A 3D-object in the space, expressed by points and indicies
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Mesh.VertexBuffer">
+            <summary>
+            The array buffer, used by the mesh
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Mesh.ElementBuffer">
+            <summary>
+            The element buffer, used by the mesh
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Mesh.Program">
+            <summary>
+            The shader program, used to shade the mesh
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Mesh.Transformation">
+            <summary>
+            The transformation of the mesh
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Mesh.TransformMatrix">
+            <summary>
+            The transformation matrix of the mesh
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Mesh.TransformationMatrixName">
+            <summary>
+            The name of the uniform transformation matrix
+            </summary>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.Mesh.#ctor(NetGL.GraphicsAPI.VBO,NetGL.GraphicsAPI.EBO,NetGL.GraphicsAPI.ShaderProgram,System.String)">
+            <summary>
+            Creates new mesh, using already created buffers
+            </summary>
+            <param name="vbo">The array buffer to use</param>
+            <param name="ebo">The element buffer to use</param>
+            <param name="program">The program to use</param>
+            <param name="transMatrixName">The transformation matirx uniform name to use</param>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.Mesh.#ctor(NetGL.GraphicsAPI.Graphics,NetGL.GraphicsAPI.ShaderProgram,NetGL.GraphicsAPI.GraphicsPrimitive,System.String)">
+            <summary>
+            Creates new mesh, using already created buffers
+            </summary>
+            <param name="primitive">The type of primitives to use</param>
+            <param name="program">The program to use</param>
+            <param name="transMatrixName">The transformation matirx uniform name to use</param>
+            <param name="g">The graphics object to use in the creation of the mesh</param>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.Mesh.LoadVertices``1(``0[])">
+            <summary>
+            Loads vertices data to the mesh
+            </summary>
+            <typeparam name="T">The type of vertices to use</typeparam>
+            <param name="data">The vertex data</param>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.Mesh.LoadVertices``1(``0[],System.UInt32[])">
+            <summary>
+            Loads vertices data to the mesh
+            </summary>
+            <typeparam name="T">The type of vertices to use</typeparam>
+            <param name="data">The vertex data</param>
+            <param name="primitives">The primitive connection data</param>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.Mesh.Draw(NetGL.GraphicsAPI.Graphics)">
+            <summary>
+            Draws the mesh on screen
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.PixelFormat">
+            <summary>
+            Texture pixel format
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.Transform">
+            <summary>
+            A transformation in 3D space
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Transform.Zero">
+            <summary>
+            The all-zero transformation, except scale, whitch is all-one
+            </summary>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.Transform.#ctor(NetGL.Vector3,NetGL.Vector3,NetGL.Vector3)">
+            <summary>
+            Creates new transformation
+            </summary>
+            <param name="pos">The translation</param>
+            <param name="rot">The rotation</param>
+            <param name="scale">the scale</param>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.Transform.#ctor(NetGL.Vector3,NetGL.Vector3,NetGL.Vector3,NetGL.Vector3)">
+            <summary>
+            Creates new transformation with a transformation center
+            </summary>
+            <param name="pos">The translation</param>
+            <param name="rot">The rotation</param>
+            <param name="scale">the scale</param>
+            <param name="center">The transformation center</param>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Transform.TransformationCenter">
+            <summary>
+            the tranformation center
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Transform.Position">
+            <summary>
+            The position
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Transform.Rotation">
+            <summary>
+            The rotation
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Transform.Scale">
+            <summary>
+            The scale
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Transform.Matrix">
+            <summary>
+            The matrix, that expresses the same translation in the following order:
+            transformationCenter, scale, rotationRow, tranformationYaw, transformationPitch,
+            -transformationCenter, position
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.IObject3D">
+            <summary>
+            An object in 3D space
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.IObject3D.Transformation">
+            <summary>
+            The transformation ofthe object
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.IObject3D.TransformMatrix">
+            <summary>
+            The transformation's matrix
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.IObject3D.TransformationMatrixName">
+            <summary>
+            The matrix uniform name
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.ICamera">
+            <summary>
+            A camera, that gives camera matrix
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.ICamera.CameraMatrix">
+            <summary>
+            The camera's camera matrix
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.ICamera.CameraMatrixName">
+            <summary>
+            The name of the camera matrix uniform
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.PrespectiveCamera">
+            <summary>
+            A prespective camera, that has the property of objects getting smaller, as they get further from the camera
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.PrespectiveCamera.Ratio">
+            <summary>
+            The ratio between width and height
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.PrespectiveCamera.FOV">
+            <summary>
+            The Filed of View
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.PrespectiveCamera.Nearclip">
+            <summary>
+            The near clipping plane
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.PrespectiveCamera.Farclip">
+            <summary>
+            The far clipping plane
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.PrespectiveCamera.Transformation">
+            <summary>
+            The transformation of the camera
+            </summary>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.PrespectiveCamera.#ctor(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Creates new prespective camera with manual control over the field of view
+            </summary>
+            <param name="fov">filed of view</param>
+            <param name="near">Near clipping plane</param>
+            <param name="far">Far clipping plane</param>
+            <param name="ratio">Ratio between width and height</param>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.PrespectiveCamera.#ctor(NetGL.WindowAPI.Window,System.Single,System.Single,System.Single)">
+            <summary>
+            Creates new prespective camera, attached to a window
+            </summary>
+            <param name="fov">filed of view</param>
+            <param name="near">Near clipping plane</param>
+            <param name="far">Far clipping plane</param>
+            <param name="window">the window that the camera is being attached to</param>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.ComparativeFunc">
+            <summary>
+            All the types of supported comparative functions
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.BlendingFunc">
+            <summary>
+            All the typeos of supported blending functions
+            </summary>
+        </member>
+        <member name="T:NetGL.GraphicsAPI.Scene">
+            <summary>
+            Scene, containing a camera and different objects
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Scene.Meshes">
+            <summary>
+            All the meshes in the scene
+            </summary>
+        </member>
+        <member name="P:NetGL.GraphicsAPI.Scene.Camera">
+            <summary>
+            The scene's camera
+            </summary>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.Scene.Draw(NetGL.GraphicsAPI.Graphics)">
+            <summary>
+            Draws the scene on screen
+            </summary>
+        </member>
+        <member name="M:NetGL.GraphicsAPI.VBO.GetData``1">
+            <summary>
+            Broken
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:NetGL.OSDetector">
+            <summary>
+            A simple os detector, dependant on build type. NOTE! Unsupported operating systems fallback to windows
+            </summary>
+        </member>
+    </members>
+</doc>
