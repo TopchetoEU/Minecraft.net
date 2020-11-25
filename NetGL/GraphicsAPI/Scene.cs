@@ -98,6 +98,39 @@ namespace NetGL.GraphicsAPI
         /// The matrix uniform name
         /// </summary>
         string TransformationMatrixName { get; }
+
+        public Vector3 Position {
+            get => Transformation.Position;
+            set => Transformation = new Transform(
+                value,
+                Transformation.Rotation,
+                Transformation.Scale,
+                Transformation.TransformationCenter);
+        }
+        public Vector3 Rotation {
+            get => Transformation.Rotation;
+            set => Transformation = new Transform(
+                Transformation.Position,
+                value,
+                Transformation.Scale,
+                Transformation.TransformationCenter);
+        }
+        public Vector3 Scale {
+            get => Transformation.Scale;
+            set => Transformation = new Transform(
+                Transformation.Position,
+                Transformation.Rotation,
+                value,
+                Transformation.TransformationCenter);
+        }
+        public Vector3 TransformCenter {
+            get => Transformation.TransformationCenter;
+            set => Transformation = new Transform(
+                Transformation.Position,
+                Transformation.Rotation,
+                Transformation.Scale,
+                value);
+        }
     }
     /// <summary>
     /// A camera, that gives camera matrix
@@ -107,7 +140,7 @@ namespace NetGL.GraphicsAPI
         /// <summary>
         /// The camera's camera matrix
         /// </summary>
-        Matrix4 CameraMatrix { get; }
+        Matrix4 GetCameraMatrix(float ratio);
         /// <summary>
         /// The name of the camera matrix uniform
         /// </summary>
@@ -121,10 +154,6 @@ namespace NetGL.GraphicsAPI
     {
         /// <summary>
         /// The ratio between width and height
-        /// </summary>
-        public float Ratio { get; set; } = 1;
-        /// <summary>
-        /// The Filed of View
         /// </summary>
         public float FOV { get; set; } = 70;
         /// <summary>
@@ -141,8 +170,10 @@ namespace NetGL.GraphicsAPI
         /// </summary>
         public Transform Transformation { get; set; } = Transform.Zero;
 
-        public Matrix4 CameraMatrix =>
-            Matrix4.CreateProjection(70, Ratio, Nearclip, Farclip);
+        public Matrix4 GetCameraMatrix(float ratio)
+        {
+            return Matrix4.CreateProjection(70, ratio, Nearclip, Farclip);
+        }
         public Matrix4 TransformMatrix =>
             Transformation.Matrix;
 
@@ -150,30 +181,13 @@ namespace NetGL.GraphicsAPI
         public string TransformationMatrixName { get; set; } = "cameraTransformMatrix";
 
         /// <summary>
-        /// Creates new prespective camera with manual control over the field of view
+        /// Creates new prespective camera (the closer an object is, the bigger it appears)
         /// </summary>
         /// <param name="fov">filed of view</param>
         /// <param name="near">Near clipping plane</param>
         /// <param name="far">Far clipping plane</param>
-        /// <param name="ratio">Ratio between width and height</param>
-        public PrespectiveCamera(float fov, float near, float far, float ratio)
+        public PrespectiveCamera(float fov, float near, float far)
         {
-            FOV = fov;
-            Nearclip = near;
-            Farclip = far;
-            Ratio = ratio;
-        }
-        /// <summary>
-        /// Creates new prespective camera, attached to a window
-        /// </summary>
-        /// <param name="fov">filed of view</param>
-        /// <param name="near">Near clipping plane</param>
-        /// <param name="far">Far clipping plane</param>
-        /// <param name="window">the window that the camera is being attached to</param>
-        public PrespectiveCamera(Window window, float fov, float near, float far)
-        {
-            window.SizeChanged += (s, e) => Ratio = e.Width / (float)e.Height;
-            Ratio = window.Size.X / (float)window.Size.Y;
             FOV = fov;
             Nearclip = near;
             Farclip = far;
@@ -241,6 +255,9 @@ namespace NetGL.GraphicsAPI
         public event CancellableGraphicsEventHandler Drawing;
         public event GraphicsEventHandler Drawn;
 
+        public float ViewRation { get; set; } = 1;
+
+
         /// <summary>
         /// Draws the scene on screen
         /// </summary>
@@ -253,12 +270,25 @@ namespace NetGL.GraphicsAPI
                     mesh.Program.ApplyUniform(Camera.TransformMatrix, Camera.TransformationMatrixName);
                     mesh.Program.ApplyUniform(TransformMatrix, TransformationMatrixName);
                     mesh.Program.ApplyUniform(mesh.TransformMatrix, mesh.TransformationMatrixName);
-                    mesh.Program.ApplyUniform(Camera.CameraMatrix, Camera.CameraMatrixName);
+                    mesh.Program.ApplyUniform(Camera.GetCameraMatrix(ViewRation), Camera.CameraMatrixName);
 
                     mesh.Draw(graphics);
                 }
                 Drawn?.Invoke(this, new GraphicsEventArgs(graphics));
             }
         }
+    }
+
+    public interface IMovementController
+    {
+        Vector3 Position { get; }
+
+        void Update(float delta);
+    }
+    public interface ICameraController
+    {
+        Vector3 Rotation { get; }
+
+        void Update();
     }
 }

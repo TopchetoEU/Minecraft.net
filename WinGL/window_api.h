@@ -33,6 +33,9 @@ public:
 	bool shown = false;
 	bool active = false;
 
+	GLFWmonitor* fullscreenMonitor = nullptr;
+	GLFWvidmode* fullscreenMode = nullptr;
+
 	float fps = 60;
 
 	float actualTime = -1;
@@ -86,3 +89,9 @@ extern "C" API void window_setup();
 
 extern "C" API void window_setMousePosition(uint wnd, int x, int y);
 extern "C" API void window_setMouseLocked(uint wnd, bool value);
+
+extern "C" API GLFWmonitor **window_getMonitors(int* count);
+extern "C" API const GLFWvidmode *window_getMonitorModes(GLFWmonitor * monitor, int* count);
+extern "C" API const GLFWvidmode * window_getMonitorMainMode(GLFWmonitor * monitor);
+
+extern "C" API void window_fullscreen(uint wnd, GLFWmonitor * monitor, GLFWvidmode * mode);

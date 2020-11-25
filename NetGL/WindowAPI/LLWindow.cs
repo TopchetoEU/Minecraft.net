@@ -14,6 +14,15 @@ namespace NetGL.WindowAPI
     public delegate void MouseMoveFunc(int x, int y);
     internal static class LLWindow
     {
+        public struct VideoMode
+        {
+            public int width { get; set; }
+            public int height { get; set; }
+            public int redBits { get; set; }
+            public int greenBits { get; set; }
+            public int blueBits { get; set; }
+            public int refreshRate { get; set; }
+        }
 
         [DllImport(OSDetector.GraphicsDLL)] public extern static void test();
         [DllImport(OSDetector.GraphicsDLL)] public extern static void window_setup();
@@ -53,5 +62,15 @@ namespace NetGL.WindowAPI
         [DllImport(OSDetector.GraphicsDLL)] public extern static void window_clientToScreen(uint wnd, ref int x, ref int y);
 
         [DllImport(OSDetector.GraphicsDLL)] public extern static void window_setMousePosition(uint wnd, int x, int y);
+
+        [DllImport(OSDetector.GraphicsDLL)]
+        public unsafe extern static void** window_getMonitors(ref int count);
+        [DllImport(OSDetector.GraphicsDLL)]
+        public unsafe extern static VideoMode* window_getMonitorModes(void* monitor, ref int count);
+
+        [DllImport(OSDetector.GraphicsDLL)]
+        public unsafe extern static void window_fullscreen(uint wnd, void* monitor, VideoMode* mode);
+        [DllImport(OSDetector.GraphicsDLL)]
+        public unsafe extern static VideoMode* window_getMonitorMainMode(void* monitor);
     }
 }

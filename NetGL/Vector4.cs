@@ -8,6 +8,8 @@ namespace NetGL
     [Vector(4, MultiDimensionType.Float)]
     public struct Vector4: IVector<float>
     {
+        public static Vector4 Zero => new Vector4(0, 0, 0, 0);
+
         [VectorDimension(0)] public float X { get; set; }
         [VectorDimension(1)] public float Y { get; set; }
         [VectorDimension(2)] public float Z { get; set; }

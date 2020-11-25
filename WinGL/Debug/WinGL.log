@@ -1,4 +1,151 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (TestCpp.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  graphics.cpp
+D:\repos\Minecraft.net\WinGL\graphics_api.h(8,1): warning C4005: 'API': macro redefinition
+D:\repos\Minecraft.net\WinGL\graphics_api.h(3): message : see previous definition of 'API'
+D:\repos\Minecraft.net\WinGL\graphics_api.h(162,62): warning C4190: 'graphics_getShaderSource' has C-linkage specified, but returns UDT 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' which is incompatible with C
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+D:\repos\Minecraft.net\WinGL\window_api.h(3,1): warning C4005: 'API': macro redefinition
+D:\repos\Minecraft.net\WinGL\graphics_api.h(8): message : see previous definition of 'API'
+D:\repos\Minecraft.net\WinGL\window_api.h(8,1): warning C4005: 'API': macro redefinition
+D:\repos\Minecraft.net\WinGL\window_api.h(3): message : see previous definition of 'API'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
+D:\repos\Minecraft.net\WinGL\GL\glfw3.h(123): message : see previous definition of 'APIENTRY'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(93,27): warning C4273: 'graphics_createVAO': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(131,21): message : see previous definition of 'graphics_createVAO'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(101,38): warning C4273: 'graphics_destroyVAO': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(132,21): message : see previous definition of 'graphics_destroyVAO'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(112,41): warning C4273: 'graphics_createBuffer': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(134,21): message : see previous definition of 'graphics_createBuffer'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(122,40): warning C4273: 'graphics_destroyBuffer': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(135,21): message : see previous definition of 'graphics_destroyBuffer'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(142,49): warning C4273: 'graphics_setBuffer': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(137,21): message : see previous definition of 'graphics_setBuffer'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(153,38): warning C4273: 'graphics_getBuffer': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(138,21): message : see previous definition of 'graphics_getBuffer'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(157,79): warning C4273: 'graphics_setBufferData': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(140,21): message : see previous definition of 'graphics_setBufferData'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(160,66): warning C4273: 'graphics_getBufferData': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(141,21): message : see previous definition of 'graphics_getBufferData'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(164,34): warning C4273: 'graphics_setVAO': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(147,21): message : see previous definition of 'graphics_setVAO'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(174,24): warning C4273: 'graphics_getVAO': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(148,21): message : see previous definition of 'graphics_getVAO'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(188,113): warning C4273: 'graphics_createBufferAttribute': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(144,21): message : see previous definition of 'graphics_createBufferAttribute'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(192,62): warning C4273: 'graphics_destroyBufferAttribute': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(145,21): message : see previous definition of 'graphics_destroyBufferAttribute'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(196,48): warning C4273: 'graphics_clearBufferAttributes': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(143,21): message : see previous definition of 'graphics_clearBufferAttributes'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(203,73): warning C4273: 'graphics_drawBuffer': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(150,21): message : see previous definition of 'graphics_drawBuffer'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(209,100): warning C4273: 'graphics_drawElement': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(151,21): message : see previous definition of 'graphics_drawElement'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(216,53): warning C4273: 'graphics_loadNativeArray': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(153,21): message : see previous definition of 'graphics_loadNativeArray'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(264,44): warning C4273: 'graphics_createNativeArray': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(154,21): message : see previous definition of 'graphics_createNativeArray'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(272,44): warning C4273: 'graphics_destroyNativeArray': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(155,21): message : see previous definition of 'graphics_destroyNativeArray'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(278,46): warning C4273: 'graphics_setShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(172,21): message : see previous definition of 'graphics_setShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(282,34): warning C4273: 'graphics_getShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(173,21): message : see previous definition of 'graphics_getShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(286,68): warning C4273: 'graphics_createShader': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(157,21): message : see previous definition of 'graphics_createShader'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(314,42): warning C4273: 'graphics_destroyShader': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(158,21): message : see previous definition of 'graphics_destroyShader'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(320,55): warning C4273: 'graphics_getShaderInfoLog': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(161,29): message : see previous definition of 'graphics_getShaderInfoLog'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(324,52): warning C4273: 'graphics_getShaderBuildSuccess': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(160,21): message : see previous definition of 'graphics_getShaderBuildSuccess'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(329,48): warning C4273: 'graphics_getShaderSource': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(162,23): message : see previous definition of 'graphics_getShaderSource'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(333,66): warning C4273: 'graphics_detachShaderFromProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(164,21): message : see previous definition of 'graphics_detachShaderFromProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(339,64): warning C4273: 'graphics_attachShaderToProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(165,21): message : see previous definition of 'graphics_attachShaderToProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(346,37): warning C4273: 'graphics_createShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(167,21): message : see previous definition of 'graphics_createShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(353,50): warning C4273: 'graphics_compileShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(168,21): message : see previous definition of 'graphics_compileShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(368,50): warning C4273: 'graphics_destroyShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(169,21): message : see previous definition of 'graphics_destroyShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(377,60): warning C4273: 'graphics_loadShaderProgram': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(170,21): message : see previous definition of 'graphics_loadShaderProgram'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(388,31): warning C4273: 'graphics_createTexture': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(198,21): message : see previous definition of 'graphics_createTexture'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(398,39): warning C4273: 'graphics_destroyTexture': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(199,21): message : see previous definition of 'graphics_destroyTexture'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(412,39): warning C4273: 'graphics_getTexture': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(200,21): message : see previous definition of 'graphics_getTexture'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(420,48): warning C4273: 'graphics_setTexture': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(201,21): message : see previous definition of 'graphics_setTexture'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(426,109): warning C4273: 'graphics_setTexture1DData': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(202,21): message : see previous definition of 'graphics_setTexture1DData'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(441,121): warning C4273: 'graphics_setTexture2DData': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(203,21): message : see previous definition of 'graphics_setTexture2DData'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(456,133): warning C4273: 'graphics_setTexture3DData': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(204,21): message : see previous definition of 'graphics_setTexture3DData'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(471,75): warning C4273: 'graphics_setTextureParameter': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(205,21): message : see previous definition of 'graphics_setTextureParameter'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(482,59): warning C4273: 'graphics_setUniformTex2': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(206,21): message : see previous definition of 'graphics_setUniformTex2'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(519,65): warning C4273: 'graphics_setBackground': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(175,21): message : see previous definition of 'graphics_setBackground'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(527,69): warning C4273: 'graphics_getBackground': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(176,21): message : see previous definition of 'graphics_getBackground'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(534,32): warning C4273: 'graphics_clear': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(177,21): message : see previous definition of 'graphics_clear'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(538,58): warning C4273: 'graphics_setRenderOption': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(208,21): message : see previous definition of 'graphics_setRenderOption'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(562,57): warning C4273: 'graphics_setAlphaTestOptions': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(209,21): message : see previous definition of 'graphics_setAlphaTestOptions'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(566,46): warning C4273: 'graphics_setDepthTestOptions': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(210,21): message : see previous definition of 'graphics_setDepthTestOptions'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(570,66): warning C4273: 'graphics_setBlendingOptions': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(211,21): message : see previous definition of 'graphics_setBlendingOptions'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(573,64): warning C4273: 'graphics_setStencilOptions': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(212,21): message : see previous definition of 'graphics_setStencilOptions'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(578,60): warning C4273: 'graphics_getUniformLocation': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(179,21): message : see previous definition of 'graphics_getUniformLocation'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(581,59): warning C4273: 'graphics_getAttribLocation': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(180,21): message : see previous definition of 'graphics_getAttribLocation'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(585,57): warning C4273: 'graphics_setUniformVec2': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(182,21): message : see previous definition of 'graphics_setUniformVec2'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(588,66): warning C4273: 'graphics_setUniformVec3': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(183,21): message : see previous definition of 'graphics_setUniformVec3'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(591,75): warning C4273: 'graphics_setUniformVec4': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(184,21): message : see previous definition of 'graphics_setUniformVec4'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(595,60): warning C4273: 'graphics_setUniformdVec2': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(186,21): message : see previous definition of 'graphics_setUniformdVec2'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(598,70): warning C4273: 'graphics_setUniformdVec3': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(187,21): message : see previous definition of 'graphics_setUniformdVec3'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(601,80): warning C4273: 'graphics_setUniformdVec4': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(188,21): message : see previous definition of 'graphics_setUniformdVec4'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(605,54): warning C4273: 'graphics_setUniformiVec2': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(190,21): message : see previous definition of 'graphics_setUniformiVec2'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(608,61): warning C4273: 'graphics_setUniformiVec3': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(191,21): message : see previous definition of 'graphics_setUniformiVec3'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(611,68): warning C4273: 'graphics_setUniformiVec4': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(192,21): message : see previous definition of 'graphics_setUniformiVec4'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(615,56): warning C4273: 'graphics_setUniformbVec2': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(194,21): message : see previous definition of 'graphics_setUniformbVec2'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(618,64): warning C4273: 'graphics_setUniformbVec3': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(195,21): message : see previous definition of 'graphics_setUniformbVec3'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(621,72): warning C4273: 'graphics_setUniformbVec4': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(196,21): message : see previous definition of 'graphics_setUniformbVec4'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(627,3): warning C4273: 'graphics_setUniformMat2': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(215,21): message : see previous definition of 'graphics_setUniformMat2'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(637,3): warning C4273: 'graphics_setUniformMat3': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(219,21): message : see previous definition of 'graphics_setUniformMat3'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(651,3): warning C4273: 'graphics_setUniformMat4': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(224,21): message : see previous definition of 'graphics_setUniformMat4'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(666,3): warning C4273: 'graphics_setUniformMatd2': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(231,21): message : see previous definition of 'graphics_setUniformMatd2'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(676,3): warning C4273: 'graphics_setUniformMatd3': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(235,21): message : see previous definition of 'graphics_setUniformMatd3'
+D:\repos\Minecraft.net\WinGL\graphics.cpp(688,3): warning C4273: 'graphics_setUniformMatd4': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\graphics_api.h(240,21): message : see previous definition of 'graphics_setUniformMatd4'
   window.cpp
 D:\repos\Minecraft.net\WinGL\window_api.h(8,1): warning C4005: 'API': macro redefinition
 D:\repos\Minecraft.net\WinGL\window_api.h(3): message : see previous definition of 'API'
@@ -9,54 +156,65 @@ D:\repos\Minecraft.net\WinGL\graphics_api.h(3): message : see previous definitio
 D:\repos\Minecraft.net\WinGL\graphics_api.h(162,62): warning C4190: 'graphics_getShaderSource' has C-linkage specified, but returns UDT 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' which is incompatible with C
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(4564): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
 D:\repos\Minecraft.net\WinGL\window.cpp(68,21): warning C4273: 'window_setup': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(85,21): message : see previous definition of 'window_setup'
+D:\repos\Minecraft.net\WinGL\window_api.h(88,21): message : see previous definition of 'window_setup'
 D:\repos\Minecraft.net\WinGL\window.cpp(166,45): warning C4273: 'window_createWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(60,21): message : see previous definition of 'window_createWindow'
+D:\repos\Minecraft.net\WinGL\window_api.h(63,21): message : see previous definition of 'window_createWindow'
 D:\repos\Minecraft.net\WinGL\window.cpp(185,1): warning C4273: 'window_destryWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(61,21): message : see previous definition of 'window_destryWindow'
+D:\repos\Minecraft.net\WinGL\window_api.h(64,21): message : see previous definition of 'window_destryWindow'
 D:\repos\Minecraft.net\WinGL\window.cpp(190,33): warning C4273: 'window_showWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(63,21): message : see previous definition of 'window_showWindow'
+D:\repos\Minecraft.net\WinGL\window_api.h(66,21): message : see previous definition of 'window_showWindow'
 D:\repos\Minecraft.net\WinGL\window.cpp(198,33): warning C4273: 'window_hideWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(64,21): message : see previous definition of 'window_hideWindow'
+D:\repos\Minecraft.net\WinGL\window_api.h(67,21): message : see previous definition of 'window_hideWindow'
 D:\repos\Minecraft.net\WinGL\window.cpp(214,32): warning C4273: 'window_activateMainLoop': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(84,21): message : see previous definition of 'window_activateMainLoop'
+D:\repos\Minecraft.net\WinGL\window_api.h(87,21): message : see previous definition of 'window_activateMainLoop'
 D:\repos\Minecraft.net\WinGL\window.cpp(236,93): warning C4244: '=': conversion from '_Rep' to 'float', possible loss of data
           with
           [
               _Rep=__int64
           ]
 D:\repos\Minecraft.net\WinGL\window.cpp(243,37): warning C4273: 'window_activateWindow': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(66,21): message : see previous definition of 'window_activateWindow'
+D:\repos\Minecraft.net\WinGL\window_api.h(69,21): message : see previous definition of 'window_activateWindow'
 D:\repos\Minecraft.net\WinGL\window.cpp(248,58): warning C4273: 'window_setDisplayFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(67,21): message : see previous definition of 'window_setDisplayFunc'
+D:\repos\Minecraft.net\WinGL\window_api.h(70,21): message : see previous definition of 'window_setDisplayFunc'
 D:\repos\Minecraft.net\WinGL\window.cpp(249,1): warning C4297: 'window_setDisplayFunc': function assumed not to throw an exception but does
 D:\repos\Minecraft.net\WinGL\window.cpp(249,1): message : __declspec(nothrow), throw(), noexcept(true), or noexcept was specified on the function
 D:\repos\Minecraft.net\WinGL\window.cpp(256,1): warning C4273: 'window_setResizeFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(68,21): message : see previous definition of 'window_setResizeFunc'
+D:\repos\Minecraft.net\WinGL\window_api.h(71,21): message : see previous definition of 'window_setResizeFunc'
 D:\repos\Minecraft.net\WinGL\window.cpp(261,1): warning C4273: 'window_setMouseMoveFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(70,21): message : see previous definition of 'window_setMouseMoveFunc'
+D:\repos\Minecraft.net\WinGL\window_api.h(73,21): message : see previous definition of 'window_setMouseMoveFunc'
 D:\repos\Minecraft.net\WinGL\window.cpp(265,1): warning C4273: 'window_setMouseDownFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(71,21): message : see previous definition of 'window_setMouseDownFunc'
+D:\repos\Minecraft.net\WinGL\window_api.h(74,21): message : see previous definition of 'window_setMouseDownFunc'
 D:\repos\Minecraft.net\WinGL\window.cpp(269,1): warning C4273: 'window_setMouseUpFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(72,21): message : see previous definition of 'window_setMouseUpFunc'
+D:\repos\Minecraft.net\WinGL\window_api.h(75,21): message : see previous definition of 'window_setMouseUpFunc'
 D:\repos\Minecraft.net\WinGL\window.cpp(273,1): warning C4273: 'window_setScrollFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(73,21): message : see previous definition of 'window_setScrollFunc'
+D:\repos\Minecraft.net\WinGL\window_api.h(76,21): message : see previous definition of 'window_setScrollFunc'
 D:\repos\Minecraft.net\WinGL\window.cpp(278,1): warning C4273: 'window_setWindowTitle': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(75,21): message : see previous definition of 'window_setWindowTitle'
+D:\repos\Minecraft.net\WinGL\window_api.h(78,21): message : see previous definition of 'window_setWindowTitle'
 D:\repos\Minecraft.net\WinGL\window.cpp(283,1): warning C4273: 'window_setWindowSize': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(76,21): message : see previous definition of 'window_setWindowSize'
+D:\repos\Minecraft.net\WinGL\window_api.h(79,21): message : see previous definition of 'window_setWindowSize'
 D:\repos\Minecraft.net\WinGL\window.cpp(290,1): warning C4273: 'window_getRefreshRate': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(78,22): message : see previous definition of 'window_getRefreshRate'
+D:\repos\Minecraft.net\WinGL\window_api.h(81,22): message : see previous definition of 'window_getRefreshRate'
 D:\repos\Minecraft.net\WinGL\window.cpp(293,48): warning C4273: 'window_setRefreshRate': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(79,21): message : see previous definition of 'window_setRefreshRate'
+D:\repos\Minecraft.net\WinGL\window_api.h(82,21): message : see previous definition of 'window_setRefreshRate'
 D:\repos\Minecraft.net\WinGL\window.cpp(297,59): warning C4273: 'window_setKeydownFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(81,21): message : see previous definition of 'window_setKeydownFunc'
+D:\repos\Minecraft.net\WinGL\window_api.h(84,21): message : see previous definition of 'window_setKeydownFunc'
 D:\repos\Minecraft.net\WinGL\window.cpp(300,57): warning C4273: 'window_setKeyupFunc': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(82,21): message : see previous definition of 'window_setKeyupFunc'
+D:\repos\Minecraft.net\WinGL\window_api.h(85,21): message : see previous definition of 'window_setKeyupFunc'
 D:\repos\Minecraft.net\WinGL\window.cpp(304,53): warning C4273: 'window_setMousePosition': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(87,21): message : see previous definition of 'window_setMousePosition'
+D:\repos\Minecraft.net\WinGL\window_api.h(90,21): message : see previous definition of 'window_setMousePosition'
 D:\repos\Minecraft.net\WinGL\window.cpp(309,1): warning C4273: 'window_setMouseLocked': inconsistent dll linkage
-D:\repos\Minecraft.net\WinGL\window_api.h(88,21): message : see previous definition of 'window_setMouseLocked'
+D:\repos\Minecraft.net\WinGL\window_api.h(91,21): message : see previous definition of 'window_setMouseLocked'
+D:\repos\Minecraft.net\WinGL\window.cpp(317,46): warning C4273: 'window_getMonitors': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(93,30): message : see previous definition of 'window_getMonitors'
+D:\repos\Minecraft.net\WinGL\window.cpp(333,77): warning C4273: 'window_getMonitorModes': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(94,35): message : see previous definition of 'window_getMonitorModes'
+D:\repos\Minecraft.net\WinGL\window.cpp(336,68): warning C4273: 'window_getMonitorMainMode': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(95,36): message : see previous definition of 'window_getMonitorMainMode'
+D:\repos\Minecraft.net\WinGL\window.cpp(340,75): warning C4273: 'window_fullscreen': inconsistent dll linkage
+D:\repos\Minecraft.net\WinGL\window_api.h(97,21): message : see previous definition of 'window_fullscreen'
+  Generating Code...
+     Creating library D:\repos\Minecraft.net\Debug\WinGL.lib and object D:\repos\Minecraft.net\Debug\WinGL.exp
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   WinGL.vcxproj -> D:\repos\Minecraft.net\Debug\WinGL.dll
           1 file(s) copied.
           1 file(s) copied.

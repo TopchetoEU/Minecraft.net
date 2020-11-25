@@ -307,9 +307,50 @@ void window_setMousePosition(uint id, int x, int y) {
 
 void window_setMouseLocked(uint wnd, bool value)
 {
-		auto handle = getWindow(wnd)->handle;
-		if (value)
-			glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		else
-			glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	auto handle = getWindow(wnd)->handle;
+	if (value)
+		glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	else
+		glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+GLFWmonitor** window_getMonitors(int* count) {
+	auto a = glfwGetMonitors(count);
+	auto _a = a;
+
+	if (!a) {
+		const char* b;
+		cout << glfwGetError(&b);
+		cout << b;
+	}
+
+	for (int i = 0; i < *count; i++) {
+		_a++;
+	}
+
+	return a;
+}
+const GLFWvidmode* window_getMonitorModes(GLFWmonitor* monitor, int* count) {
+	return glfwGetVideoModes(monitor, count);
+}
+const GLFWvidmode* window_getMonitorMainMode(GLFWmonitor* monitor) {
+	return glfwGetVideoMode(monitor);
+}
+
+void window_fullscreen(uint wnd, GLFWmonitor* monitor, GLFWvidmode* mode) {
+	auto w = getWindow(wnd);
+
+	w->fullscreenMonitor = monitor;
+	w->fullscreenMode = mode;
+
+	if (monitor == nullptr) {
+		glfwSetWindowMonitor(w->handle, NULL, 0, 0, 0, 0, 60);
+	}
+	else {
+		const GLFWvidmode* _mode = mode;
+		if (_mode == nullptr) {
+			_mode = glfwGetVideoMode(monitor);
+		}
+		glfwSetWindowMonitor(w->handle, monitor, 0, 0, _mode->width, _mode->height, _mode->refreshRate);
+	}
 }

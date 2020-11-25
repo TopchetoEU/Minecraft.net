@@ -272,8 +272,8 @@ namespace NetGL
 
         public static Matrix4 CreateRotationX(float deg)
         {
-            var cos = (float)Math.Cos(deg / 180 * Math.PI);
-            var sin = (float)Math.Sin(deg / 180 * Math.PI);
+            var cos = (float)Math.Cos(-deg / 180 * Math.PI);
+            var sin = (float)Math.Sin(-deg / 180 * Math.PI);
 
             return new Matrix4(
                 1, 0,   0, 0,

@@ -326,7 +326,7 @@
             A camera, that gives camera matrix
             </summary>
         </member>
-        <member name="P:NetGL.GraphicsAPI.ICamera.CameraMatrix">
+        <member name="M:NetGL.GraphicsAPI.ICamera.GetCameraMatrix(System.Single)">
             <summary>
             The camera's camera matrix
             </summary>
@@ -341,14 +341,9 @@
             A prespective camera, that has the property of objects getting smaller, as they get further from the camera
             </summary>
         </member>
-        <member name="P:NetGL.GraphicsAPI.PrespectiveCamera.Ratio">
-            <summary>
-            The ratio between width and height
-            </summary>
-        </member>
         <member name="P:NetGL.GraphicsAPI.PrespectiveCamera.FOV">
             <summary>
-            The Filed of View
+            The ratio between width and height
             </summary>
         </member>
         <member name="P:NetGL.GraphicsAPI.PrespectiveCamera.Nearclip">
@@ -366,23 +361,13 @@
             The transformation of the camera
             </summary>
         </member>
-        <member name="M:NetGL.GraphicsAPI.PrespectiveCamera.#ctor(System.Single,System.Single,System.Single,System.Single)">
+        <member name="M:NetGL.GraphicsAPI.PrespectiveCamera.#ctor(System.Single,System.Single,System.Single)">
             <summary>
-            Creates new prespective camera with manual control over the field of view
+            Creates new prespective camera (the closer an object is, the bigger it appears)
             </summary>
             <param name="fov">filed of view</param>
             <param name="near">Near clipping plane</param>
             <param name="far">Far clipping plane</param>
-            <param name="ratio">Ratio between width and height</param>
-        </member>
-        <member name="M:NetGL.GraphicsAPI.PrespectiveCamera.#ctor(NetGL.WindowAPI.Window,System.Single,System.Single,System.Single)">
-            <summary>
-            Creates new prespective camera, attached to a window
-            </summary>
-            <param name="fov">filed of view</param>
-            <param name="near">Near clipping plane</param>
-            <param name="far">Far clipping plane</param>
-            <param name="window">the window that the camera is being attached to</param>
         </member>
         <member name="T:NetGL.GraphicsAPI.ComparativeFunc">
             <summary>

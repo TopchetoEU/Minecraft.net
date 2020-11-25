@@ -151,5 +151,8 @@ namespace NetGL
         public static VectorI2 operator -(VectorI2 a, VectorI2 b) => (VectorI2)a.Subtract(b);
         public static VectorI2 operator /(VectorI2 a, float b) => (VectorI2)a.Divide(b);
         public static VectorI2 operator *(VectorI2 a, float b) => (VectorI2)a.Multiply(b);
+
+        public static bool operator ==(VectorI2 a, VectorI2 b) => a.X == b.X && a.Y == b.Y;
+        public static bool operator !=(VectorI2 a, VectorI2 b) => !(a.X == b.X && a.Y == b.Y);
     }
 }

@@ -234,7 +234,7 @@ namespace NetGL.GraphicsAPI
         {
             return new Shader(source, type);
         }
-        public Shader CreateshaderFromFile(string path, ShaderType type)
+        public Shader CreateShaderFromFile(string path, ShaderType type)
         {
             return Shader.FromFile(path, type);
         }
