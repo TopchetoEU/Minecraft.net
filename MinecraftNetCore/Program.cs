@@ -3,13 +3,162 @@ using NetGL.GraphicsAPI;
 using NetGL.WindowAPI;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace MinecraftNetCore
 {
     class Program
     {
+        public class ByteWriteStream
+        {
+            private List<byte> bytes = new List<byte>();
+
+            public ByteWriteStream Write(byte value)
+            {
+                bytes.Add(value);
+                return this;
+            }
+            public ByteWriteStream Write(IEnumerable<byte> values)
+            {
+                bytes.AddRange(values);
+                return this;
+            }
+            public ByteWriteStream Write(params byte[] values)
+            {
+                bytes.AddRange(values);
+                return this;
+            }
+
+            public ByteWriteStream Write(long value)
+            {
+                bytes.AddRange(BitConverter.GetBytes(value));
+                return this;
+            }
+            public ByteWriteStream Write(int value)
+            {
+                bytes.AddRange(BitConverter.GetBytes(value));
+                return this;
+            }
+            public ByteWriteStream Write(short value)
+            {
+                bytes.AddRange(BitConverter.GetBytes(value));
+                return this;
+            }
+
+            public ByteWriteStream Write(bool value)
+            {
+                bytes.AddRange(BitConverter.GetBytes(value));
+                return this;
+            }
+
+            public ByteWriteStream Write(char value)
+            {
+                bytes.Add((byte)value);
+                return this;
+            }
+            public ByteWriteStream Write(IEnumerable<char> values)
+            {
+                bytes.AddRange(values.Select(v => (byte)v));
+                return this;
+            }
+            public ByteWriteStream Write(params char[] values)
+            {
+                bytes.AddRange(values.Select(v => (byte)v));
+                return this;
+            }
+
+            public ByteWriteStream Write(string value)
+            {
+                var tempValue = value;
+                if (value == null)
+                    tempValue = "";
+                Write(tempValue.ToCharArray());
+                return this;
+            }
+
+            public byte[] Flush()
+            {
+                var a = bytes.ToArray();
+                bytes.Clear();
+
+                return a;
+            }
+            public string FlushString()
+            {
+                return new string(Flush().Select(v => (char)v).ToArray());
+            }
+        }
+        public class ByteReadStream
+        {
+            private byte[] bytes;
+            int index = 0;
+
+            public ByteReadStream(string data)
+            {
+                bytes = data.ToCharArray().Select(v => (byte)v).ToArray();
+            }
+            public ByteReadStream(byte[] data)
+            {
+                bytes = (byte[])data.Clone();
+            }
+
+            public byte ReadByte()
+            {
+                return ReadByteArray(1)[0];
+            }
+            public byte[] ReadByteArray(int amount)
+            {
+                var array = new byte[amount];
+
+                for (int i = 0; i < amount; i++) {
+                    if (index >= bytes.Length)
+                        throw new Exception("Reached the end of the array");
+                    array[i] = bytes[index];
+                    index++;
+
+                }
+
+                return array;
+            }
+
+            public long ReadLong()
+            {
+                return BitConverter.ToInt64(ReadByteArray(8));
+            }
+            public int ReadInt()
+            {
+                return BitConverter.ToInt32(ReadByteArray(4));
+            }
+            public short ReadShort()
+            {
+                return BitConverter.ToInt16(ReadByteArray(2));
+            }
+
+            public bool ReadBool()
+            {
+                return BitConverter.ToBoolean(ReadByteArray(1));
+            }
+
+            public char ReadChar()
+            {
+                return BitConverter.ToChar(ReadByteArray(1));
+            }
+            public char[] ReadCharArray(int? length = null)
+            {
+                if (!length.HasValue)
+                    length = bytes.Length - index;
+
+                return ReadByteArray(length.Value).Select(v => (char)v).ToArray();
+            }
+            public string ReadString(int? length = null)
+            {
+                return new string(ReadCharArray(length));
+            }
+        }
+
         public struct Vertice
         {
             public float LightLevel { get; set; }
@@ -143,23 +292,23 @@ namespace MinecraftNetCore
 
             public abstract HitboxModel Hitbox { get; }
 
-            Model GetBlockModel(bool top, bool bottom, bool left, bool right, bool front, bool back)
+            public Model GetBlockModel(bool top, bool bottom, bool left, bool right, bool front, bool back)
             {
                 var newModel = new Model();
 
-                if (!TopFaceModel.Cull || !top)
+                if (TopFaceModel != null && (!TopFaceModel.Cull || !top))
                     newModel.Concatenate(TopFaceModel.Model);
-                if (!BottomFaceModel.Cull || !bottom)
+                if (BottomFaceModel != null && (!BottomFaceModel.Cull || !bottom))
                     newModel.Concatenate(BottomFaceModel.Model);
 
-                if (!LeftFaceModel.Cull || !bottom)
+                if (LeftFaceModel != null && (!LeftFaceModel.Cull || !left))
                     newModel.Concatenate(LeftFaceModel.Model);
-                if (!RightFaceModel.Cull || !bottom)
+                if (RightFaceModel != null && (!RightFaceModel.Cull || !right))
                     newModel.Concatenate(RightFaceModel.Model);
 
-                if (!FrontFaceModel.Cull || !bottom)
+                if (FrontFaceModel != null && (!FrontFaceModel.Cull || !front))
                     newModel.Concatenate(FrontFaceModel.Model);
-                if (!BackFaceModel.Cull || !bottom)
+                if (BackFaceModel != null && (!BackFaceModel.Cull || !back))
                     newModel.Concatenate(BackFaceModel.Model);
 
                 return newModel;
@@ -255,27 +404,81 @@ namespace MinecraftNetCore
                 }
             );
         }
-
-        public static class Blocks
+        public class EmptyModel: BlockModel
         {
+            public override FaceModel FrontFaceModel => null;
 
+            public override FaceModel BackFaceModel => null;
+
+            public override FaceModel TopFaceModel => null;
+
+            public override FaceModel BottomFaceModel => null;
+
+            public override FaceModel LeftFaceModel => null;
+
+            public override FaceModel RightFaceModel => null;
+
+            public override HitboxModel Hitbox => null;
+        }
+
+        public static class BlockTypes
+        {
             private static Dictionary<string, HashSet<BlockType>> namespaces
                 = new Dictionary<string, HashSet<BlockType>>();
+
+            private static string mainNamespace = "minecraft";
+            public static string MainNamespace {
+                get => mainNamespace;
+                set {
+                    if (!Regex.IsMatch(value, "^([A-Za-z_]+)$"))
+                        throw new ArgumentException(
+                            "The namespace given doesn't match the identifier format (A-Za-z_)",
+                            "value"
+                        );
+
+                    if (mainNamespace != value) {
+                        if (NamespaceExists(value))
+                            throw new ArgumentException(
+                                "The namespace already exists! The main namespace can be transported" +
+                                "only to an empty namespace",
+                                "value"
+                            );
+
+                        var keySet = namespaces[mainNamespace];
+                        namespaces.Remove(mainNamespace);
+                        namespaces[value] = keySet;
+
+                        mainNamespace = value;
+
+                        foreach (var key in keySet) {
+                            key.Identifier = new BlockIdentifier(
+                                mainNamespace, key.Identifier.Name, key.Identifier.DisplayName
+                            );
+                        }
+                    }
+                }
+            }
 
             public static BlockType[] GetNamespace(string @namespace)
             {
                 return namespaces[@namespace].ToArray();
+            }
+            public static BlockType[] GetAll()
+            {
+                return namespaces.SelectMany(v => v.Value).ToArray();
             }
 
             public static bool TryGetNamespace(string @namespace, out BlockType[] blockTypes)
             {
                 var b = namespaces.TryGetValue(@namespace, out var a);
 
-                blockTypes = a.ToArray();
+                blockTypes = null;
+                if (a != null)
+                    blockTypes = a.ToArray();
 
                 return b;
             }
-            public static bool NamespacExists(string @namespace)
+            public static bool NamespaceExists(string @namespace)
             {
                 return TryGetNamespace(@namespace, out _);
             }
@@ -286,7 +489,7 @@ namespace MinecraftNetCore
             }
             public static bool Exists(BlockType type)
             {
-                return namespaces.First(v => v.Value.Contains(type)).Value != null;
+                return namespaces.FirstOrDefault(v => v.Value.Contains(type)).Value != null;
             }
             public static bool Exists(string id)
             {
@@ -297,7 +500,7 @@ namespace MinecraftNetCore
             {
                 var identifier = new BlockIdentifier(id);
                 if (TryGetNamespace(identifier.Namespace, out var types)) {
-                    var firstType = types.First(v => v.Identifier == identifier);
+                    var firstType = types.FirstOrDefault(v => v.Identifier == identifier);
 
                     type = null;
                     if (firstType == null)
@@ -312,34 +515,111 @@ namespace MinecraftNetCore
                     return false;
                 }
             }
-            public static BlockType Get(string id)
+            public static bool TryGet(BlockIdentifier identifier, out BlockType type)
             {
-                var identifier = new BlockIdentifier(id);
-
                 if (TryGetNamespace(identifier.Namespace, out var types)) {
-                    var firstType = types.First(v => v.Identifier == identifier);
+                    var firstType = types.FirstOrDefault(v => v.Identifier == identifier);
+
+                    type = null;
+                    if (firstType == null)
+                        return false;
+                    else {
+                        type = firstType;
+                        return true;
+                    }
+                }
+                else {
+                    type = null;
+                    return false;
+                }
+            }
+            public static bool TryGet(int id, out BlockType type)
+            {
+                type = null;
+                return TryGetIdentifier(id, out var identifier) && TryGet(identifier, out type);
+            }
+
+            public static BlockType Get(string id) => Get(new BlockIdentifier(id));
+            public static BlockType Get(int id) => Get(GetIdentifier(id));
+            public static BlockType Get(BlockIdentifier identifier)
+            {
+                if (TryGetNamespace(identifier.Namespace, out var types)) {
+                    var firstType = types.FirstOrDefault(v => v.Identifier == identifier);
 
                     if (firstType == null)
-                        throw new Exception($"The block {id} doesn't exist");
+                        throw new Exception($"The block {identifier} doesn't exist");
                     else
                         return firstType;
                 }
                 else
-                    throw new Exception($"The block {id} doesn't exist");
+                    throw new Exception($"The block {identifier} doesn't exist");
+            }
+
+            public static BlockIdentifier GetIdentifier(int id)
+            {
+                var block = GetAll().FirstOrDefault(v => v.Identifier.Id == id);
+
+                if (block == null)
+                    throw new Exception("The block doesn't exist");
+                else
+                    return block.Identifier;
+            }
+            public static BlockIdentifier GetIdentifier(string id) => Get(new BlockIdentifier(id)).Identifier;
+
+            public static bool TryGetIdentifier(int id, out BlockIdentifier identifier)
+            {
+                var block = GetAll().FirstOrDefault(v => v.Identifier.Id == id);
+
+                identifier = null;
+
+                if (block == null)
+                    return false;
+                else {
+                    identifier = block.Identifier;
+                    return true;
+                }
+            }
+            public static bool TryGetIdentifier(string id, out BlockIdentifier identifier)
+            {
+                var b = TryGet(id, out var a);
+                identifier = a.Identifier;
+                return b;
+            }
+
+            private static int nextId = 0;
+            private static Queue<int> freeBlocks = new Queue<int>();
+
+            private static int GetAndAllocateNextID()
+            {
+                if (freeBlocks.Count > 0)
+                    return freeBlocks.Dequeue();
+
+                else
+                    return nextId++;
+            }
+            private static void DeallocateID(int id)
+            {
+                freeBlocks.Enqueue(id);
             }
 
             public static bool AddBlock(BlockType type)
             {
+                if (type.Identifier.Id != -1)
+                    throw new Exception("The block has been already added!");
+
                 if (Exists(type)) {
                     throw new Exception($"The block {type.Identifier} already exists");
                 }
                 else {
                     if (namespaces.TryGetValue(type.Identifier.Namespace, out var hashSet)) {
+                        type.Identifier.Id = GetAndAllocateNextID();
                         return hashSet.Add(type);
                     }
                     else {
                         var set = new HashSet<BlockType>();
                         set.Add(type);
+
+                        type.Identifier.Id = GetAndAllocateNextID();
 
                         namespaces[type.Identifier.Namespace] = set;
 
@@ -349,19 +629,31 @@ namespace MinecraftNetCore
             }
             public static void RemoveBlock(BlockType type)
             {
+                if (type.Identifier.Id == -1)
+                    throw new Exception("The block isn't registered");
                 if (!Exists(type))
                     throw new Exception($"The block {type.Identifier} doesn't exist");
                 else {
                     var set = namespaces[type.Identifier.Namespace];
                     set.Remove(type);
+                    DeallocateID(type.Identifier.Id);
                 }
+            }
+
+            static BlockTypes()
+            {
+                namespaces.Add(MainNamespace, new HashSet<BlockType>());
             }
         }
 
         public class BlockIdentifier
         {
+            public const string IdentifierRegEx = "^([A-Za-z_]+";
+
             public string Namespace { get; }
-            public string Id { get; }
+            public string Name { get; }
+
+            public int Id { get; internal set; } = -1;
 
             public string DisplayName { get; set; }
 
@@ -370,15 +662,23 @@ namespace MinecraftNetCore
                 return new Regex("[A-Za-z_]+").IsMatch(val);
             }
 
+            public override string ToString()
+            {
+                if (DisplayName.Equals($"{Namespace}:{Name}"))
+                    return $"{Namespace}:{Name}";
+                else
+                    return $"{Namespace}:{Name} ({DisplayName})";
+            }
+
             public override bool Equals(object obj)
             {
                 return obj is BlockIdentifier identifier &&
                        Namespace == identifier.Namespace &&
-                       Id == identifier.Id;
+                       Name == identifier.Name;
             }
             public override int GetHashCode()
             {
-                return HashCode.Combine(Namespace, Id);
+                return HashCode.Combine(Namespace, Name);
             }
 
             public BlockIdentifier(string nmspc, string id, string displayId = null)
@@ -393,22 +693,33 @@ namespace MinecraftNetCore
 
                 DisplayName = displayId;
                 Namespace = nmspc;
-                Id = id;
+                Name = id;
             }
             public BlockIdentifier(string id, string displayId = null)
             {
-                if (new Regex("[A-Za-z_]+:[A-Za-z_]+").IsMatch(id)) {
+                if (new Regex("^([A-Za-z_]+:[A-Za-z_]+)$").IsMatch(id)) {
                     var a = id.Split(':');
 
                     var nmspc = a[0];
                     var _id = a[1];
 
                     if (displayId == null)
-                        displayId = nmspc + ":" + id;
+                        displayId = nmspc + ":" + _id;
 
-                    DisplayName = displayId.ToLower();
+                    DisplayName = displayId;
                     Namespace = nmspc.ToLower();
-                    Id = _id;
+                    Name = _id.ToLower();
+                }
+                else if (new Regex("^([A-Za-z_]+)$").IsMatch(id)) {
+                    var nmspc = BlockTypes.MainNamespace;
+                    var _id = id;
+
+                    if (displayId == null)
+                        displayId = nmspc + ":" + _id;
+
+                    DisplayName = displayId;
+                    Namespace = nmspc.ToLower();
+                    Name = _id;
                 }
                 else
                     throw new Exception("Invalid ID");
@@ -417,17 +728,67 @@ namespace MinecraftNetCore
             public static bool operator ==(BlockIdentifier a, BlockIdentifier b) => a.Equals(b);
             public static bool operator !=(BlockIdentifier a, BlockIdentifier b) => !a.Equals(b);
         }
+
+        public interface IBlockDataFactory
+        {
+            IBlockData Parse(string raw);
+            IBlockData Default { get; }
+        }
+        public interface IBlockData
+        {
+            string Stringify();
+        }
+
+        public class EmptyBlockDataFactory: IBlockDataFactory
+        {
+            public IBlockData Default => new EmptyBlockData();
+
+            public IBlockData Parse(string raw)
+            {
+                return new EmptyBlockData();
+            }
+        }
+        public class EmptyBlockData: IBlockData
+        {
+            public string Stringify()
+            {
+                return null;
+            }
+        }
+
         public class BlockType
         {
-            public BlockIdentifier Identifier { get; }
+            public BlockIdentifier Identifier { get; internal set; }
             public BlockModel Model { get; set; }
             public Texture2D Texture { get; }
+            public IBlockDataFactory DataFactory { get; }
 
-            public BlockType(BlockIdentifier id, BlockModel model, Texture2D texture)
+            public BlockType(BlockIdentifier id,
+                BlockModel model = null, Texture2D texture = null,
+                IBlockDataFactory dataFactory = null)
             {
                 Identifier = id;
-                Model = model;
+                Model = model ?? new SolidBlockModel();
                 Texture = texture;
+                DataFactory = dataFactory ?? new EmptyBlockDataFactory();
+            }
+            public BlockType(string id,
+                BlockModel model = null, Texture2D texture = null,
+                IBlockDataFactory dataFactory = null)
+            {
+                Identifier = new BlockIdentifier(id);
+                Model = model ?? new SolidBlockModel();
+                Texture = texture;
+                DataFactory = dataFactory ?? new EmptyBlockDataFactory();
+            }
+            public BlockType(string id, string displayName,
+                BlockModel model = null, Texture2D texture = null,
+                IBlockDataFactory dataFactory = null)
+            {
+                Identifier = new BlockIdentifier(id, displayName);
+                Model = model ?? new SolidBlockModel();
+                Texture = texture;
+                DataFactory = dataFactory ?? new EmptyBlockDataFactory();
             }
 
             public override bool Equals(object obj)
@@ -440,42 +801,272 @@ namespace MinecraftNetCore
                 return HashCode.Combine(Identifier);
             }
 
-            public static bool operator ==(BlockType a, BlockType b) => a.Equals(b);
+            public static bool operator ==(BlockType a, BlockType b)
+            {
+                if (a is null) {
+                    return b is null;
+                }
+                else {
+                    return a.Equals(b);
+                }
+            }
             public static bool operator !=(BlockType a, BlockType b) => !a.Equals(b);
         }
-
         public class Block
         {
             public BlockType Type { get; set; }
-            public VectorI3 Location { get; set; }
+            public IBlockData Data { get; }
 
-            public Block(BlockType type, VectorI3 location)
+            public Block(BlockType type)
             {
                 Type = type;
-                Location = location;
+                Data = type.DataFactory.Default;
+            }
+            public Block(BlockType type, string data)
+            {
+                Type = type;
+                Data = type.DataFactory.Parse(data);
+            }
+            public Block(BlockType type, IBlockData data)
+            {
+                Type = type;
+                Data = data;
+            }
+
+            public Block(ShortBlock shortBlock)
+            {
+                Type = BlockTypes.Get(shortBlock.Id);
+                Data = Type.DataFactory.Parse(shortBlock.Data);
+            }
+        }
+
+        public struct ShortBlock
+        {
+            public int Id { get; set; }
+            public string Data { get; set; }
+
+            public ShortBlock(Block block)
+            {
+                Data = block.Data.Stringify();
+                Id = block.Type.Identifier.Id;
+            }
+            public string Stringify()
+            {
+                var a = new ByteWriteStream();
+
+                a.Write(Id);
+                a.Write(Data ?? "");
+
+                return a.FlushString();
+            }
+            public static ShortBlock Parse(string raw)
+            {
+                var stream = new ByteReadStream(raw);
+
+                var id = stream.ReadInt();
+                var data = stream.ReadString();
+
+                if (data.Length == 0)
+                    data = null;
+
+                return new ShortBlock() {
+                    Data = data,
+                    Id = id,
+                };
             }
         }
 
         public interface IWorld
         {
-            Block GetBlock(VectorI3 location);
+            Block this[int x, int y, int z] { get; set; }
         }
         public class World: IWorld
         {
-            public Block GetBlock(VectorI3 location)
+            private List<Chunk> chunks = new List<Chunk>();
+
+            private int getChunkHash(Chunk chunk)
             {
-                throw new NotImplementedException();
+                return HashCode.Combine(
+                    chunk.RelativeLocation.X,
+                    chunk.RelativeLocation.Y,
+                    chunk.RelativeLocation.Z
+                );
+            }
+
+            public Block this[int x, int y, int z] {
+                get {
+                    var chunkX = (int)Math.Floor(x / 16f);
+                    var chunkY = (int)Math.Floor(y / 16f);
+
+                    var blockX = x - chunkX * 16;
+                    var blockY = y - chunkY * 16;
+
+                    var currChunk = chunks.FirstOrDefault(v =>
+                        v.RelativeLocation.X == chunkX &&
+                        v.RelativeLocation.Y == chunkY
+                    );
+
+                    if (currChunk == null)
+                        return new Block(BlockTypes.Get("air"));
+
+                    return null;
+                }
+                set => throw new NotImplementedException();
             }
         }
-        public class Chunk
-        {
 
+        public interface IChunkFactory<ChunkT> where ChunkT : IChunk
+        {
+            int Width { get; }
+            int Height { get; }
+            int Depth { get; }
+
+            ChunkT Deminify(string raw);
         }
+        public interface IChunk
+        {
+            VectorI3 RelativeLocation { get; set; }
+
+            Block this[int x, int y, int z] { get; set; }
+            Block this[VectorI3 location] { get; set; }
+
+            string Minify();
+        }
+
+        public class ChunkFactory: IChunkFactory<Chunk>
+        {
+            public int Width => 16;
+            public int Height => 255;
+            public int Depth => 16;
+
+            public Chunk Create()
+            {
+                return new Chunk();
+            }
+
+            public Chunk Deminify(string data)
+            {
+                var stream = new ByteReadStream(data);
+                var chunk = new Chunk();
+
+                for (var y = 0; y < 255; y++) {
+                    for (var z = 0; z < 16; z++) {
+                        for (var x = 0; x < 16; x++) {
+                            var length = stream.ReadInt();
+                            var id = stream.ReadInt();
+                            var blockData = stream.ReadString(length - 4);
+
+                            chunk.SetShortBlock(x, y, z, new ShortBlock() {
+                                Id = id,
+                                Data = blockData,
+                            });
+                        }
+                    }
+                }
+
+                return chunk;
+            }
+        }
+        public class Chunk: IChunk
+        {
+            private ShortBlock[,,] blocks = new ShortBlock[16, 255, 16];
+
+            public VectorI3 RelativeLocation { get; set; } = new VectorI3(0, 0, 0);
+
+            public Block this[VectorI3 location] {
+                get => this[location.X, location.Y, location.Z];
+                set => this[location.X, location.Y, location.Z] = value;
+            }
+            public Block this[int x, int y, int z] {
+                get {
+                    if (x < 0 || x >= 16)
+                        throw new Exception("The x component must be between 0 and 15");
+                    if (y < 0 || y >= 16)
+                        throw new Exception("The y component must be between 0 and 15");
+                    if (x < 0 || x >= 255)
+                        throw new Exception("The z component must be between 0 and 255");
+
+                    return new Block(blocks[x, y, z]);
+                }
+                set {
+                    if (x < 0 || x >= 16)
+                        throw new Exception("The x component must be between 0 and 15");
+                    if (y < 0 || y >= 16)
+                        throw new Exception("The y component must be between 0 and 15");
+                    if (x < 0 || x >= 255)
+                        throw new Exception("The z component must be between 0 and 255");
+
+                    blocks[x, y, z] = new ShortBlock(value);
+                }
+            }
+
+            public ShortBlock GetShortBlock(int x, int y, int z) => blocks[x, y, z];
+            public void SetShortBlock(int x, int y, int z, ShortBlock value) => blocks[x, y, z] = value;
+
+            public string Minify()
+            {
+                var raw = new ByteWriteStream();
+
+                for (var y = 0; y < 255; y++) {
+                    for (var z = 0; z < 16; z++) {
+                        for (var x = 0; x < 16; x++) {
+                            var data = blocks[x, y, z].Stringify();
+                            raw.Write(data.Length);
+                            raw.Write(data);
+                        }
+                    }
+                }
+
+                return raw.FlushString();
+            }
+
+            internal Chunk() { }
+        }
+
+        static string stringifyString(string val)
+        {
+            if (val == null)
+                val = "";
+            return BitConverter.ToString(val
+                .ToCharArray()
+                .Select(v => (byte)v)
+                .ToArray());
+        }
+
+        public class GrassBlockDataFactory: IBlockDataFactory
+        {
+            public IBlockData Default => new GrassBlockData();
+
+            public IBlockData Parse(string raw)
+            {
+                var snowy = new ByteReadStream(raw).ReadBool();
+
+                return new GrassBlockData(snowy);
+            }
+        }
+
+        public class GrassBlockData: IBlockData
+        {
+            public bool Snowy { get; set; } = false;
+
+            public string Stringify()
+            {
+                return new ByteWriteStream().Write(Snowy).FlushString();
+            }
+
+            public GrassBlockData(bool snowy = false)
+            {
+                Snowy = snowy;
+            }
+        }
+
         static void Main(string[] args)
         {
-            var a = new Window("Minecraft.net");
+            BlockTypes.AddBlock(new BlockType("air"));
+            BlockTypes.MainNamespace = "test";
 
-            a.ShowAsMain();
+
+            Console.WriteLine(BlockTypes.Get("air").Identifier);
         }
     }
 }
