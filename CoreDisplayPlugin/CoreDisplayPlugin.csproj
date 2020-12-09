@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>plugin</AssemblyName>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(ProjectDir)bin\Debug\netcoreapp3.1\$(TargetFileName) $(SolutionDir)MinecraftNetCore\bin\Debug\netcoreapp3.1\plugins\core-display" />
+  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MinecraftNetCore\MinecraftNetCore.csproj" />
+    <ProjectReference Include="..\NetGL\NetGL.csproj" />
+  </ItemGroup>
+
+</Project>
