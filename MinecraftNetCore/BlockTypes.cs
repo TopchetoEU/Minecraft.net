@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace MinecraftNetCore
+namespace MinecraftNet
 {
     public static class BlockTypes
     {

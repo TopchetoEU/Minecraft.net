@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace CoreDisplayPlugin
+namespace MinecraftNet
 {
     public class ObservedCollection<T>: ICollection<T>, IList<T>
     {

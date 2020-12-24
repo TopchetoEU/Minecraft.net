@@ -1,4 +1,4 @@
-﻿namespace MinecraftNetCore
+﻿namespace MinecraftNet
 {
     public interface IWorld<ChunkT> where ChunkT : IChunk
     {

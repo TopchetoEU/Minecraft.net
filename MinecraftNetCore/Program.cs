@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Reflection;
 
-namespace MinecraftNetCore
+namespace MinecraftNet
 {
     public interface IPlugin
     {
@@ -33,6 +33,16 @@ namespace MinecraftNetCore
     public interface IRenderer
     {
         void Render();
+    }
+    public interface IAssetsPlugin: IPlugin
+    {
+        void LoadAssetManager(IPluginFileManager manager);
+
+        public static void TryCall(IPlugin plugin, IPluginFileManager fileManager)
+        {
+            if (plugin is IAssetsPlugin pl)
+                pl.LoadAssetManager(fileManager);
+        }
     }
 
     public enum MouseButton
@@ -90,10 +100,21 @@ namespace MinecraftNetCore
 
     public struct Size
     {
-        public int X { get; }
-        public int Y { get; }
+        public int Width { get; }
+        public int Height { get; }
 
-        public Size(int x, int y)
+        public Size(int width, int height)
+        {
+            Width = width;
+            Height = height;
+        }
+    }
+    public struct SizeF
+    {
+        public float X { get; }
+        public float Y { get; }
+
+        public SizeF(float x, float y)
         {
             X = x;
             Y = y;
@@ -106,10 +127,63 @@ namespace MinecraftNetCore
 
         public Point(int x, int y)
         {
-            X = x; Y = y;
+            X = x;
+            Y = y;
         }
     }
-    
+
+    public interface IPluginFileManager
+    {
+        StreamReader LoadAsset(string relativePath);
+        StreamWriter SaveFile(string relativePath);
+    }
+    public class SimplePluginFileManager: IPluginFileManager
+    {
+        private string pluginPath;
+
+        private string GetAssetPath(string relativePath)
+        {
+            var assetsPath = Path.GetFullPath(Path.Combine(pluginPath, "assets"));
+
+            var newPath = Path.GetFullPath(Path.Combine(assetsPath, relativePath));
+
+            if (!newPath.StartsWith(newPath))
+                throw new Exception("Can't access files outside the assets folder!");
+
+            if (!File.Exists(newPath))
+                throw new Exception($"The selected asset {newPath} doesn't exist");
+
+            return newPath;
+        }
+        private string GetFilePath(string relativePath)
+        {
+            var dataPath = Path.GetFullPath(Path.Combine(pluginPath, "pluginData"));
+
+            Directory.CreateDirectory(dataPath);
+
+            var newPath = Path.GetFullPath(Path.Combine(dataPath, relativePath));
+
+            if (!newPath.StartsWith(newPath))
+                throw new Exception("Can't access files outside the data folder!");
+
+            return newPath;
+        }
+
+        public StreamWriter SaveFile(string relativePath)
+        {
+            return new StreamWriter(GetFilePath(relativePath));
+        }
+        public StreamReader LoadAsset(string relativePath)
+        {
+            return new StreamReader(GetAssetPath(relativePath));
+        }
+
+        public SimplePluginFileManager(string path)
+        {
+            pluginPath = Path.GetFullPath(path);
+        }
+    }
+
     public static class Program
     {
         #region Plugin Resolvation
@@ -138,7 +212,7 @@ namespace MinecraftNetCore
                     }
                 }
 
-                Console.WriteLine("Loading plugin {0} ...", Config.Name);
+                Console.WriteLine("Loading plugin {0} {1}...", Config.Name, Config.Version);
                 Plugin.Load();
 
                 Loaded = true;
@@ -230,7 +304,7 @@ namespace MinecraftNetCore
                 return;
             }
         }
-        static bool AllDepsLoaded(PluginNode node)
+        static bool AllDependenciesLoaded(PluginNode node)
         {
             foreach (var child in node.Dependencies) {
                 if (!child.Loaded)
@@ -258,11 +332,15 @@ namespace MinecraftNetCore
             while (!allLoaded) {
                 allLoaded = true;
                 foreach (var node in nodes) {
-                    var depsOk = AllDepsLoaded(node.Value);
+                    var depsOk = AllDependenciesLoaded(node.Value);
 
                     if (depsOk) {
                         if (!node.Value.Node.TryLoad())
                             failed++;
+                        else {
+                            IAllLoadedHandler.TryCall(node.Value.Node.Plugin);
+                            IAssetsPlugin.TryCall(node.Value.Node.Plugin, new SimplePluginFileManager(node.Value.Node.DllPath + "/.."));
+                        }
                     }
                     else
                         allLoaded = false;
@@ -278,8 +356,6 @@ namespace MinecraftNetCore
 
             foreach (var nodePair in nodes) {
                 var node = nodePair.Value;
-
-                IAllLoadedHandler.TryCall(node.Node.Plugin);
             }
         }
         static void UnloadPlugins(Dictionary<string, PluginNode> nodes)

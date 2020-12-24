@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace MinecraftNetCore
+namespace MinecraftNet
 {
     public class BlockIdentifier
     {

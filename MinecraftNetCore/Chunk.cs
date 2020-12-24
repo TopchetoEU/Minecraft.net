@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MinecraftNetCore
+namespace MinecraftNet
 {
     public class Chunk: IChunk
     {

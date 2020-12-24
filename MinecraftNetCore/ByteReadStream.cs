@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace MinecraftNetCore
+namespace MinecraftNet
 {
     public class ByteReadStream
     {

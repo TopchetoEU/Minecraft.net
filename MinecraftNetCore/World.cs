@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MinecraftNetCore
+namespace MinecraftNet
 {
     public class World: IWorld<Chunk>
     {

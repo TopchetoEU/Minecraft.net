@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MinecraftNetCore
+namespace MinecraftNet
 {
     public class ByteWriteStream
     {

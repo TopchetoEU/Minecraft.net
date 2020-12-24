@@ -1,4 +1,4 @@
-﻿namespace MinecraftNetCore
+﻿namespace MinecraftNet
 {
     public class ChunkFactory: IChunkFactory<Chunk>
     {

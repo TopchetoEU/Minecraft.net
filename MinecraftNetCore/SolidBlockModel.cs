@@ -1,6 +1,6 @@
 ﻿using NetGL;
 
-namespace MinecraftNetCore
+namespace MinecraftNet
 {
     public class SolidBlockModel: BlockModel
     {
